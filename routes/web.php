@@ -18,3 +18,6 @@ Route::get('/', function () {
 Route::get('/user',function() {
     echo  'this is test page';
 });
+
+//后台用户列表页
+//Route::resource("/admin","Admin\AdminController");
