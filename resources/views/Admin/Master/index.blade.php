@@ -14,7 +14,7 @@
   <div class="portlet box green">
    <div class="portlet-title">
     <div class="caption">
-     <i class="icon-user"></i>后台用户列表
+     <i class="icon-user"></i>管理员列表
     </div>
     <!-- <div class="tools">
      <a href="javascript:;" class="reload"></a>

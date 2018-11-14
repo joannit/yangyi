@@ -17,6 +17,7 @@ class AdminLoginMiddleware
     {
         // 检测有没有用户名的session信息
 
+        return $next($request);
         // dd($request->session()->has('admin_name'));
         if($request->session()->has('admin_name')){
 
@@ -40,6 +41,7 @@ class AdminLoginMiddleware
             $nodelist=session('nodelist');
             // dd($nodelist);
         if (empty($nodelist[$controllerName]) || !in_array($actionName,$nodelist[$controllerName])) {
+
 
                 return redirect('/admin')->with('error','抱歉，您没有权限访问该模块，请联系超级管理员');
             }
