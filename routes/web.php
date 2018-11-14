@@ -57,7 +57,8 @@ Route::group(['middleware'=>'adminlogin'],function(){
     Route::resource('/admin/goods','Admin\GoodsController');
     // 后台公告模块
     Route::resource('/admin/notice','Admin\NoticeController');
-   
+   	//后台友情链接
+   	Route::resource('/linkindex','Admin\LinkController');
 
 });
  //后台公告ajax删除

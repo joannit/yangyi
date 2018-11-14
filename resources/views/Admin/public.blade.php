@@ -155,7 +155,7 @@
      <li> <a class="active" href="javascript:;"> <i class="icon-cogs"></i> <span class="title">前台首页</span> <span class="arrow "></span> </a>
       <ul class="sub-menu">
        <li> <a href="#"> 轮播图设置 </a> </li>
-       <li> <a href="#"> 友情链接 </a> </li>
+       <li> <a href="/linkindex"> 友情链接 </a> </li>
        <li> <a href="#"> 广告设置 </a> </li>
        <li> <a href="/admin/notice"> 公告 </a> </li>
       </ul> </li>
