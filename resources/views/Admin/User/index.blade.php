@@ -103,7 +103,7 @@
         <form action="/admin/user/{{$row->id}}" method="post">
         {{csrf_field()}}
         {{method_field('DELETE')}}
-      <button class="btn btn red">删除</button>
+      <button onclick="this.disabled=true;this.parentNode.submit()" class="btn btn red" >删除</button>
         </form>
         </td>
 

@@ -72,9 +72,9 @@
         <a href="/admin/master/{{$row->id}}/edit" class="btn blue">修改状态或者管理等级</a>
         <a href="/adminpower/{{$row->id}}/edit" class="btn green">分配权限</a>
         <form action="/admin/master/{{$row->id}}" method="post">
-      <button class="btn btn red">删除</button>
-      {{csrf_field()}}
-      {{method_field('DELETE')}}
+          <button onclick="this.disabled=true;this.parentNode.submit()" class="btn btn red">删除</button>
+          {{csrf_field()}}
+          {{method_field('DELETE')}}
         </form>
 
         </td>
