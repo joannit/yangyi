@@ -44,7 +44,7 @@
       
       @foreach($list as $row)
        <tr class="odd" style="height:10px">
-       <td><p><input type="checkbox" value="{{$row->id}}"><p></td> 
+       <td><input type="checkbox" value="{{$row->id}}"></td> 
         <td class="">{{$row->id}}</td> 
         <td class="  sorting_1">{{$row->title}}</td> 
         <td class="" width="">{!!$row->content!!}</td>

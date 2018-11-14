@@ -48,9 +48,9 @@ textarea.uniform {
  * Keeping this as :active to remove browser styles */
 div.checker input,
 input[type="search"],
-input[type="search"]:active {
+/*input[type="search"]:active {
   -moz-appearance: none;
-  -webkit-appearance: none; }
+  -webkit-appearance: none; }*/
 
 /* Select */
 div.selector {
@@ -105,7 +105,7 @@ div.selector {
       background-position: right -104px; }
 
 /* Checkbox */
-div.checker {
+/*div.checker {
   position: relative; }
   div.checker, div.checker span, div.checker input {
     width: 19px;
@@ -144,7 +144,7 @@ div.checker {
   div.checker.disabled, div.checker.disabled.active {
     background-position: -152px -260px; }
     div.checker.disabled span.checked, div.checker.disabled.active span.checked {
-      background-position: -171px -260px; }
+      background-position: -171px -260px; }*/
 
 /* Radio */
 div.radio {

@@ -29,7 +29,7 @@
      <div class="control-group "> 
       <label class="control-label" for="inputWarning">内容</label> 
       <div class="controls"> 
-       <script id="editor" type="text/plain" name="content" style="width:700px;height:500px;">{{$info->content}}</script>
+       <script id="editor" type="text/plain" name="content" style="width:700px;height:500px;">{!!$info->content!!}</script>
        <span class="help-inline"></span> 
       </div> 
      </div>

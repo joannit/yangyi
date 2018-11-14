@@ -136,12 +136,12 @@
      <li> <a class="active" href="javascript:;"> <i class="icon-sitemap"></i> <span class="title">分类管理</span> <span class="arrow "></span> </a>
       <ul class="sub-menu">
        <li> <a href="/admin/type"> 分类列表 </a> </li>
-       <li> <a href="#"> 添加分类 </a> </li>
+       <li> <a href="/admin/type/create"> 添加分类 </a> </li>
       </ul> </li>
      <li> <a class="active" href="javascript:;"> <i class="icon-gift"></i> <span class="title">商品管理</span> <span class="arrow "></span> </a>
       <ul class="sub-menu">
-       <li> <a href="#"> 商品列表 </a> </li>
-       <li> <a href="#"> 添加商品 </a> </li>
+       <li> <a href="/admin/goods"> 商品列表 </a> </li>
+       <li> <a href="/admin/goods/create"> 添加商品 </a> </li>
       </ul> </li>
      <li> <a class="active" href="javascript:;"> <i class="icon-file-text"></i> <span class="title">订单管理</span> <span class="arrow "></span> </a>
       <ul class="sub-menu">
@@ -157,7 +157,7 @@
        <li> <a href="#"> 轮播图设置 </a> </li>
        <li> <a href="#"> 友情链接 </a> </li>
        <li> <a href="#"> 广告设置 </a> </li>
-       <li> <a href="#"> 公告 </a> </li>
+       <li> <a href="/admin/notice"> 公告 </a> </li>
       </ul> </li>
     </ul>
     <!-- END SIDEBAR MENU -->

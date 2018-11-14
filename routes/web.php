@@ -14,14 +14,7 @@
 Route::get('/admin',function(){
     return view('Admin.index');
 });
-// 后台商品分类
-Route::resource('/admin/type','Admin\TypeController');
-// 后台商品模块
-Route::resource('/admin/goods','Admin\GoodsController');
-// 后台公告模块
-Route::resource('/admin/notice','Admin\NoticeController');
-//后台公告ajax删除
-Route::get('/noticedel','Admin\NoticeController@del');
+
 // 前台首页
 Route::resource('/','Home\IndexController');
 //前台公告
@@ -58,6 +51,15 @@ Route::group(['middleware'=>'adminlogin'],function(){
     Route::get('/admineditpho','Admin\MasterController@admineditpho');
     // 执行号码修改
     Route::post('/adminupdatepho','Admin\MasterController@adminupdatepho');
+    // 后台商品分类
+    Route::resource('/admin/type','Admin\TypeController');
+    // 后台商品模块
+    Route::resource('/admin/goods','Admin\GoodsController');
+    // 后台公告模块
+    Route::resource('/admin/notice','Admin\NoticeController');
+   
 
 });
+ //后台公告ajax删除
+    Route::get('/noticedel','Admin\NoticeController@del');
 
