@@ -11,9 +11,23 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/admin',function(){
+    return view('Admin.index');
 });
+// 后台商品分类
+Route::resource('/admin/type','Admin\TypeController');
+// 后台商品模块
+Route::resource('/admin/goods','Admin\GoodsController');
+// 后台公告模块
+Route::resource('/admin/notice','Admin\NoticeController');
+//后台公告ajax删除
+Route::get('/noticedel','Admin\NoticeController@del');
+// 前台首页
+Route::resource('/','Home\IndexController');
+//前台公告
+Route::get('/home/notice','Home\IndexController@notice');
+// 前台分类页
+Route::resource('/home/type','Home\TypeController');
 
 
 // 后台登录和退出
