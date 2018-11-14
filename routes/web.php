@@ -80,4 +80,4 @@ Route::get("/ajaxedit","Admin\RolelistController@ajax");
 //用户列表状态修改
 Route::get("/ajaxuser","Admin\AdminuserController@ajaxuser");
 //前台登录
-Route::resource("/homelogin","Home\HomeLoginController");
+Route::resource("/login","Home\HomeLoginController");

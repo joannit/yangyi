@@ -6,12 +6,7 @@
     <div class="caption">
      <i class="icon-reorder">添加商品</i>
     </div> 
-    <div class="tools"> 
-     <a href="javascript:;" class="collapse"></a> 
-     <a href="#portlet-config" data-toggle="modal" class="config"></a> 
-     <a href="javascript:;" class="reload"></a> 
-     <a href="javascript:;" class="remove"></a> 
-    </div> 
+
    </div> 
    <div class="portlet-body form"> 
     <h3 class="block"></h3> 
@@ -70,7 +65,7 @@
   </div>
      <div class="form-actions"> 
       <button type="submit" class="btn blue">Save</button> 
-      <a type="reset" class="btn">Cancel</button> 
+      <button type="reset" class="btn">Cancel</button> 
      </div> 
      {{csrf_field()}}
     </form> 
