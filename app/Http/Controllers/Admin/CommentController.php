@@ -1,23 +1,27 @@
 <?php
 
-namespace App\Http\Controllers\Home;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
 use DB;
-
-use Hash;
-class HomeLoginController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view("Home.Login.login");
+        // 搜索
+        $k = $request->input('keywords');
+        // dd($k);
+        // 获取所有评价
+        $list = DB::table('comment')->join('goods','gid','=','goods.id')->join('user','uid','=','user.id')->select('comment.*', 'goods.name','user.user_name')->where('goods.name','like','%'.$k.'%')->paginate(5);
+        
+        // 加载评价列表
+        return view('Admin.Comment.index',['request'=>$request->all(),'list'=>$list]);
     }
 
     /**
@@ -25,10 +29,9 @@ class HomeLoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-  
-    public function create(Request $request)
+    public function create()
     {
-       
+ 
     }
 
     /**
@@ -39,32 +42,7 @@ class HomeLoginController extends Controller
      */
     public function store(Request $request)
     {
-       // $data=$request->all();
-        //var_dump($data);
-        $name=$request->input('user_name');
-        $password=$request->input('user_password');
-
-        $data=DB::table('user')->where('user_name','=',$name)->first();
-        $user=[];
-        if(count($data) && Hash::check($password,$data->user_password)){
-            // 把用户名和id存入session中
-            $user['id'] = $data->id;
-            $user['name'] = $data->user_name;
-            session(['user' => $user]);
-			return redirect("/");
-        }else{
-        	return back()->with('error','用户名或密码错误');
-        }
-
-
-    }
-
-    public function outlogin()
-    {
-       // 清除session
-       session()->pull('user');
-       echo'<script>alert("退出成功！");location="./"</script>';
-
+        //
     }
 
     /**
@@ -86,7 +64,9 @@ class HomeLoginController extends Controller
      */
     public function edit($id)
     {
-        
+        $info = DB::table('comment')->join('goods','gid','=','goods.id')->join('user','uid','=','user.id')->select('comment.*', 'goods.name','user.user_name')->where('comment.id','=',$id)->first();
+        // 加载回复评价页面
+        return view('Admin.Comment.edit',['info'=>$info]);
     }
 
     /**
@@ -98,9 +78,16 @@ class HomeLoginController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
-
+        // 获取回复的内容
+        $data = $request->input('recontent');
+        // dd($data);
+        // 处理修改操作
+        if(DB::table('comment')->where('id','=',$id)->update(['recontent'=>$data])){
+            return redirect('/admin/comment')->with('success','回复成功');
+        }else{
+             return redirect('/admin/comment')->with('error','回复失败');
+        }
+}
     /**
      * Remove the specified resource from storage.
      *

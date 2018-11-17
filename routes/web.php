@@ -11,59 +11,7 @@
 |
 */
 
-// Route::get('/admin',function(){
-//     return view('Admin.index');
-// });
-
-// 前台首页
-Route::resource('/','Home\IndexController');
-//前台公告
-Route::get('/home/notice','Home\IndexController@notice');
-// 前台分类页
-Route::resource('/home/type','Home\TypeController');
-
-
-// 后台登录和退出
-Route::resource('/adminlogin','Admin\AdminLoginController');
-
-// 登录全向管理
-Route::group(['middleware'=>'adminlogin'],function(){
-
-    // 后台首页
-    Route::get("/admin",'Admin\AdminController@index');
-
-
-    //前台用户(会员)管理路由
-    Route::resource ("/admin/user","Admin\UserController");
-
-
-    // 后台用户管理
-    Route::resource("/admin/master",'Admin\MasterController');
-    // 分配权限
-
-    Route::resource("/adminpower","Admin\PowerController");
-
-    // 后台用户密码修改
-    Route::get('/admineditpwd','Admin\MasterController@admineditpwd');
-    // 执行密码修改
-    Route::post('/adminupdatepwd','Admin\MasterController@adminupdatepwd');
-    // 后台用户手机号修改
-    Route::get('/admineditpho','Admin\MasterController@admineditpho');
-    // 执行号码修改
-    Route::post('/adminupdatepho','Admin\MasterController@adminupdatepho');
-    // 后台商品分类
-    Route::resource('/admin/type','Admin\TypeController');
-    // 后台商品模块
-    Route::resource('/admin/goods','Admin\GoodsController');
-    // 后台公告模块
-    Route::resource('/admin/notice','Admin\NoticeController');
-
-
-});
- //后台公告ajax删除
-    Route::get('/noticedel','Admin\NoticeController@del');
-
-//前台
+//前台注册页面
 Route::resource("/homeregister","Home\HomeRegisterController");
 //前台注册
 Route::get("/regits","Home\HomeRegisterController@regits");
@@ -81,3 +29,67 @@ Route::get("/ajaxedit","Admin\RolelistController@ajax");
 Route::get("/ajaxuser","Admin\AdminuserController@ajaxuser");
 //前台登录
 Route::resource("/login","Home\HomeLoginController");
+// 前台退出
+Route::get("/outlogin","Home\HomeLoginController@outlogin");
+// 前台首页
+Route::resource('/','Home\IndexController');
+//前台公告
+Route::get('/home/notice','Home\IndexController@notice');
+// 前台分类页
+Route::resource('/home/type','Home\TypeController');
+
+                    // -----个人中心----
+// 前台个人中心
+Route::resource('/personal','Home\PersonalController');
+// 前台个人中心收货地址
+Route::get('/paddress','Home\PersonalController@address');
+// ajax城市级联
+Route::get('/city','Home\PersonalController@city');
+// 处理地址添加
+Route::post('/paddress/add','Home\PersonalController@createadd');
+// 地址设为默认
+Route::get('/paddress/default/{id}','Home\PersonalController@default');
+// 删除地址
+Route::get('/paddress/deladdress/{id}','Home\PersonalController@deladdress');
+// 修改地址页面
+Route::get('/paddress/editadd/{id}','Home\PersonalController@editadd');
+// 处理地址修改
+Route::post('/paddress/doeditadd','Home\PersonalController@doeditadd');
+// 修改登录密码
+Route::get('/paddress/editpwd','Home\PersonalController@editpwd');
+
+
+                            // end-----个人中心----
+// 后台登录和退出
+Route::resource('/adminlogin','Admin\AdminLoginController');
+// 后台登录权限管理
+Route::group(['middleware'=>'adminlogin'],function(){
+
+    // 后台首页
+    Route::get("/admin",'Admin\AdminController@index');
+    //前台用户(会员)管理路由
+    Route::resource ("/admin/user","Admin\UserController");
+    // 后台用户管理
+    Route::resource("/admin/master",'Admin\MasterController');
+    // 分配权限
+    Route::resource("/adminpower","Admin\PowerController");
+    // 后台用户密码修改
+    Route::get('/admineditpwd','Admin\MasterController@admineditpwd');
+    // 执行密码修改
+    Route::post('/adminupdatepwd','Admin\MasterController@adminupdatepwd');
+    // 后台用户手机号修改
+    Route::get('/admineditpho','Admin\MasterController@admineditpho');
+    // 执行号码修改
+    Route::post('/adminupdatepho','Admin\MasterController@adminupdatepho');
+    // 后台商品分类
+    Route::resource('/admin/type','Admin\TypeController');
+    // 后台商品模块
+    Route::resource('/admin/goods','Admin\GoodsController');
+    // 后台公告模块
+    Route::resource('/admin/notice','Admin\NoticeController');
+    // 后台评论管理模块
+    Route::resource('/admin/comment','Admin\CommentController');
+});
+ //后台公告ajax删除
+    Route::get('/noticedel','Admin\NoticeController@del');
+

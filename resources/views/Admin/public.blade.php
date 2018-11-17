@@ -147,10 +147,10 @@
       <ul class="sub-menu">
        <li> <a href="#"> 订单列表 </a> </li>
       </ul> </li>
-     <li> <a class="active" href="javascript:;"> <i class="icon-thumbs-up"></i> <span class="title">评论管理</span> <span class="arrow "></span> </a>
+     <li> <a class="active" href="javascript:;"> <i class="icon-thumbs-up"></i> <span class="title">评价管理</span> <span class="arrow "></span> </a>
       <ul class="sub-menu">
-       <li> <a href="#"> 评论列表 </a> </li>
-       <li> <a href="#"> 回复评论 </a> </li>
+       <li> <a href="/admin/comment"> 评价列表 </a> </li>
+       
       </ul> </li>
      <li> <a class="active" href="javascript:;"> <i class="icon-cogs"></i> <span class="title">前台首页</span> <span class="arrow "></span> </a>
       <ul class="sub-menu">

@@ -16,11 +16,8 @@
 	<script src="/static/home/js/jquery.DJMask.2.1.1.js" charset="UTF-8"></script>
 	<title>羊燚网商</title>
 	<style>
-
 	.iconfontce:hover{color: #f2f2f2};
-	</style>
-	
-	
+	</style>	
 </head>
 <body>
 	<!-- 顶部tab -->
@@ -28,15 +25,19 @@
 		<div class="inner">
 			<div class="pull-left">
 				<div class="pull-left">嗨，欢迎来到<span class="cr">U袋网</span></div>
-				<a href="agent_level.html">网店代销</a>
-				<a href="temp_article/udai_article4.html">帮助中心</a>
 			</div>
 			<div class="pull-right">
-				<a href="login.html"><span class="cr">登录</span></a>
-				<a href="login.html?p=register">注册</a>
-				<a href="udai_welcome.html">我的U袋</a>
+			@if(!session('user'))
+				<a href="/login"><span class="cr">登录</span></a>
+				<a href="/homeregister">注册</a>
+			@else
+				<span>欢迎 {{session('user')['name']}}</span>
+				<a href="/outlogin">退出</a>
+				<a href="/personal">个人中心</a>
 				<a href="udai_order.html">我的订单</a>
 				<a href="udai_integral.html">积分平台</a>
+			@endif	
+				
 			</div>
 		</div>
 	</div>
@@ -322,10 +323,11 @@
 		});
 	</script>
 	<!-- 右侧菜单 -->
+	@if(session('user'))
 	<div class="right-nav">
 		<ul class="r-with-gotop">
 			<li class="r-toolbar-item">
-				<a href="udai_welcome.html" class="r-item-hd">
+				<a href="/personal" class="r-item-hd">
 					<i class="iconfont icon-user"></i>
 					<div class="r-tip__box"><span class="r-tip-text">用户中心</span></div>
 				</a>
@@ -360,6 +362,7 @@
 			</li>
 		</ul>
 	</div>
+	@endif
 	<!-- 底部信息 -->
 	<div class="footer">
 		<div class="footer-tags">

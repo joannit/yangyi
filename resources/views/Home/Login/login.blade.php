@@ -35,7 +35,7 @@
      <div class="tabs_container"> 
 
      <!--登录开始-->
-      <form class="tabs_form" action="/homelogin" method="post" id="login_form"> 
+      <form class="tabs_form" action="/login" method="post" id="login_form"> 
        <div class="form-group"> 
         <div class="input-group"> 
          <div class="input-group-addon"> 
