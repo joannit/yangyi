@@ -21,10 +21,10 @@ class MasterController extends Controller
     {
         //
         $admin_name=$request->input('admin_name');
-        $data=DB::table('admin')->join('admin_role as ar','admin.id','=','ar.aid')->join('role as r','r.id','=','ar.rid')->select('admin.*','r.rname')->orderBy('id','asc')->where('admin_name','like','%'.$admin_name.'%')->get();
+        $data=DB::table('admin')->join('admin_role as ar','admin.id','=','ar.aid')->join('role as r','r.id','=','ar.rid')->select('admin.*','r.rname')->orderBy('id','asc')->where('admin_name','like','%'.$admin_name.'%')->paginate(3);
 // dd($data);
 
-        return view("Admin.Master.index",['data'=>$data]);
+        return view("Admin.Master.index",['data'=>$data,'request'=>$request->all()]);
     }
 
     /**

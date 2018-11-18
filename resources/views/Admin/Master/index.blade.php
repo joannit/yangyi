@@ -12,15 +12,19 @@
  </head>
  <body>
   <div class="portlet box green">
+
    <div class="portlet-title">
+
     <div class="caption">
      <i class="icon-user"></i>管理员列表
     </div>
+
     <!-- <div class="tools">
      <a href="javascript:;" class="reload"></a>
      <a href="javascript:;" class="remove"></a>
     </div> -->
    </div>
+
    <div class="portlet-body">
     <div id="sample_1_wrapper" class="dataTables_wrapper form-inline" role="grid">
      <div class="row-fluid">
@@ -57,7 +61,7 @@
    <!-- 列表开始 -->
       @if(count($data)!=0)
       @foreach($data as $row)
-       <tr class="even">
+       <tr class="even" style="font-size:1.5em">
 
         <td class="  sorting_1">{{$row->id}}</td>
         <td class=" ">{{$row->admin_name}}</td>
@@ -92,6 +96,7 @@
 
        <!-- 列表结束 -->
 
+
       </tbody>
      </table>
      <div class="row-fluid">
@@ -101,7 +106,7 @@
       <div class="span6">
        <div class="dataTables_paginate paging_bootstrap pagination">
 
-
+    {{$data->appends($request)->render()}}
 
        </div>
       </div>

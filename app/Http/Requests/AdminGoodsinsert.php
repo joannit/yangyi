@@ -27,7 +27,7 @@ class AdminGoodsinsert extends FormRequest
             'name'=>'required',
             'price'=>'required|regex:/^\d{1,8}(\.\d{1,2})?$/',
             'typeid'=>'required',
-            'store'=>'regex:/^\d{1,8}$/',
+            'bid'=>'required',
             'pic'=>'required',
         ];
     }
@@ -38,7 +38,7 @@ class AdminGoodsinsert extends FormRequest
         'price.required'=>'价格不能为空',
         'price.regex'=>'价格输入有误,最多保留两位小数点',
         'typeid.required'=>'请选择商品分类',
-        'store.regex'=>'请输入正确的库存',
+        'bid.required'=>'未选择品牌',
         'pic.required'=>'请上传图片',
         ];
     }
