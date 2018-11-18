@@ -56,7 +56,11 @@ Route::get('/paddress/editadd/{id}','Home\PersonalController@editadd');
 // 处理地址修改
 Route::post('/paddress/doeditadd','Home\PersonalController@doeditadd');
 // 修改登录密码
-Route::get('/paddress/editpwd','Home\PersonalController@editpwd');
+Route::get('/editpwd','Home\PersonalController@editpwd');
+// 验证密码
+Route::post('/editpwds','Home\PersonalController@editpwds');
+// 处理修改密码
+Route::post('/doeditpwd','Home\PersonalController@doeditpwd');
 
 
                             // end-----个人中心----

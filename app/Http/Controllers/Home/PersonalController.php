@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 // 导入模型
 use App\Models\Home\Users;
 use DB;
+// 导入Hash
+use Hash;
 class PersonalController extends Controller
 {
     /**
@@ -17,11 +19,18 @@ class PersonalController extends Controller
     public function index()
     {
         $id = session('user')['id'];
+        
         // 查询个人信息
-        $user_info = DB::table('user')->join('user_info','user.id','=','user_info.uid')->select('user.user_level','user_info.*')->first();
+        $user_info = DB::table('user')->join('user_info','user.id','=','user_info.uid')->select('user.user_level','user_info.*')->where('user.id','=',$id)->first();
         // dd($user_info);
         // 加载个人中心首页
-        return view('Home.Personal.index',['user_info'=>$user_info]);
+        if($user_info){
+            return view('Home.Personal.index',['user_info'=>$user_info]);
+        }else{
+            $user_info=array();
+             return view('Home.Personal.index',['user_info'=>$user_info]);
+        }
+        
     }
 
     /**
@@ -257,6 +266,35 @@ class PersonalController extends Controller
             echo '<script>alert("修改成功！");location="/paddress"</script>';
         }else{
             echo '<script>alert("修改失败！");location="/paddress/editadd/'.$id.'"</script>';
+        }
+    }
+    // 处理密码修改
+    public function editpwd()
+    {
+        // 加载修改密码页面
+        return view('Home.Personal.editpwd');
+    }
+    // 验证密码
+    public function editpwds(Request $request)
+    {
+        $pwd = $request->input('user_password');
+        $p=DB::table('user')->where('id','=',session('user')['id'])->value('user_password');
+        if(Hash::check($pwd,$p)){
+            return view('Home.Personal.restpwd');
+        }else{
+           echo '<script>alert("原密码输入不正确");location="/editpwd"</script>';
+        }
+    }
+    // 处理密码修改
+    public function doeditpwd(Request $request)
+    {
+        $p = Hash::make($request->input('user_password'));
+        if(DB::table('user')->where('id','=',session('user')['id'])->update(['user_password'=>$p])){
+            // 清除session
+            session()->pull('user');
+            echo '<script>alert("修改成功,请重新登录!");location="/login"</script>'; 
+        }else{
+            echo '<script>alert("修改失败!");location="/editpwd"</script>'; 
         }
     }
 }

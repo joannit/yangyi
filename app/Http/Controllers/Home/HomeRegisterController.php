@@ -37,7 +37,7 @@ class HomeRegisterController extends Controller
 
     	if($login){ 
 
-    		return redirect("/homelogin")->with('success','注册成功,请登录');
+    		return redirect("/login")->with('success','注册成功,请登录');
     	}else{ 
 
     		return back()->with('error','注册失败,请认真检查');

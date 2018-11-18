@@ -4,11 +4,16 @@
    <div class="user-center__info bgf"> 
     <div class="pull-left clearfix"> 
      <div class="port b-r50 pull-left"> 
-      <img src="{{$user_info->pic}}" alt="用户名" class="cover b-r50" /> 
+      <img src="@if($user_info) {{$user_info->pic}} @else /static/home/images/icons/default_avt.png  @endif" alt="用户名" class="cover b-r50" /> 
       <a href="/personal/{{session('user')['id']}}/edit" class="edit"><i class="iconfont icon-edit"></i></a> 
      </div> 
+     @if(count($user_info)>0)
      <p class="name text-nowrap">您好，{{$user_info->name}}！</p> 
-     <p class="level text-nowrap">身份：@if($user_info->user_level == 0) 普通会员 @else 会员用户 @endif
+      <p class="level text-nowrap">身份：@if($user_info->user_level == 1) 会员用户 @else 普通用户 @endif
+    @else
+       <p class="name text-nowrap">未设置昵称</p>
+       <p class="level text-nowrap">身份： 普通用户 
+    @endif
     </div> 
     <div class="pull-right user-nav"> 
      <a href="udai_order.html" class="user-nav__but"> <i class="iconfont icon-rmb fz40 cr"></i> 
