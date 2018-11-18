@@ -89,7 +89,9 @@ Route::group(['middleware'=>'adminlogin'],function(){
     Route::resource('/admin/notice','Admin\NoticeController');
     // 后台评论管理模块
     Route::resource('/admin/comment','Admin\CommentController');
-});
+
+
  //后台公告ajax删除
     Route::get('/noticedel','Admin\NoticeController@del');
 
+});
