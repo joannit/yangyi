@@ -34,7 +34,7 @@
                 <a href="/personal">个人中心</a>
                 <a href="udai_order.html">我的订单</a>
                 <a href="udai_integral.html">积分平台</a>
-
+            @endif
             </div>
         </div>
     </div>
@@ -42,7 +42,9 @@
     <div class="top-search">
         <div class="inner">
             <a class="logo" href="/"><img src="/static/home/images/icons/logo.jpg" alt="U袋网" class="cover"></a>
-            <div class="search-box">
+
+
+           <!--  <div class="search-box">
                 <form class="input-group" action="/home/type" method="get">
                     <input placeholder="Ta们都在搜U袋网" type="text" name="keywords">
                     <span class="input-group-btn">
@@ -51,12 +53,11 @@
                         </button>
                     </span>
                 </form>
-
-
-            @endif
-
-
             </div>
+ -->
+ @section('serach')
+ @show
+
         </div>
     </div>
 

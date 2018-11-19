@@ -165,7 +165,7 @@ class GoodsController extends Controller
                 // 将上传的图片移入文件夹中
                 $request->file("pic")->move("./uploads/goods",$name);
                 // 删除旧图片
-                unlink('./uploads/goods/'.$pic);
+                @unlink('./uploads/goods/'.$pic);
                 return redirect('/admin/goods')->with('success','修改成功');
                 }
              }else{
