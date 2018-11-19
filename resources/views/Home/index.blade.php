@@ -292,7 +292,7 @@
 				<div class="right-box">
 				<!-- 商品子分类开始 -->
 					@foreach($typeall[$i] as $alls)
-					<a href="item_show.html" class="floor-item" title="{{$alls->name}}">
+					<a href="/homegoodsinfo/{{$alls->id}}" class="floor-item" title="{{$alls->name}}">
 						<div class="item-img hot-img">
 							<img src="/uploads/goods/{{$alls->pic}}" alt="纯色圆领短袖T恤活a动衫弹" class="cover">
 						</div>

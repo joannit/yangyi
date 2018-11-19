@@ -79,6 +79,60 @@ Route::resource('/adminlogin','Admin\AdminLoginController');
 // 后台登录权限管理
 Route::group(['middleware'=>'adminlogin'],function(){
 
+    //前台注册页面
+    Route::resource("/homeregister","Home\HomeRegisterController");
+    //前台注册
+    Route::get("/regits","Home\HomeRegisterController@regits");
+    //短信验证
+    Route::get("/phone","Home\HomeRegisterController@phone");
+    //发送验证
+    Route::get("/code","Home\HomeRegisterController@code");
+    //校验手机
+    Route::get("/dophone","Home\HomeRegisterController@dophone");
+    //注册成功去登录
+    Route::post("/doregister","Home\HomeRegisterController@doregister");
+    //角色列表ajax状态修改
+    Route::get("/ajaxedit","Admin\RolelistController@ajax");
+    //用户列表状态修改
+    Route::get("/ajaxuser","Admin\AdminuserController@ajaxuser");
+    //前台登录
+    Route::resource("/login","Home\HomeLoginController");
+    // 前台退出
+    Route::get("/outlogin","Home\HomeLoginController@outlogin");
+    // 前台首页
+    Route::resource('/','Home\IndexController');
+    //前台公告
+    Route::get('/home/notice','Home\IndexController@notice');
+    // 前台分类页
+    Route::resource('/home/type','Home\TypeController');
+
+                        // -----个人中心----
+    // 前台个人中心
+    Route::resource('/personal','Home\PersonalController');
+    // 前台个人中心收货地址
+    Route::get('/paddress','Home\PersonalController@address');
+    // ajax城市级联
+    Route::get('/city','Home\PersonalController@city');
+    // 处理地址添加
+    Route::post('/paddress/add','Home\PersonalController@createadd');
+    // 地址设为默认
+    Route::get('/paddress/default/{id}','Home\PersonalController@default');
+    // 删除地址
+    Route::get('/paddress/deladdress/{id}','Home\PersonalController@deladdress');
+    // 修改地址页面
+    Route::get('/paddress/editadd/{id}','Home\PersonalController@editadd');
+    // 处理地址修改
+    Route::post('/paddress/doeditadd','Home\PersonalController@doeditadd');
+    // 修改登录密码
+    Route::get('/paddress/editpwd','Home\PersonalController@editpwd');
+
+
+                                // end-----个人中心----
+    // 后台登录和退出
+    Route::resource('/adminlogin','Admin\AdminLoginController');
+    // 后台登录权限管理
+    Route::group(['middleware'=>'adminlogin'],function(){
+
     // 后台首页
     Route::get("/admin",'Admin\AdminController@index');
     //前台用户(会员)管理路由
@@ -146,5 +200,12 @@ Route::group(['middleware'=>'adminlogin'],function(){
 
     // 前台商品详情
 
-    Route::get('home/goodsinfo','Home\Goods\GoodsinfoController@index');
+    Route::get('/homegoodsinfo/{id}','Home\Goods\GoodsinfoController@goodsinfo');
 
+    // 订单详情页面点击规格后显示数据处理
+    Route::get('/ajaxginfo','Home\Goods\GoodsinfoController@ajaxginfo');
+    // 立即购买
+    Route::resource('/home/goodsinfo','Home\Goods\GoodsinfoController');
+
+    // 加入购物车
+    Route::any('/addcart','Home\Goods\GoodsinfoController@addcart');

@@ -25,14 +25,14 @@
        <span class="help-inline"></span>
       </div>
      </div>
-     <div class="control-group ">
+ <!--     <div class="control-group ">
    <label class="control-label">选择分类</label>
    <div class="controls">
     <select class="span6 m-wrap typebb" data-placeholder="Choose a Category" tabindex="1" name="typeid">
 
     </div>
 
-   </div>
+   </div> -->
    <div class="portlet-body form">
     <h3 class="block"></h3>
     <!-- BEGIN FORM-->
@@ -47,7 +47,7 @@
      <div class="control-group ">
    <label class="control-label">选择分类</label>
    <div class="controls">
-    <select class="span6 m-wrap" data-placeholder="Choose a Category" tabindex="1" name="typeid">
+    <select class="span6 m-wrap typebb" data-placeholder="Choose a Category" tabindex="1" name="typeid">
 
         <option value="">请选择...</option>
         @foreach($list as $row)
@@ -98,10 +98,10 @@
      </div>
 
 
-     <div class="form-actions">
+    <!--  <div class="form-actions">
       <button type="submit" class="btn blue">Save</button>
       <button type="reset" class="btn">Cancel</button>
-     </div>
+     </div> -->
 
      {{csrf_field()}}
     </form>
