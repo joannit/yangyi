@@ -43,6 +43,10 @@ Route::resource('/home/type','Home\TypeController');
 Route::resource('/personal','Home\PersonalController');
 // 前台个人中心收货地址
 Route::get('/paddress','Home\PersonalController@address');
+// 消息
+Route::get('/message','Home\PersonalController@message');
+// 删除消息
+Route::get('/delmessage/{id}','Home\PersonalController@delmessage');
 // ajax城市级联
 Route::get('/city','Home\PersonalController@city');
 // 处理地址添加
@@ -64,6 +68,12 @@ Route::post('/doeditpwd','Home\PersonalController@doeditpwd');
 
 
                             // end-----个人中心----
+// 购物车
+Route::resource('/cart','Home\CartController');
+// 购物车数量加方法
+Route::get('/cartadd','Home\CartController@numadd');
+// 购物车删除方法
+Route::get('/cartdel','Home\CartController@cartdel');
 // 后台登录和退出
 Route::resource('/adminlogin','Admin\AdminLoginController');
 // 后台登录权限管理
@@ -93,6 +103,8 @@ Route::group(['middleware'=>'adminlogin'],function(){
     Route::resource('/admin/notice','Admin\NoticeController');
     // 后台评论管理模块
     Route::resource('/admin/comment','Admin\CommentController');
+    // 后台站内信模块
+    Route::resource('/admin/message','Admin\MessageController');
 });
  //后台公告ajax删除
     Route::get('/noticedel','Admin\NoticeController@del');

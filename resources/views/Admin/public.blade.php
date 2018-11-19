@@ -158,6 +158,7 @@
        <li> <a href="#"> 友情链接 </a> </li>
        <li> <a href="#"> 广告设置 </a> </li>
        <li> <a href="/admin/notice"> 公告 </a> </li>
+       <li> <a href="/admin/message"> 站内信 </a> </li>
       </ul> </li>
     </ul>
     <!-- END SIDEBAR MENU -->

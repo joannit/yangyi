@@ -65,7 +65,7 @@
 				</p>
 			</div>
 			<div class="cart-box">
-				<a href="udai_shopcart.html" class="cart-but">
+				<a href="/cart" class="cart-but">
 					<i class="iconfont icon-shopcart cr fz16"></i> 购物车 0 件
 				</a>
 			</div>
@@ -333,7 +333,7 @@
 				</a>
 			</li>
 			<li class="r-toolbar-item">
-				<a href="udai_shopcart.html" class="r-item-hd">
+				<a href="/cart" class="r-item-hd">
 					<i class="iconfont icon-cart" data-badge="10"></i>
 					<div class="r-tip__box"><span class="r-tip-text">购物车</span></div>
 				</a>

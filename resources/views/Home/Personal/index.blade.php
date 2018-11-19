@@ -41,10 +41,10 @@
        积分 
        <span class="cr">200</span>
       </div> </a> 
-     <a href="udai_message.html" class="user-nav__but"> <i class="iconfont icon-xiaoxi fz40 cr"></i> 
+     <a href="@if(count($msg)>0) /message @endif" class="user-nav__but"> <i class="iconfont icon-xiaoxi fz40 cr"></i> 
       <div class="c6">
        消息 
-       <span class="cr">2</span>
+       <span class="cr">{{count($msg)}}</span>
       </div> </a> 
     </div> 
    </div> 

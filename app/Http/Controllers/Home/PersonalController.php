@@ -19,16 +19,18 @@ class PersonalController extends Controller
     public function index()
     {
         $id = session('user')['id'];
-        
+
         // 查询个人信息
         $user_info = DB::table('user')->join('user_info','user.id','=','user_info.uid')->select('user.user_level','user_info.*')->where('user.id','=',$id)->first();
-        // dd($user_info);
+        // 查询消息
+        $msg = DB::table('message')->where('uid','=',$id)->get();
+        // dd($msg);
         // 加载个人中心首页
         if($user_info){
-            return view('Home.Personal.index',['user_info'=>$user_info]);
+            return view('Home.Personal.index',['user_info'=>$user_info,'msg'=>$msg]);
         }else{
             $user_info=array();
-             return view('Home.Personal.index',['user_info'=>$user_info]);
+             return view('Home.Personal.index',['user_info'=>$user_info,'msg'=>$msg]);
         }
         
     }
@@ -295,6 +297,38 @@ class PersonalController extends Controller
             echo '<script>alert("修改成功,请重新登录!");location="/login"</script>'; 
         }else{
             echo '<script>alert("修改失败!");location="/editpwd"</script>'; 
+        }
+    }
+    // 消息中心
+    public function message(Request $request)
+    {
+        // 查询所有消息
+        $msgall = DB::table('message')->where('uid','=',session('user')['id'])->get();
+        $id = $request->input('id');
+        if(!isset($id)){
+        // 加载一条数据  
+        $msgone = DB::table('message')->where('uid','=',session('user')['id'])->first();
+        $id = $msgone->id;
+        }
+        $msg = DB::table('message')->where('id','=',$id)->first();  
+        // dd($msg);
+        // 加载页面
+        return view('Home.Personal.message',['msgall'=>$msgall,'msg'=>$msg]);
+        
+    }
+    // 删除消息
+    public function delmessage($id)
+    {
+        $msgall = DB::table('message')->where('uid','=',session('user')['id'])->get();
+        if(DB::table('message')->where('id','=',$id)->delete()){
+            // 如果删除后没有消息了跳个人中心
+            if(count($msgall)==1){
+            echo '<script>alert("删除成功！");location="/personal"</script>';
+            }else{
+            echo '<script>alert("删除成功！");location="/message"</script>';
+            }   
+        }else{
+            echo '<script>alert("删除失败！");location="/message"</script>';
         }
     }
 }
