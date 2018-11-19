@@ -17,7 +17,13 @@
 	<title>羊燚网商</title>
 	<style>
 	.iconfontce:hover{color: #f2f2f2};
-	</style>	
+
+	</style>
+
+
+
+	</style>
+
 </head>
 <body>
 	<!-- 顶部tab -->
@@ -36,8 +42,8 @@
 				<a href="/personal">个人中心</a>
 				<a href="udai_order.html">我的订单</a>
 				<a href="udai_integral.html">积分平台</a>
-			@endif	
-				
+			@endif
+
 			</div>
 		</div>
 	</div>
@@ -85,7 +91,7 @@
 						<ul class="cat-list clearfix">
 						@foreach($top->son as $rows)
 							<li><a href="/home/type/{{$rows->id}}"  style="color:#999;text-decoration:none">{{$rows->name}}</a></li>
-						@endforeach	
+						@endforeach
 						</ul>
 						<div class="cat-list__deploy">
 							<div class="deploy-box">
@@ -101,7 +107,7 @@
 								@endforeach
 							</div>
 						</div>
-						
+
 					</div>
 					@endforeach
 				</div>
@@ -215,7 +221,7 @@
 							<div class="name ep" title="{{$hot->name}}">{{$hot->name}}</div>
 						</a>
 						@endforeach
-					</div>	
+					</div>
 				</div>
 			</div>
 			<div class="pull-right">
@@ -262,13 +268,16 @@
 				</div>
 			</div>
 		</section>
+
+
 		<input type="hidden" {{$i=0}}>
 		@foreach($type as $list)
+		<!-- 首页商品开始 -->
 		<section class="scroll-floor floor-3">
 			<div class="floor-title">
-				<i class="iconfont  fz16"></i> {{$list->name}}
+				<i class="iconfont  fz16">{{$list->name}}</i>
 				<div class="case-list fz0 pull-right">
-
+				<!-- 分类上装下装 -->
 				@foreach($list->son as $listson)
 					<a href="/home/type/{{$listson->id}}" target="_blank">{{$listson->name}}</a>
 				@endforeach
@@ -276,30 +285,38 @@
 			</div>
 			<div class="con-box">
 				<a class="left-img hot-img" href="">
+				<!-- 首页商品大图 -->
 					<img src="/static/home/images/floor_{{$list->id}}.jpg" alt="" class="cover">
+					<!-- 大图结束 -->
 				</a>
 				<div class="right-box">
+				<!-- 商品子分类开始 -->
 					@foreach($typeall[$i] as $alls)
-					<a href="item_show.html" class="floor-item">
+					<a href="item_show.html" class="floor-item" title="{{$alls->name}}">
 						<div class="item-img hot-img">
 							<img src="/uploads/goods/{{$alls->pic}}" alt="纯色圆领短袖T恤活a动衫弹" class="cover">
 						</div>
 						<div class="price clearfix">
 							<span class="pull-left cr fz16">￥{{$alls->price}}</span>
-							<span class="pull-right c6">进货价</span>
+							<!-- <span class="pull-right c6">进货价</span> -->
+							<span class="pull-right c6" style="color:red;margi" title="品牌:{{$alls->bname}}">品牌:{{$alls->bname}}</span>
 						</div>
-						<div class="name ep" title="纯色圆领短袖T恤活a动衫弹力柔软">{{$alls->name}}</div>
+						<div class="name ep" title="{{$alls->name}}">
+						<span style="color:red">商品名:</span>{{$alls->name}}
+						</div>
+
 					</a>
 					@endforeach
+					<!-- 商品子分类结束 -->
 				</div>
 			</div>
 		</section>
 		<input type="hidden" value="{{$i++}}">
 		@endforeach
-		
+
 	</div>
 	<script>
-		$(document).ready(function(){ 
+		$(document).ready(function(){
 			// 顶部banner轮播
 			var banner_swiper = new Swiper('.banner-box', {
 				autoplayDisableOnInteraction : false,
