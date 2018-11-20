@@ -133,7 +133,7 @@ class TypeController extends Controller
         }else{
             return redirect("/admin/type/{$id}/edit")->with('error','修改失败');
         }
-        
+
     }
 
     /**
@@ -144,7 +144,7 @@ class TypeController extends Controller
      */
     public function destroy($id)
     {
-        // 删除分类操作 
+        // 删除分类操作
         // 查看是否有商品
         $goods = DB::table('goods')->where('typeid','=',$id)->get();
         // 查看是否有子分类
@@ -154,11 +154,12 @@ class TypeController extends Controller
         }else{
 
             if(DB::table('type')->where('id','=',$id)->delete()){
+               @DB::table('brand')->where('tid','=',$id)->delete();
                 return redirect('/admin/type')->with('success','删除成功');
             }else{
                 return redirect('/admin/type')->with('error','删除失败');
             }
         }
-        
+
     }
 }

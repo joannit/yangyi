@@ -19,12 +19,13 @@ class GoodsController extends Controller
     {
         $k = $request->input("keywords");
         // 获取所有商品
-        $goods = DB::table('goods')->join('type','type.id','=','goods.typeid')->select('goods.*','type.name as tname')->where('goods.name','like','%'.$k.'%')->paginate(5);
+        $goods = DB::table('goods')->join('type','type.id','=','goods.typeid')->join('brand','brand.id','=','goods.bid')->select('goods.*','type.name as tname','brand.name as bname')->where('goods.name','like','%'.$k.'%')->paginate(5);
+        // dd($goods);
         // 修改状态
         foreach ($goods as $key => $value) {
             if($value->status == 0){
                 $value->status = '上架';
-            }else{  
+            }else{
                 $value->status = '下架';
             }
         }
@@ -52,7 +53,18 @@ class GoodsController extends Controller
             // 重复字符串函数
             $list[$key]->name = str_repeat('--|',$len).$value->name;
         }
-        //加载添加商品页面
+
+
+        // 添加品牌数组到list
+        foreach($list as $key=>$value) {
+            $brand=DB::table('brand')->where('tid','=',$value->id)->get();
+            $list[$key]->brand=$brand;
+
+        }
+
+ //加载添加商品页面
+
+        // dd($list);
         return view('Admin.Goods.add',['list'=>$list]);
     }
 
@@ -65,6 +77,8 @@ class GoodsController extends Controller
     public function store(AdminGoodsinsert $request)
     {
         //处理商品添加
+
+        // dd($request->all());
         $data=($request->except('_token','pic'));
         // 检测是否有文件上传
         if($request->hasFile('pic')){
@@ -74,15 +88,16 @@ class GoodsController extends Controller
             $name = '2018'.uniqid().'.'.$ext;
             if(in_array($ext,$filetype)){
                 $data['pic']=$name;
+                // dd($data);
                 if($result = DB::table('goods')->insert($data)){
                 // 将上传的图片移入文件夹中
                 $request->file("pic")->move("./uploads/goods",$name);
                 return redirect('/admin/goods')->with('success','添加成功');
-                }    
+                }
             }else{
                 return redirect('/admin/goods/create')->with('error','请上传jpg或png格式图片');
             }
-        }      
+        }
     }
 
     /**
@@ -93,7 +108,8 @@ class GoodsController extends Controller
      */
     public function show($id)
     {
-        //
+
+
     }
 
     /**
@@ -107,6 +123,7 @@ class GoodsController extends Controller
         // 加载商品修改页面
         $data = DB::table('goods')->where('id','=',$id)->first();
         // 获取所有的类别数据
+        // dd($data);
         $list = DB::table('type')->select(DB::raw('*,concat(path,",",id) as paths'))->orderBy('paths')->get();
         // 遍历数据
         foreach ($list as $key => $value) {
@@ -148,19 +165,19 @@ class GoodsController extends Controller
                 // 将上传的图片移入文件夹中
                 $request->file("pic")->move("./uploads/goods",$name);
                 // 删除旧图片
-                unlink('./uploads/goods/'.$pic);
+                @unlink('./uploads/goods/'.$pic);
                 return redirect('/admin/goods')->with('success','修改成功');
-                } 
+                }
              }else{
                 return redirect('/admin/goods/create')->with('error','请上传jpg或png格式图片');
-             }                 
+             }
         }else{
             // 没有图片上传
             $data=($request->except('_token','_method','pic'));
             if(DB::table('goods')->where('id','=', $id) ->update($data)){
-                return redirect('/admin/goods')->with('success','修改成功');    
+                return redirect('/admin/goods')->with('success','修改成功');
             }
-            
+
         }
     }
 
@@ -179,10 +196,58 @@ class GoodsController extends Controller
         $pic = $data->pic;
         // 删除数据库数据
         if(DB::table('goods')->where('id','=',$id)->delete()){
-            unlink('./uploads/goods/'.$pic);
+            @unlink('./uploads/goods/'.$pic);
+            @DB::table('goodsinfo')->where('gid','=',$id)->delete();
             return redirect('/admin/goods')->with('success','删除成功');
         }else{
              return redirect('/admin/goods')->with('error','删除失败');
         }
+    }
+
+    // 品牌
+    public function typebrand (Request $request)
+    {
+
+    $data=$request->all();
+    $tid=$data['tid'];
+      // echo $tid;
+    $brand=DB::table('brand')->where('tid','=',$tid)->get();
+    return $brand;
+
+    }
+
+    // 商品下的品牌修改
+    public function changebr (Request $request)
+    {
+       // 获取商品id和类id
+        $gid=$request->input('id');
+        $typeid=$request->input('typeid');
+        // 获取商品名字用于商品修改时显示
+        $name=$request->input('name');
+        $data=DB::table('brand')->where('tid','=',$typeid)->get();
+        // dd($data);
+        return view('Admin.Goods.editbrand',['data'=>$data,'gid'=>$gid,'name'=>$name]);
+    }
+
+    // 执行商品列表下的品牌修改
+    public function updatebr(Request $request)
+    {
+        // 获取品牌表的id
+        $bid=$request->input('id');
+        // 获取商品id
+        $id=$request->input('gid');
+        // 执行修改
+        $bool=DB::table('goods')->where('id','=',$id)->update(['bid'=>$bid]);
+        if ($bool) {
+            // 修改成功
+            return redirect('/admin/goods')->with('success','修改品牌成功');
+        } else {
+            // 修改失败
+            return redirect('/admin/goods')->with('error','修改失败,可能原因:修改的品牌与原来的一致');
+        }
+
+
+
+        dd($bid,$id);
     }
 }

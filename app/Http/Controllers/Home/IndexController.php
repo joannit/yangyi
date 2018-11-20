@@ -23,6 +23,8 @@ class IndexController extends Controller
         }
         return $data;
     }
+
+
     public function index()
     {
         // 获取顶级分类
@@ -30,21 +32,34 @@ class IndexController extends Controller
         // 查询所有顶级分类下的商品
         $tid = [];
         foreach ($type as $key => $value) {
+            // if (count($this->getgoodsid($value->id))) {
+            // echo count($value->id);
             $tid[] = $this->getgoodsid($value->id);
+            // }
         }
+        // dd($tid);
         $typeall = [];
         foreach ($tid as $key => $value) {
-        $str=join(",",$value);
-        $typeall[]=DB::select("select * from goods where typeid in ($str)");
+            // 判断顶级分类是否有子分类
+        if(count($value)) {
+             $str=join(",",$value);
+            }
+
+        // $typeall[]=DB::select("select * from goods where typeid in ($str)");
+        $typeall[]=DB::select("select goods.*,brand.name as bname from goods, brand where brand.id = goods.bid and goods.typeid in ($str)");
          }
         //加载前台首页
         //爆款推荐
         $tops = DB::select("select * from goods order by sales desc limit 6");
         //公告
         $notice = DB:: table('notice')->get();
+
         //广告
         $advent = DB::table('advent')->where('status','=',1)->first();
         return view('Home.index',['type'=>$type,'typeall'=>$typeall,'tops'=>$tops,'notice'=>$notice,'advent'=>$advent]);
+
+        // dd($typeall);
+        return view('Home.index',['type'=>$type,'typeall'=>$typeall,'tops'=>$tops,'notice'=>$notice]);
     }
 
     // 获取顶级分类下的所有商品
@@ -106,7 +121,7 @@ class IndexController extends Controller
      */
     public function show($id)
     {
-        
+
     }
 
     /**

@@ -10,10 +10,17 @@
     <link rel="stylesheet" href="/static/home/css/swiper.min.css">
     <link rel="stylesheet" href="/static/home/css/styles.css">
     <script src="/static/home/js/jquery.1.12.4.min.js" charset="UTF-8"></script>
+
     <script src="js/bootstrap.min.js" charset="UTF-8"></script>
     <script src="js/swiper.min.js" charset="UTF-8"></script>
     <script src="js/global.js" charset="UTF-8"></script>
     <script src="js/jquery.DJMask.2.1.1.js" charset="UTF-8"></script>
+
+    <script src="/static/home/js/bootstrap.min.js" charset="UTF-8"></script>
+    <script src="/static/home/js/swiper.min.js" charset="UTF-8"></script>
+    <script src="/static/home/js/global.js" charset="UTF-8"></script>
+    <script src="/static/home/js/jquery.DJMask.2.1.1.js" charset="UTF-8"></script>
+
     <title>@yield('title')</title>
   
 <style>
@@ -27,23 +34,31 @@
         <div class="inner">
             <div class="pull-left">
                 <div class="pull-left">嗨，欢迎来到<span class="cr">U袋网</span></div>
-                <a href="agent_level.html">网店代销</a>
-                <a href="temp_article/udai_article4.html">帮助中心</a>
+
             </div>
             <div class="pull-right">
-                <a href="login.html"><span class="cr">登录</span></a>
-                <a href="login.html?p=register">注册</a>
-                <a href="udai_welcome.html">我的U袋</a>
+            @if(!session('user'))
+                <a href="/login"><span class="cr">登录</span></a>
+                <a href="/homeregister">注册</a>
+            @else
+                <span>欢迎 {{session('user')['name']}}</span>
+                <a href="/outlogin">退出</a>
+                <a href="/personal">个人中心</a>
                 <a href="udai_order.html">我的订单</a>
                 <a href="udai_integral.html">积分平台</a>
+            @endif
             </div>
         </div>
     </div>
     <!-- 搜索栏 -->
-    <div class="top-search">
+    <!-- <div class="top-search">
+  <!--   <div class="top-search">
+
         <div class="inner">
-            <a class="logo" href="/"><img src="/static/home/images/icons/logo.jpg" alt="U袋网" class="cover"></a>
-            <div class="search-box">
+            <a class="logo" href="/"><img src="/static/home/images/icons/logo.jpg" alt="U袋网" class="cover"></a> -->
+
+
+           <!--  <div class="search-box">
                 <form class="input-group" action="/home/type" method="get">
                     <input placeholder="Ta们都在搜U袋网" type="text" name="keywords">
                     <span class="input-group-btn">
@@ -52,46 +67,37 @@
                         </button>
                     </span>
                 </form>
-                
             </div>
-            <div class="cart-box">
-                <a href="udai_shopcart.html" class="cart-but">
-                    <i class="iconfont icon-shopcart cr fz16"></i> 购物车 0 件
-                </a>
-            </div>
-        </div>
-    </div>
-    <!-- 内页导航栏 -->
-    <div class="top-nav bg3">
-        <div class="nav-box inner">
-            <div class="all-cat">
-                <div class="title"><i class="iconfont icon-menu"></i> 全部分类</div>
-            </div>
-            <ul class="nva-list">
-                <a href="/"><li>首页</li></a>
-                <a href="temp_article/udai_article10.html"><li>企业简介</li></a>
-                <a href="temp_article/udai_article5.html"><li>新手上路</li></a>
-                <a href="class_room.html"><li>U袋学堂</li></a>
-                <a href="enterprise_id.html"><li>企业账号</li></a>
-                <a href="udai_contract.html"><li>诚信合约</li></a>
-                <a href="item_remove.html"><li>实时下架</li></a>
-            </ul>
-        </div>
-    </div>
-    @section('main') 
+ -->
 
-    @show 
+<!--  @section('serach')
+ @show
+
+        </div>
+    </div> -->
+
+ <!-- @section('serach') -->
+ <!-- @show -->
+
+      <!--   </div>
+    </div>
+ -->
+
+    @section('main')
+
+    @show
+    @if(session('user'))
 
     <div class="right-nav">
         <ul class="r-with-gotop">
             <li class="r-toolbar-item">
-                <a href="udai_welcome.html" class="r-item-hd">
+                <a href="/personal" class="r-item-hd">
                     <i class="iconfont icon-user" data-badge="0"></i>
                     <div class="r-tip__box"><span class="r-tip-text">用户中心</span></div>
                 </a>
             </li>
             <li class="r-toolbar-item">
-                <a href="udai_shopcart.html" class="r-item-hd">
+                <a href="/cart" class="r-item-hd">
                     <i class="iconfont icon-cart"></i>
                     <div class="r-tip__box"><span class="r-tip-text">购物车</span></div>
                 </a>
@@ -119,12 +125,13 @@
                 <div class="r-tip__box"><span class="r-tip-text">返回顶部</span></div>
             </li>
         </ul>
-        <script>
+        <!-- <script>
             $(document).ready(function(){ $('.to-top').toTop({position:false}) });
-        </script>
+        </script> -->
     </div>
+    @endif
     <!-- 底部信息 -->
-    <div class="footer">
+    <div class="footer" >
         <div class="footer-tags">
             <div class="tags-box inner">
                 <div class="tag-div">

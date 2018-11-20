@@ -148,10 +148,10 @@
       <ul class="sub-menu">
        <li> <a href="#"> 订单列表 </a> </li>
       </ul> </li>
-     <li> <a class="active" href="javascript:;"> <i class="icon-thumbs-up"></i> <span class="title">评论管理</span> <span class="arrow "></span> </a>
+     <li> <a class="active" href="javascript:;"> <i class="icon-thumbs-up"></i> <span class="title">评价管理</span> <span class="arrow "></span> </a>
       <ul class="sub-menu">
-       <li> <a href="#"> 评论列表 </a> </li>
-       <li> <a href="#"> 回复评论 </a> </li>
+       <li> <a href="/admin/comment"> 评价列表 </a> </li>
+       
       </ul> </li>
       <li> <a class="active" href="javascript:;"> <i class="icon-thumbs-up"></i> <span class="title">优惠券管理</span> <span class="arrow "></span> </a>
       <ul class="sub-menu">
@@ -165,6 +165,7 @@
        <li> <a href="/admin/link"> 友情链接 </a> </li>
        <li> <a href="/adminadvent"> 广告设置 </a> </li>
        <li> <a href="/admin/notice"> 公告 </a> </li>
+       <li> <a href="/admin/message"> 站内信 </a> </li>
       </ul> </li>
     </ul>
     <!-- END SIDEBAR MENU -->

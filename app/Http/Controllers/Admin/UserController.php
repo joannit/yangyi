@@ -77,9 +77,16 @@ class UserController extends Controller
     {
         $data=DB::table('user_info')->where('uid','=',$id)->first();
         // dd($data);
-        if (count($data)==0) {
+        if($data->sex == 0){
+            $data->sex = '男';
+        }elseif($data->sex == 1){
+            $data->sex = '女';
+        }else{
+            $data->sex = '保密';
+        }
+        if(count($data)==0) {
             return back()->with('error','该会员还未添加会员详情');
-        }  else {
+        } else {
              return view('Admin.User.info',['data'=>$data]);
         }
     }

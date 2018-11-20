@@ -25,48 +25,7 @@ class HomeLoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    //验证名字
-    public function loginname(Request $request)
-    { 
-    	$name=$request->input('user_name');
-
-    	$data=DB::table('user')->where('user_name','=',$name)->first();
-
-    	//var_dump($data);
-
-    	if(count($data)){ 
-
-    		echo 1;
-    	}else{ 
-
-    		echo 2;
-    	}
-
-    }
-    //验证密码
-    public function loginpassword(Request $request)
-    { 
-    	$pwd=$request->input('user_password');
-    	//return $pwd;
-    	
-    	//return $password;
-    	//var_dump()
-    	$name=$request->input('user_name');
-    	//return $name;
-    	$data=DB::table('user')->where('user_name','=',$name)->first();
-    	//return $data['user_password'];
-    	//return $data;
-    	//return $data->user_password;
-    	//$user_password=Hash::make($data->user_password);
-
-    	//return $user_password;
-    	if(Hash::check($pwd,$data->user_password)){ 
-
-    		echo 1;
-    	}else{ 
-    		echo 2;
-    	}
-    }
+  
     public function create(Request $request)
     {
        
@@ -81,25 +40,34 @@ class HomeLoginController extends Controller
     public function store(Request $request)
     {
        // $data=$request->all();
-
         //var_dump($data);
         $name=$request->input('user_name');
-
         $password=$request->input('user_password');
 
-        //var_dump($password);exit;
-
         $data=DB::table('user')->where('user_name','=',$name)->first();
-
+        $user=[];
         if(count($data) && Hash::check($password,$data->user_password)){
 
         		session(['id'=>$data->id]);
         		session(['user_name',$data->user_name]);
 				return redirect("/")->with('success','登录成功');
+            // 把用户名和id存入session中
+            $user['id'] = $data->id;
+            $user['name'] = $data->user_name;
+            session(['user' => $user]);
+			return redirect("/");
         }else{
         	return back()->with('error','用户名或密码错误');
         }
 
+
+    }
+
+    public function outlogin()
+    {
+       // 清除session
+       session()->pull('user');
+       echo'<script>alert("退出成功！");location="/login"</script>';
 
     }
 

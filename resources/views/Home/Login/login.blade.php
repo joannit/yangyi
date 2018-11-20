@@ -24,7 +24,7 @@
       </div>
     @endif
   <div class="public-head-layout container"> 
-   <a class="logo" href="index.html"><img src="/static/home/images/icons/logo.jpg" alt="U袋网" class="cover" /></a> 
+   <a class="logo" href="/"><img src="/static/home/images/icons/logo.jpg" alt="U袋网" class="cover" /></a> 
   </div> 
   <div style="background:url(/static/home/images/login_bg.jpg) no-repeat center center; "> 
    <div class="login-layout container"> 
@@ -35,7 +35,7 @@
      <div class="tabs_container"> 
 
      <!--登录开始-->
-      <form class="tabs_form" action="/homelogin" method="post" id="login_form"> 
+      <form class="tabs_form" action="/login" method="post" id="login_form"> 
        <div class="form-group"> 
         <div class="input-group"> 
          <div class="input-group-addon"> 
