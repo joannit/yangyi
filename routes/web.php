@@ -78,6 +78,71 @@ Route::get('/cartdel','Home\CartController@cartdel');
 Route::get('/cartdels','Home\CartController@cartdels');
 // 后台登录和退出
 Route::resource('/adminlogin','Admin\AdminLoginController');
+
+    Route::resource("/homeregister","Home\HomeRegisterController");
+    //前台注册
+    Route::get("/regits","Home\HomeRegisterController@regits");
+    //短信验证
+    Route::get("/phone","Home\HomeRegisterController@phone");
+    //发送验证
+    Route::get("/code","Home\HomeRegisterController@code");
+    //校验手机
+    Route::get("/dophone","Home\HomeRegisterController@dophone");
+    //注册成功去登录
+    Route::post("/doregister","Home\HomeRegisterController@doregister");
+    //角色列表ajax状态修改
+    Route::get("/ajaxedit","Admin\RolelistController@ajax");
+    //用户列表状态修改
+    Route::get("/ajaxuser","Admin\AdminuserController@ajaxuser");
+    //前台登录
+    Route::resource("/login","Home\HomeLoginController");
+    // 前台退出
+    Route::get("/outlogin","Home\HomeLoginController@outlogin");
+    // 前台首页
+    Route::resource('/','Home\IndexController');
+    //前台公告
+    Route::get('/home/notice','Home\IndexController@notice');
+    // 前台分类页
+    Route::resource('/home/type','Home\TypeController');
+
+                        // -----个人中心----
+    // 前台个人中心
+    Route::resource('/personal','Home\PersonalController');
+    // 前台个人中心收货地址
+    Route::get('/paddress','Home\PersonalController@address');
+    // 消息
+    Route::get('/message','Home\PersonalController@message');
+    // 删除消息
+    Route::get('/delmessage/{id}','Home\PersonalController@delmessage');
+    // ajax城市级联
+    Route::get('/city','Home\PersonalController@city');
+    // 处理地址添加
+    Route::post('/paddress/add','Home\PersonalController@createadd');
+    // 地址设为默认
+    Route::get('/paddress/default/{id}','Home\PersonalController@default');
+    // 删除地址
+    Route::get('/paddress/deladdress/{id}','Home\PersonalController@deladdress');
+    // 修改地址页面
+    Route::get('/paddress/editadd/{id}','Home\PersonalController@editadd');
+    // 处理地址修改
+    Route::post('/paddress/doeditadd','Home\PersonalController@doeditadd');
+    // 修改登录密码
+    Route::get('/editpwd','Home\PersonalController@editpwd');
+    // 验证密码
+    Route::post('/editpwds','Home\PersonalController@editpwds');
+    // 处理修改密码
+    Route::post('/doeditpwd','Home\PersonalController@doeditpwd');
+
+
+                                // end-----个人中心----
+    // 购物车
+    Route::resource('/cart','Home\CartController');
+    // 购物车数量加方法
+    Route::get('/cartadd','Home\CartController@numadd');
+    // 购物车删除方法
+    Route::get('/cartdel','Home\CartController@cartdel');
+    // 后台登录和退出
+    Route::resource('/adminlogin','Admin\AdminLoginController');
 // 后台登录权限管理
 Route::group(['middleware'=>'adminlogin'],function(){
 
@@ -132,7 +197,7 @@ Route::group(['middleware'=>'adminlogin'],function(){
     // 后台登录和退出
     Route::resource('/adminlogin','Admin\AdminLoginController');
     // 后台登录权限管理
-    Route::group(['middleware'=>'adminlogin'],function(){
+Route::group(['middleware'=>'adminlogin'],function(){
 
     // 后台首页
     Route::get("/admin",'Admin\AdminController@index');
@@ -209,4 +274,8 @@ Route::group(['middleware'=>'adminlogin'],function(){
     Route::resource('/home/goodsinfo','Home\Goods\GoodsinfoController');
     // 加入购物车
     Route::any('/addcart','Home\Goods\GoodsinfoController@addcart');
+    //立即购买支付
+    Route::any('/pay','Home\Goods\GoodsinfoController@pay');
 
+    // 支付页设置默认地址
+    Route::get('/defaultadd','Home\Goods\GoodsinfoController@defaultadd');

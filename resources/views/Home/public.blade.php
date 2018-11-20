@@ -40,6 +40,8 @@
     </div>
     <!-- 搜索栏 -->
     <!-- <div class="top-search">
+  <!--   <div class="top-search">
+
         <div class="inner">
             <a class="logo" href="/"><img src="/static/home/images/icons/logo.jpg" alt="U袋网" class="cover"></a> -->
 
@@ -55,11 +57,19 @@
                 </form>
             </div>
  -->
+
 <!--  @section('serach')
  @show
 
         </div>
     </div> -->
+
+ <!-- @section('serach') -->
+ <!-- @show -->
+
+      <!--   </div>
+    </div>
+ -->
 
     @section('main')
 

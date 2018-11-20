@@ -1,6 +1,24 @@
 @extends('Home.Goods.public')
 
 @section('body')
+ <div class="top-search">
+        <div class="inner">
+            <a class="logo" href="/"><img src="/static/home/images/icons/logo.jpg" alt="U袋网" class="cover"></a>
+
+
+<div class="search-box">
+    <form class="input-group" action="/home/type" method="get">
+        <input placeholder="Ta们都在搜U袋网" type="text" name="keywords">
+        <span class="input-group-btn">
+            <button type="submit">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            </button>
+        </span>
+    </form>
+</div>
+     </div>
+    </div>
+
 
     <div class="content inner">
 
