@@ -5,16 +5,6 @@
 
 @section('serach')
 
-<div class="search-box">
-    <form class="input-group" action="/home/type" method="get">
-        <input placeholder="Ta们都在搜U袋网" type="text" name="keywords">
-        <span class="input-group-btn">
-            <button type="submit">
-                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            </button>
-        </span>
-    </form>
-</div>
 @endsection
 @section('main')
 <!-- 内页导航栏 -->
