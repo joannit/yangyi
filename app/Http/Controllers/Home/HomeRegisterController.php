@@ -52,7 +52,7 @@ class HomeRegisterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data=$request->all();
     }
 
     /**
@@ -168,6 +168,8 @@ class HomeRegisterController extends Controller
 
     	$data['user_password']=Hash::make($data['user_password']);
 
+    	$data['email']='';
+    	$data['token']=str_random(50);
     	//var_dump($data);exit;
 
     	$login=DB::table('user')->insert($data);

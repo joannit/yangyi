@@ -42,7 +42,9 @@ class IndexController extends Controller
         $tops = DB::select("select * from goods order by sales desc limit 6");
         //公告
         $notice = DB:: table('notice')->get();
-        return view('Home.index',['type'=>$type,'typeall'=>$typeall,'tops'=>$tops,'notice'=>$notice]);
+        //广告
+        $advent = DB::table('advent')->where('status','=',1)->first();
+        return view('Home.index',['type'=>$type,'typeall'=>$typeall,'tops'=>$tops,'notice'=>$notice,'advent'=>$advent]);
     }
 
     // 获取顶级分类下的所有商品

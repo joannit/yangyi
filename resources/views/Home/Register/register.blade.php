@@ -129,7 +129,7 @@
         </div> 
        </div> 
        <div class="checkbox"> 
-        <label> <input checked="" id="register_checkbox" type="checkbox" /><i></i> 同意<a href="temp_article/udai_article3.html">U袋网用户协议</a> </label> 
+        <label> <input checked="" id="register_checkbox" type="checkbox" /><i></i> 同意<a href="temp_article/udai_article3.html">U袋网用户协议</a><a href="/registers" class="btn btn green">邮箱注册</a></label> 
        </div> 
        <!-- 错误信息 --> 
        <div class="form-group"> 
@@ -329,7 +329,7 @@
 			//获取验证码
 			code=$(this).val();
 			//AJAX传值
-			$.get('/code',{code:code},function(data){ 
+			$.get('/codes',{code:code},function(data){ 
 
 				if(data==1){ 
 					$("#register_error").html('验证码正确').css('color','green');
@@ -372,7 +372,6 @@
 			$('#redister_name').trigger("blur");
 			$('#register_phone').trigger("blur");
 			$("#register_pwd").trigger("blur");
-			
 			$('#register_sms').trigger('blur');
 			if(n_ame == true && p_wd == true && p_hone==true && PHONE==true){ 
 				return true;

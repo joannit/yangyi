@@ -8,7 +8,7 @@
   <div class="portlet box light-grey"> 
    <div class="portlet-title"> 
     <div class="caption">
-     <i class="icon-globe"></i>友情链接列表
+     <i class="icon-globe"></i>用户关联列表
     </div> 
     <div class="tools"> 
      <a href="javascript:;" class="collapse"></a> 
@@ -32,9 +32,9 @@
        </div>
       </div>
       <div class="span6">
-      <form action="/admin/link" method="get">
+      <form action="/couponsuser" method="get">
        <div class="dataTables_filter" id="sample_1_filter">
-        <label>链接名:<input type="text" aria-controls="sample_1" class="m-wrap medium" name="keywords" value="{{$request['keywords'] or ''}}"/>
+        <label>优惠券:<input type="text" aria-controls="sample_1" class="m-wrap medium" name="keywords" value="{{$request['keywords'] or ''}}"/>
       <button type="submit" class="btn btn green">搜索</button>
         </label>
        </div>
@@ -46,40 +46,33 @@
        <tr role="row">
        
         <th class="sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Username: activate to sort column ascending" style="width: 153px;">ID</th>
-        <th class="hidden-480 sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Email" style="width: 275px;">链接名</th>
-       <th class="hidden-480 sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Email" style="width: 275px;">网址</th>
-        <th class="hidden-480 sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Email" style="width: 275px;">描述</th>
-        <th class="hidden-480 sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Email" style="width: 275px;">邮箱</th>
+        <th class="hidden-480 sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Email" style="width: 275px;">用户</th>
+        <th class="hidden-480 sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Email" style="width: 275px;">优惠券</th>
         <th class="hidden-480 sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Points: activate to sort column ascending" style="width: 103px;">状态</th>
         <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="" style="width: 156px;">操作</th>
        </tr> 
       </thead> 
       <tbody role="alert" aria-live="polite" aria-relevant="all">
-      
+      @foreach($data as $row)
       <!--开始遍历数据 -->
-       @foreach($data as $row)
        <tr class="gradeX odd"> 
-        <td class=" " style="line-height:60px">{{$row->id}}</td>
-       	<td class=" " style="line-height:60px">{{$row->linkname}}</td>
-       	<td class=" " style="line-height:60px">{{$row->url}}</td>
-       	<td class=" " style="line-height:60px">{{$row->descr}}</td>
-       	<td class=" " style="line-height:60px">{{$row->email}}</td>
+        <td class=" " style="line-height:60px">{{$row->cpid}}</td>
+        <td class=" " style="line-height:60px">{{$row->uname}}</td>
+       	<td class=" " style="line-height:60px">{{$row->pname}}</td>
         <td class=" " id="" style="line-height:60px"><button  class="btn btn green status">
-        @if($row->status==0)
-        待审核
-        @elseif($row->status==1)
-        审核通过
-        @else($row->status==2)
-        审核未通过
+        @if($row->p_status==0)
+        未使用
+        @elseif($row->p_status==1)
+        已使用
         @endif
         </button></td>
         <td >
-        <form action="/admin/link/{{$row->id}}" method="post" style="height:15px">
+        <form action="/couponsuser/{{$row->cpid}}" method="post" style="height:15px">
         <button class="btn btn red" style="">删除</button>
         {{method_field('DELETE')}}
         {{csrf_field()}}
         </form>   	
-        <a href="/admin/link/{{$row->id}}/edit" class="btn btn yellow">修改</a>       
+        <a href="/couponsuser/create" class="btn btn yellow">分配优惠券</a>       
         </td>
        </tr>
     
@@ -108,7 +101,6 @@
   </div>
  </body>
 </html>
-<script>
-</script>
+
 @endsection()
-@section('title','友情链接列表')
+@section('title','用户关联列表')

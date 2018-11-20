@@ -93,7 +93,9 @@ class HomeLoginController extends Controller
 
         if(count($data) && Hash::check($password,$data->user_password)){
 
-				return redirect("/homeindex")->with('success','登录成功');
+        		session(['id'=>$data->id]);
+        		session(['user_name',$data->user_name]);
+				return redirect("/")->with('success','登录成功');
         }else{
         	return back()->with('error','用户名或密码错误');
         }

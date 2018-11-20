@@ -228,4 +228,6 @@ return [
 
     ],
 
+    'app_upload'=>'./uploads/'.date('Y-m-d'),
+
 ];
