@@ -15,25 +15,25 @@
 Route::resource("/homeregister","Home\HomeRegisterController");
 //前台注册
 Route::get("/regits","Home\HomeRegisterController@regits");
-//短信验证
+// //短信验证
 Route::get("/phone","Home\HomeRegisterController@phone");
-//发送验证
+// //发送验证
 Route::get("/code","Home\HomeRegisterController@code");
-//校验手机
+// //校验手机
 Route::get("/dophone","Home\HomeRegisterController@dophone");
-//注册成功去登录
+// //注册成功去登录
 Route::post("/doregister","Home\HomeRegisterController@doregister");
-//角色列表ajax状态修改
+// //角色列表ajax状态修改
 Route::get("/ajaxedit","Admin\RolelistController@ajax");
-//用户列表状态修改
+// //用户列表状态修改
 Route::get("/ajaxuser","Admin\AdminuserController@ajaxuser");
-//前台登录
+// //前台登录
 Route::resource("/login","Home\HomeLoginController");
-// 前台退出
+// // 前台退出
 Route::get("/outlogin","Home\HomeLoginController@outlogin");
 // 前台首页
 Route::resource('/','Home\IndexController');
-//前台公告
+// //前台公告
 Route::get('/home/notice','Home\IndexController@notice');
 // 前台分类页
 Route::resource('/home/type','Home\TypeController');
@@ -74,6 +74,8 @@ Route::resource('/cart','Home\CartController');
 Route::get('/cartadd','Home\CartController@numadd');
 // 购物车删除方法
 Route::get('/cartdel','Home\CartController@cartdel');
+// 购物车选择删除方法
+Route::get('/cartdels','Home\CartController@cartdels');
 // 后台登录和退出
 Route::resource('/adminlogin','Admin\AdminLoginController');
 // 后台登录权限管理
@@ -125,8 +127,7 @@ Route::group(['middleware'=>'adminlogin'],function(){
     Route::post('/paddress/doeditadd','Home\PersonalController@doeditadd');
     // 修改登录密码
     Route::get('/paddress/editpwd','Home\PersonalController@editpwd');
-
-
+});
                                 // end-----个人中心----
     // 后台登录和退出
     Route::resource('/adminlogin','Admin\AdminLoginController');
@@ -174,7 +175,7 @@ Route::group(['middleware'=>'adminlogin'],function(){
     Route::resource('/admin/message','Admin\MessageController');
 
 });
- //后台公告ajax删除
+ // 后台公告ajax删除
     Route::get('/noticedel','Admin\NoticeController@del');
 
 
@@ -184,7 +185,7 @@ Route::group(['middleware'=>'adminlogin'],function(){
     Route::get("/regits","Home\HomeRegisterController@regits");
     //短信验证
     Route::get("/phone","Home\HomeRegisterController@phone");
-    //发送验证
+    // 发送验证
     Route::get("/code","Home\HomeRegisterController@code");
     //校验手机
     Route::get("/dophone","Home\HomeRegisterController@dophone");
@@ -206,6 +207,6 @@ Route::group(['middleware'=>'adminlogin'],function(){
     Route::get('/ajaxginfo','Home\Goods\GoodsinfoController@ajaxginfo');
     // 立即购买
     Route::resource('/home/goodsinfo','Home\Goods\GoodsinfoController');
-
     // 加入购物车
     Route::any('/addcart','Home\Goods\GoodsinfoController@addcart');
+

@@ -19,27 +19,34 @@ class CartController extends Controller
         // dd($cart);
         return view('Home.cart',['cart'=>$cart]);
     }
-    // 购物车数量加
+    // 购物车数量改变
     public function numadd(Request $request)
     {
         $num = $request->input('num');
         $id = $request->input('id');
-
         // 查询当前商品库存
         $store = DB::table('goodsinfo')->join('cart','goodsinfo.id','=','cart.ginfo_id')->where('cart.id','=',$id)->first();
         if($num>$store->store){
-            echo '库存数不够';
+            echo $store->store;
         }else{
             echo 1;
             DB::table('cart')->where('id','=',$id)->update(['num'=>$num]);
         }
     }
-
+    // ajax删除
     public function cartdel(Request $request)
     {
         $id = $request->input('id');
         if(DB::table('cart')->where('id','=',$id)->delete()){
             echo 1;
+        }
+    }
+    // ajax删除全选
+    public function cartdels(Request $request)
+    {
+        $id = ($request->input('arr'));
+        if(DB::table('cart')->whereIn('id',$id)->delete()){
+            echo 1;          
         }
     }
     /**

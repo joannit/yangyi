@@ -63,7 +63,7 @@ class HomeLoginController extends Controller
     {
        // 清除session
        session()->pull('user');
-       echo'<script>alert("退出成功！");location="./"</script>';
+       echo'<script>alert("退出成功！");location="/login"</script>';
 
     }
 
