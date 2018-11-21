@@ -21,7 +21,7 @@
     <div class="tab-header">
         <div class="inner">
             <div class="pull-left">
-                <div class="pull-left">嗨，欢迎来到<span class="cr">U袋网</span></div>
+                <div class="pull-left">嗨，欢迎来到 {{session('user')['id']}}<span class="cr">U袋网</span></div>
 
             </div>
             <div class="pull-right">
@@ -29,7 +29,7 @@
                 <a href="/login"><span class="cr">登录</span></a>
                 <a href="/homeregister">注册</a>
             @else
-                <span>欢迎 {{session('user')['name']}}</span>
+                <font>欢迎 {{session('user')['name']}}</font>
                 <a href="/outlogin">退出</a>
                 <a href="/personal">个人中心</a>
                 <a href="udai_order.html">我的订单</a>

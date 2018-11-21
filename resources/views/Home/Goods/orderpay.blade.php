@@ -9,24 +9,34 @@
         }
     </style>
 </head>
+
  <div class="top-search">
         <div class="inner">
             <a class="logo" href="/"><img src="/static/home/images/icons/logo.jpg" alt="U袋网" class="cover"></a>
 
 
-<div class="search-box">
-    <h2>购物车</h2>
-    <!-- form class="input-group" action="/home/type" method="get">
-        <input placeholder="Ta们都在搜U袋网" type="text" name="keywords">
-        <span class="input-group-btn">
-            <button type="submit">
-                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            </button>
-        </span>
-    </form> -->
-</div>
+                <div class="search-box">
+                    <h2>确认订单</h2>
+                    <!-- form class="input-group" action="/home/type" method="get">
+                        <input placeholder="Ta们都在搜U袋网" type="text" name="keywords">
+                        <span class="input-group-btn">
+                            <button type="submit">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+                        </span>
+                    </form> -->
+                </div>
      </div>
     </div>
+        @if(session('error'))
+          <div class="alert alert-warning alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span></button>
+        <strong>{{session('error')}}</strong>
+        </div>
+        @endif
+
+
 
 
     <div class="content clearfix bgf5">
@@ -40,6 +50,7 @@
 
 
 
+
                         @if (count($address))
                         @foreach($address as $val)
                         <div class="addressdefalut radio-line radio-box @if($val->default==1) active @endif">
@@ -49,9 +60,13 @@
                                 （{{$val->aname}} 收） {{$val->aphone}}
 
                             </label>
+                            <!-- 用于ajax操作 -->
                             <input type="hidden" name="default" value="{{$val->default}}">
-                            <a href="javascript:;" class="adefault" >默认地址</a>
-                            <a href="udai_address_edit.html" class="edit">修改</a>
+                             @if($val->default==1) <a href="javascript:;" class="notadefault">默认地址</a>
+                             @else <a href="javascript:;" class="adefault" >设置为默认地址</a>
+
+                            @endif
+                            <a href="/paddress/editadd/{{$val->id}}" class="edit">修改</a>
                         </div>
                         @endforeach
 
@@ -61,8 +76,9 @@
                              </div>
                         @endif
 
+
                     </div>
-                    <div class="add_addr"><a href="udai_address.html">添加新地址</a></div>
+                    <div class="add_addr"><a href="/paddress">添加新地址</a></div>
                     <div class="shop-title">确认订单</div>
                     <div class="shop-order__detail">
                         <table class="table">
@@ -73,7 +89,7 @@
                                     <th width="120">单价</th>
                                     <th width="120">数量</th>
                                     <th width="120">每件优惠</th>
-                                    <th width="120">运费</th>
+                                    <!-- <th width="120">运费</th> -->
                                     <th width="120">总价</th>
                                     <th width="120">实际付款</th>
 
@@ -83,6 +99,8 @@
                             <tbody>
 
                             <!-- 订单 -->
+
+
                                 <tr>
                                     <th scope="row"><a href="item_show.html"><div class="img"><img src="/uploads/goods/{{$goodsinfo->pic}}" alt="/uploads/goods/{{$goodsinfo->pic}}" class="cover" style="width:100%;height:100%"></div></a></th>
                                     <td >
@@ -92,11 +110,17 @@
                                     </td>
                                     <td >{{$goodsinfo->gprice}}</td>
                                     <td >{{$goodsinfo->num}}</td>
-                                    <td >{{$goodsinfo->discount/100}}折</td>
-                                    <td >0.0</td>
+                                    <td >{{$goodsinfo->discount/10}}折</td>
+                                    <!-- <td >0.0</td> -->
                                     <td >¥{{($goodsinfo->gprice)*($goodsinfo->num)}}</td>
                                     <td >¥{{($goodsinfo->gprice)*($goodsinfo->discount/100)*($goodsinfo->num)}}</td>
                                 </tr>
+
+
+
+
+
+
                                 <!-- end订单 -->
 
                             </tbody>
@@ -104,9 +128,9 @@
                     </div>
                     <div class="shop-cart__info clearfix">
                         <div class="pull-left text-left">
-                            <div class="info-line text-nowrap">购买时间：<span class="c6">{{$goodsinfo->createtime}} </span></div>
+                            <div class="info-line text-nowrap">购买时间：<span class="c6">{{$ordertime}} </span></div>
                             <div class="info-line text-nowrap">交易类型：<span class="c6">py交易</span></div>
-                            <div class="info-line text-nowrap">交易号：<span class="c6">{{$goodsinfo->ordernum}}</span></div>
+                            <div class="info-line text-nowrap">交易号：<span class="c6">{{$orderid}}</span></div>
                         </div>
                         <div class="pull-right text-right">
                             <div class="form-group">
@@ -128,7 +152,7 @@
                             </script>
                             <div class="info-line">优惠活动：<span class="c6">无</span></div>
                             <div class="info-line">运费：<span class="c6">¥0.00</span></div>
-                            <div class="info-line"><span class="favour-value">已优惠 ¥2.0</span>合计：<b class="fz18 cr">¥18.0</b></div>
+                            <div class="info-line"><span class="favour-value">已优惠 ¥{{(($goodsinfo->gprice)*($goodsinfo->num))-(($goodsinfo->gprice)*($goodsinfo->discount/100)*($goodsinfo->num))}}</span>合计：<b class="fz18 cr">¥{{($goodsinfo->gprice)*($goodsinfo->discount/100)*($goodsinfo->num)}}</b></div>
                             <div class="info-line fz12 c9">（可获 <span class="c6">20</span> 积分）</div>
                         </div>
                     </div>
@@ -144,10 +168,10 @@
                         </div> -->
                         <div class="radio-line radio-box">
                             <label class="radio-label ep">
-                                <input name="pay-mode" value="2" autocomplete="off" type="radio"><i class="iconfont icon-radio"></i>
-                                <img src="/static/home/images/icons/alipay.png" alt="支付宝支付">
+                             <!--    <input name="pay-mode" value="2" autocomplete="off" type="radio"><i class="iconfont icon-radio"></i> -->
+                                <img src="/static/home/images/icons/alipay.png" alt="支付宝支付"><span style="margin-left:700px;font-size:1.5em;color:red;font-weight:bold">目前仅支持支付宝支付</span>
                             </label>
-                            <div class="pay-value">支付<b class="fz16 cr">18.00</b>元</div>
+                            <!-- <div class="pay-value">支付<b class="fz16 cr">18.00</b>元</div> -->
                         </div>
                         <!-- <div class="radio-line radio-box">
                             <label class="radio-label ep">
@@ -219,16 +243,56 @@
 
         <script>
 
+            node=$('.notadefault');
+            de= $('.adefault');
             $('.adefault').click(function(){
                 // alert(111);
+                de=$(this)
                 id=$(this).parent().find('.radio-label input:first').val();
                 // val1 = $(this).parent().find('input:last').val();
-              $.get('/defaultadd',{id:id,adefault:val1},function(data){
+              $.get('/defaultadd',{id:id},function(data){
 
-                alert(data);
+                // alert(data);
+                if (data==1) {
+                    de.removeClass('adefault');
+                    de.html('默认地址');
+                    de.addClass('notadefault');
+
+                     node.removeClass('notadefault');
+                    node.html('设置默认地址');
+                    node.addClass('adefault');
+                    alert('设置成功');
+
+
+                }
               });
 
-});
+            });
+
+
+            $('.notadefault').click(function(){
+               node=$(this)
+                id=$(this).parent().find('.radio-label input:first').val();
+                // val1 = $(this).parent().find('input:last').val();
+              $.get('/defaultadd',{id:id},function(data){
+
+                // alert(data);
+                if (data==1) {
+                    node.removeClass('adefault');
+                    node.html('默认地址');
+                    node.addClass('notadefault');
+
+                     de.removeClass('notadefault');
+                    de.html('设置为默认地址');
+                    de.addClass('adefault');
+                    alert('设置成功');
+
+                }
+              });
+
+              });
+
+            // });
         </script>
 
 
