@@ -18,8 +18,15 @@
   </style>
  </head> 
  <body> 
+  	@if(session('error'))
+      <div class="alert alert-danger" >
+                  <button class="close" data-dismiss="alert"></button>
+                  <strong>{{session('error')}}</strong>
+        	    </div>
+      
+    @endif
   <div class="public-head-layout container"> 
-   <a class="logo" href="/"><img src="/static/home/images/icons/logo.jpg" alt="U袋网" class="cover" /></a> 
+   <a class="logo" href="index.html"><img src="/static/home/images/icons/logo.jpg" alt="U袋网" class="cover" /></a> 
   </div> 
   <div style="background:url(/static/home/images/login_bg.jpg) no-repeat center center; "> 
    <div class="login-layout container"> 
@@ -34,7 +41,7 @@
          <div class="input-group-addon"> 
           <span class="glyphicon glyphicon-phone" aria-hidden="true"></span> 
          </div> 
-         <input class="form-control phone" name="phone" id="login_phone" required="" placeholder="手机号" maxlength="11" autocomplete="off" type="text" /> 
+         <input class="form-control phone" name="phone" id="login_phone" required="" placeholder="请输入手机号" maxlength="11" autocomplete="off" type="text" /> 
         </div> 
        </div> 
        <div class="form-group"> 
@@ -86,35 +93,20 @@
     </div> 
     <div class="form-box register" style="display: block;" style=""> 
      <div class="tabs-nav" style=""> 
-      <h2>欢迎注册<a href="/homelogin" class="pull-right fz16" id="reglogin">返回登录</a></h2> 
+      <h2>欢迎注册<a href="/logins/create" class="pull-right fz16" id="reglogin">返回登录</a></h2> 
      </div> 
      <div class="tabs_container"> 
 
 
      <!--注册开始-->
 
-      <form class="tabs_form" onsubmit="return" action="/doregister" method="post" id="register_form" style=""> 
+      <form class="tabs_form" onsubmit="return" action="/registers" method="post" id="register_form" style=""> 
       	<div class="form-group"> 
         <div class="input-group"> 
          <div class="input-group-addon"> 
-          <span class="glyphicon glyphicon-user" aria-hidden="true"></span> 
+          <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> 
          </div> 
-         <input class="form-control name" name="user_name" id="register_name" maxlength="16" required="" placeholder="账号"  autocomplete="off" type="text"  style="" /><span></span>
-        </div> 
-       </div> 
-
-       <div class="form-group"> 
-        <div class="input-group"> 
-         <div class="input-group-addon"> 
-          <span class="glyphicon glyphicon-phone" aria-hidden="true"></span> 
-         </div> 
-         <input class="form-control phone" name="user_phone" id="register_phone" required="" placeholder="手机号" maxlength="11" autocomplete="off" type="text" style="" /> 
-        </div> 
-       </div> 
-       <div class="form-group"> 
-        <div class="input-group"> 
-         <input class="form-control" name="smscode" id="register_sms" placeholder="输入验证码" type="text"  /> 
-         <span class="input-group-btn"> <button class="btn btn-primary getsms" type="button" id="btn">发送短信验证码</button> </span> 
+         <input class="form-control email" name="email" id="register_email" maxlength="" required="" placeholder="邮箱"  autocomplete="off" type="text" value="{{old('email')}}"/><span></span>
         </div> 
        </div> 
        <div class="form-group"> 
@@ -122,18 +114,46 @@
          <div class="input-group-addon"> 
           <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> 
          </div> 
-         <input class="form-control password" name="user_password" id="register_pwd" placeholder="请输入密码" autocomplete="off" type="text" maxlength="18" /> 
+         <input class="form-control password" name="user_password" id="register_pwd" placeholder="请输入密码" autocomplete="off" type="text" maxlength="18" value="{{old('user_password')}}"/> 
          <div class="input-group-addon pwd-toggle" title="隐藏密码">
           <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
          </div> 
         </div> 
        </div> 
+       <div class="form-group"> 
+        <div class="input-group"> 
+         <div class="input-group-addon"> 
+          <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> 
+         </div> 
+         <input class="form-control password" name="user_password" id="register_rpwd" placeholder="重复密码" autocomplete="off" type="text" maxlength="18" value="{{old('user_password')}}"/> 
+         <div class="input-group-addon pwd-toggle" title="隐藏密码">
+          <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+         </div> 
+        </div> 
+       </div> 
+
+       <div class="row">
+		<div class="form-group">
+		<div class="col-md-12">
+		<label>验证码</label>
+		<img src="/code" onclick="this.src=this.src+'?a=1'">
+		</div>
+		</div>
+		</diV>
+
+		<div class="form-group"> 
+        <div class="input-group">  
+         <input class="form-control fcode" name="fcode" id="register_fcode" maxlength="16" required="" placeholder="请输入验证码"  autocomplete="off" type="text"  style="" /><span></span>
+        </div> 
+       </div>
+
        <div class="checkbox"> 
-        <label> <input checked="" id="register_checkbox" type="checkbox" /><i></i> 同意<a href="temp_article/udai_article3.html">U袋网用户协议</a><a href="/registers" class="btn btn green">邮箱注册</a></label> 
+        <label> <input checked="" id="register_checkbox" type="checkbox" /><i></i> 同意<a href="temp_article/udai_article3.html">U袋网用户协议</a><a href="/homeregister" class="btn btn green">手机号注册</a></label> 
        </div> 
        <!-- 错误信息 --> 
        <div class="form-group"> 
-        <div class="error_msg" id="register_error"></div> 
+
+        <div class="error_msg" id="registers_error"></div> 
        </div> 
        {{csrf_field()}}
        <button class="btn btn-large btn-primary btn-lg btn-block submit" id="register_submit" type="submit">注册</button> 
@@ -228,127 +248,31 @@
   </div> 
  </body>
  <script>
- 
- 		var n_ame = false;
- 		//var result = false;
-    	//$("#register").focus();
-    	//获取输入的用户名
-		$("#register_name").blur(function(){ 
-
-			name=$(this).val();
-			regits=$(this);
-			//账号匹配正则
-			if(name.match(/^[a-zA-Z][a-zA-Z0-9_]{3,16}$/)){ 
-			//alert(name);
-			//和数据库的用户名做比较
-			$.get("/regits",{user_name:name},function(data){ 
-
-				//alert(data);
-				if(data==1){
-					//alert("")
-					$("#register_error").html(msgtemp('<strong>此用户名太受欢迎,请重新输入</strong> ','alert-warning')).css('color','red');
-					n_ame=false;
-				}else{ 
-
-					$("#register_error").html('用户名可用').css('color','green');
-					n_ame = true;
-				}
-			});
+ 	//验证邮箱
+ 	flag=false;
+ 	$("#register_email").blur(function(){ 
+ 		email=$(this).val();
+ 		//alert(email);
+ 		if(email.match(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/)){
+ 			//和数据库做匹配
+ 			$.get("/doemail",{email:email},function(data){ 
+ 				if(data==1){ 
+ 					$('#registers_error').html('邮箱已经被注册').css('color','red');
+ 					flag=false;
+ 				}else{ 
+					$('#registers_error').html('邮箱可用').css('color','green');
+					flag=true;
+ 				}
+ 			})
 		}else{ 
-			$("#register_error").html('用户名必须是4-16的字母数字下划线组成').css('color','red');	
-			n_ame=false;
+
+			$('#registers_error').html('邮箱不合法').css('color','red');
+			flag=false;
 		}
-	});
-		//校验手机号
-		PHONE=false;
-		//var phones=false
-		$('#register_phone').blur(function(){ 
-
-			phone=$("#register_phone").val()
-			//alert(phone);
-			if(phone.match(/^1[3|4|5|7|8][0-9]\d{8}$/)){ 
-			////alert(phone)
-			$.get("/dophone",{user_phone:phone},function(data){ 
-				if(data==1){ 
-					$("#register_error").html('手机号已经被注册').css('color','green');
-					$("#btn").attr('disabled',true);
-					PHONE=false;
-
-				}else{ 
-					$("#register_error").html('手机号可用').css('color','green');
-					$("#btn").attr('disabled',false);
-					PHONE=true;
-				}
-			},'json')
-
-			}else{ 
-			$("#register_error").html('请输入正确的手机号').css('color','red');
-				$("#btn").attr('disabled',true);
-				PHONE=false;
-			}
-		});
-		//发送验证码
-		$('#btn').click(function(){ 
-
-			//获取输入的手机号码
-			obj=$(this);
-			//tel=$('#register_phone').val()
-			phone=$("#register_phone").val();
-			$.get("/phone",{user_phone:phone},function(data){ 
-	
-				if(data.code==000000){
-					m=60;
-					timmer=setInterval(function(){ 
-						m--;
-						//赋值给按钮
-						obj.html(m+"秒后重新发送")
-						//按钮禁用
-						obj.attr('disabled',true)
-						if(m==0){ 
-							//清除定时器
-							clearInterval(timmer);
-							//重新赋值
-							obj.html('重新发送');
-							//按钮激活
-							obj.attr('disabled',false);
-						}
-					},1000)
-					//}
-				}
-			},'json')
-
-		//	}else{ 
-			//	$("#register_error").html('请输入正确的手机号').css('color','red');
-
-			//}
-
-		});
-		//验证码校验
-		var p_hone;
-		$("#register_sms").blur(function(){ 
-			//获取验证码
-			code=$(this).val();
-			//AJAX传值
-			$.get('/codes',{code:code},function(data){ 
-
-				if(data==1){ 
-					$("#register_error").html('验证码正确').css('color','green');
-					p_hone = true;
-				}else if(data==2){ 
-					$("#register_error").html('验证码有误').css('color','red');
-					p_hone=false;
-				}else if(data==3){ 
-					$("#register_error").html('验证码为空').css('color','red');
-					p_hone=false;
-				}else if(data==4){ 
-					$("#register_error").html('验证码已过期请重新发送');
-					p_hone=false;
-				}
-			})
-		})
-		//验证密码
-		var p_wd = false;
-		$("#register_pwd").blur(function(){
+ 	});
+ 	password=false;
+ 	//验证密码
+ 	$("#register_pwd").blur(function(){
 			//if(p_hone==true && n_ame == true){ 
 				//result = true
 			//}else{ 
@@ -356,30 +280,45 @@
 			//}
 			pwd=$(this).val();
 			if(pwd.match(/^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,}$/)){ 
-				$("#register_error").html('密码可用').css('color','green');
-				p_wd = true;
+				$("#registers_error").html('密码可用').css('color','green');
+				password=true;
 			}else{ 
-				$("#register_error").html('密码格式必须是6到18位的数字和字母下划线组成').css('color','red');
-				p_wd=false;
+				$("#registers_error").html('密码格式必须是6到18位的数字和字母下划线组成').css('color','red');
+				password=false;
 			}
 			//console.log(p_wd);
 			//console.log(result);
-		})
-
-		//注册按钮提交时匹配所有规则	
-		$(".tabs_form").submit(function(){ 
-			//符合所有条件可以提交	
-			$('#redister_name').trigger("blur");
-			$('#register_phone').trigger("blur");
-			$("#register_pwd").trigger("blur");
-			$('#register_sms').trigger('blur');
-			if(n_ame == true && p_wd == true && p_hone==true && PHONE==true){ 
-				return true;
-			}else{ 
-				return false;
-			}
 		});
-	
+ 	passwords=false;
+ 	//验证重复密码
+ 	$('#register_rpwd').blur(function(){ 
+ 		rpwd=$(this).val();
+
+ 		pwd=$("#register_pwd").val();
+ 		//alert(pwd);
+ 		if(rpwd==pwd){ 
+ 			$("#registers_error").html('密码一致').css('color','green');
+ 			passwords=true;	
+ 		}else{ 
+ 			$("#registers_error").html('密码不一致').css('color','red');
+ 			passwords=false;
+ 		}
+ 	});
+ 	//点击提示框隐藏
+ 	$('.alert').click(function(){ 
+
+ 		$(this).hide();
+ 	});
+	//注册按钮提交时匹配所有规则	
+	$(".tabs_form").submit(function(){ 
+		$('#register_email').trigger('blur');
+		$('#register_pwd').trigger('blur');
+		$('#register_rpwd').trigger('blur');
+		if(flag==true && password==true && passwords==true){ 
+			return true;
+		}else{ 
+			return false;
+		}
+	})
 
 </script> 
-</html>

@@ -15,6 +15,7 @@
   <!-- BEGIN GLOBAL MANDATORY STYLES -->
   <link href="/static/admin/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
   <link href="/static/admin/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+  <link href="/static/admin/css/datetimepicker.css" rel="stylesheet" type="text/css" />
   <link href="/static/admin/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
   <link href="/static/admin/css/style-metro.css" rel="stylesheet" type="text/css" />
   <link href="/static/admin/css/style.css" rel="stylesheet" type="text/css" />
@@ -152,11 +153,17 @@
        <li> <a href="/admin/comment"> 评价列表 </a> </li>
        
       </ul> </li>
+      <li> <a class="active" href="javascript:;"> <i class="icon-thumbs-up"></i> <span class="title">优惠券管理</span> <span class="arrow "></span> </a>
+      <ul class="sub-menu">
+       <li> <a href="/coupons"> 优惠券列表 </a> </li>
+       <li> <a href="/coupons/create"> 添加优惠券 </a> </li>
+        <li> <a href="/couponsuser">用户关联表</a> </li>
+      </ul> </li>
      <li> <a class="active" href="javascript:;"> <i class="icon-cogs"></i> <span class="title">前台首页</span> <span class="arrow "></span> </a>
       <ul class="sub-menu">
        <li> <a href="#"> 轮播图设置 </a> </li>
-       <li> <a href="#"> 友情链接 </a> </li>
-       <li> <a href="#"> 广告设置 </a> </li>
+       <li> <a href="/admin/link"> 友情链接 </a> </li>
+       <li> <a href="/adminadvent"> 广告设置 </a> </li>
        <li> <a href="/admin/notice"> 公告 </a> </li>
        <li> <a href="/admin/message"> 站内信 </a> </li>
       </ul> </li>
@@ -251,6 +258,10 @@
   <script src="/static/admin/js/jquery.blockui.min.js" type="text/javascript"></script>
   <script src="/static/admin/js/jquery.cookie.min.js" type="text/javascript"></script>
   <script src="/static/admin/js/jquery.uniform.min.js" type="text/javascript"></script>
+  <script type="text/javascript" src="/static/admin/js/jquery.js"></script>
+  <script type="text/javascript" src="/static/admin/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/static/admin/js/bootstrap-datetimepicker.js"></script>
+  <script type="text/javascript" src="/static/admin/js/bootstrap-datetimepicker.fr.js"></script>
   <!-- END CORE PLUGINS -->
   <!-- BEGIN PAGE LEVEL PLUGINS -->
   <script type="text/javascript" src="/static/admin/js/select2.min.js"></script>
@@ -262,6 +273,8 @@
   <script src="/static/admin/js/table-editable.js"></script>
   <script>
 
+  	$('#datetimepicker').datetimepicker();
+  	$('#datetimepickers').datetimepicker();
     jQuery(document).ready(function() {
 
        App.init();

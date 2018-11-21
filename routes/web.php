@@ -228,6 +228,20 @@ Route::group(['middleware'=>'adminlogin'],function(){
     Route::resource('/admin/order','Admin\OrderController');
     // 后台公告模块
     Route::resource('/admin/notice','Admin\NoticeController');
+
+
+   	//后台友情链接
+   	Route::resource('/admin/link','Admin\LinkController');
+   	//后台广告模块
+   	Route::resource('/adminadvent','Admin\AdventController');
+   	//后台优惠券模块
+   	Route::resource('/coupons','Admin\CouponsController');
+   	//优惠用户关联模块
+   	Route::resource('/couponsuser','Admin\CouponsuserController');
+   	//优惠券过期时间处理
+   	Route::get('/times','Admin\CouponsController@timess');
+
+
     //后台分类下的品牌
     Route::resource('/admin/brand','Admin\BrandController');
     // 添加商品里的ajax查品牌
@@ -245,9 +259,46 @@ Route::group(['middleware'=>'adminlogin'],function(){
     // 后台站内信模块
     Route::resource('/admin/message','Admin\MessageController');
 
+
 });
  // 后台公告ajax删除
     Route::get('/noticedel','Admin\NoticeController@del');
+
+
+//前台
+Route::resource("/homeregister","Home\HomeRegisterController");
+//前台注册
+Route::get("/regits","Home\HomeRegisterController@regits");
+//短信验证
+Route::get("/phone","Home\HomeRegisterController@phone");
+//发送验证
+Route::get("/codes","Home\HomeRegisterController@code");
+//校验手机
+Route::get("/dophone","Home\HomeRegisterController@dophone");
+//注册成功去登录
+Route::post("/doregister","Home\HomeRegisterController@doregister");
+//角色列表ajax状态修改
+Route::get("/ajaxedit","Admin\RolelistController@ajax");
+//用户列表状态修改
+Route::get("/ajaxuser","Admin\AdminuserController@ajaxuser");
+//前台登录
+Route::resource("/homelogin","Home\HomeLoginController");
+//前台密码找回
+Route::resource('/homereset','Home\HomeresetController');
+//前台友情链接
+Route::resource("/link","Home\LinkController");
+//前台邮箱激活用户
+Route::resource('/registers','Home\RegistersController');
+//引入验证码
+Route::get('/code','Home\RegistersController@codes');
+//验证邮箱
+Route::get('/doemail','Home\RegistersController@doemail');
+//激活邮箱
+Route::get('/jihuo','Home\RegistersController@jihuo');
+//邮箱登录
+Route::resource('/logins','Home\LoginsController');
+//邮箱登录引入验证码
+Route::get('/codess','Home\LoginsController@codes');
 
 
     //前台
@@ -285,3 +336,4 @@ Route::group(['middleware'=>'adminlogin'],function(){
 
     // 支付页设置默认地址
     Route::get('/defaultadd','Home\Goods\GoodsinfoController@defaultadd');
+

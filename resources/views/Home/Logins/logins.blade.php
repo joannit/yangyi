@@ -24,7 +24,7 @@
       </div>
     @endif
   <div class="public-head-layout container"> 
-   <a class="logo" href="/"><img src="/static/home/images/icons/logo.jpg" alt="U袋网" class="cover" /></a> 
+   <a class="logo" href="index.html"><img src="/static/home/images/icons/logo.jpg" alt="U袋网" class="cover" /></a> 
   </div> 
   <div style="background:url(/static/home/images/login_bg.jpg) no-repeat center center; "> 
    <div class="login-layout container"> 
@@ -35,13 +35,13 @@
      <div class="tabs_container"> 
 
      <!--登录开始-->
-      <form class="tabs_form" action="/login" method="post" id="login_form"> 
+      <form class="tabs_form" action="/logins" method="post" id="login_form"> 
        <div class="form-group"> 
         <div class="input-group"> 
          <div class="input-group-addon"> 
-          <span class="glyphicon glyphicon-user" aria-hidden="true"></span> 
+          <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> 
          </div> 
-         <input class="form-control user_name" name="user_name" id="login_name" required="" placeholder="账号" maxlength="18" autocomplete="off" type="text" value="{{old('user_name')}}"/> 
+         <input class="form-control user_name" name="email" id="login_name" required="" placeholder="邮箱" maxlength="" autocomplete="off" type="text" value="{{old('user_name')}}"/> 
         </div> 
        </div> 
        <div class="form-group"> 
@@ -55,6 +55,21 @@
          </div> 
         </div> 
        </div> 
+
+       <div class="row">
+		<div class="form-group">
+		<div class="col-md-12">
+		<label>验证码</label>
+		<img src="/codess" onclick="this.src=this.src+'?a=1'">
+		</div>
+		</div>
+		</diV>
+
+		<div class="form-group"> 
+        <div class="input-group">  
+         <input class="form-control fcode" name="fcode" id="register_fcode" maxlength="16" required="" placeholder="请输入验证码"  autocomplete="off" type="text"  style="" /><span></span>
+        </div> 
+       </div>
        <div class="checkbox"> 
         <label> <input checked="" id="login_checkbox" type="checkbox" /><i></i> 30天内免登录 </label> 
         <a href="/homereset" class="pull-right" id="resetpwd">忘记密码？</a> 
@@ -77,7 +92,7 @@
        {{csrf_field()}}
        <button id="login_submit" class="btn btn-large btn-primary btn-lg btn-block submit" type="submit">登录</button>
        <br /> 
-       <p class="text-center">没有账号？<a href="/homeregister" id="register">手机注册</a> <a href="/registers" id="register">邮箱注册</a></p> 
+       <p class="text-center">没有账号？<a href="/registers" id="register">免费注册</a></p> 
       </form> 
 
       <!--登录结束-->

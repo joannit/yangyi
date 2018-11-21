@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
 use DB;
-
 use Hash;
-class HomeLoginController extends Controller
+//引入校验类
+use Gregwar\Captcha\CaptchaBuilder;
+//引入注册的验证方法
+use App\Http\Controllers\RegistersController;
+class LoginsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +19,22 @@ class HomeLoginController extends Controller
      */
     public function index()
     {
-        return view("Home.Login.login");
+        
+    }
+     public function codes()
+    { 
+    	ob_clean();//清除操作
+		$builder = new CaptchaBuilder;
+		//可以设置图片宽高及字体
+		$builder->build($width = 100, $height = 40, $font = null);
+		//获取验证码的内容
+		$phrase = $builder->getPhrase();
+		//把内容存入session
+		session(['vcode'=>$phrase]);
+		//生成图片
+		header("Cache-Control: no-cache, must-revalidate");
+		header('Content-Type: image/jpeg');
+		$builder->output();
     }
 
     /**
@@ -25,10 +42,9 @@ class HomeLoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-  
-    public function create(Request $request)
+    public function create()
     {
-       
+        return view("Home.Logins.logins");
     }
 
     /**
@@ -39,36 +55,29 @@ class HomeLoginController extends Controller
      */
     public function store(Request $request)
     {
-       // $data=$request->all();
-        //var_dump($data);
-        $name=$request->input('user_name');
+        //$data=$request->only(['email',''])
+       // Registers::codes();
+        $email=$request->input('email');
         $password=$request->input('user_password');
-
-        $data=DB::table('user')->where('user_name','=',$name)->first();
-        $user=[];
-        if(count($data) && Hash::check($password,$data->user_password)){
-
-        		session(['id'=>$data->id]);
-        		session(['user_name',$data->user_name]);
-				return redirect("/")->with('success','登录成功');
-            // 把用户名和id存入session中
-            $user['id'] = $data->id;
-            $user['name'] = $data->user_name;
-            session(['user' => $user]);
-			return redirect("/");
-        }else{
-        	return back()->with('error','用户名或密码错误');
+        //获取校验码
+        $fcode=$request->input('fcode');
+        //获取系统校验码
+        $vcode=session('vcode');
+        $data=DB::table('user')->where('email','=',$email)->where('user_status','=',1)->first();
+        //dd($data);
+        if($data){ 
+        	if(Hash::check($password,$data->user_password)){ 
+        		if($fcode==$vcode){ 
+        			return redirect('/')->with('success','登录成功');
+        		}else{ 
+        			return back()->with('error','校验码有误');
+        		}
+        	}else{ 
+        		return back()->with('error','密码有误');
+        	}
+        }else{ 
+        	return back()->with('error','邮箱有误');
         }
-
-
-    }
-
-    public function outlogin()
-    {
-       // 清除session
-       session()->pull('user');
-       echo'<script>alert("退出成功！");location="/login"</script>';
-
     }
 
     /**
@@ -90,7 +99,7 @@ class HomeLoginController extends Controller
      */
     public function edit($id)
     {
-        
+        //
     }
 
     /**

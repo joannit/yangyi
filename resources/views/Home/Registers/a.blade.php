@@ -1,0 +1,1 @@
+<a href="http://www.yangyi.com/jihuo?id={{$id}}&token={{$token}}">激活</a>s

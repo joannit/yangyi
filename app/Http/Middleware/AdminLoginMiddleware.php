@@ -43,7 +43,11 @@ class AdminLoginMiddleware
         if (empty($nodelist[$controllerName]) || !in_array($actionName,$nodelist[$controllerName])) {
 
 
+                //return redirect('/admin')->with('error','抱歉，您没有权限访问该模块，请联系超级管理员');
+
+
                 return redirect('/admin')->with('error','抱歉，您没有权限访问该模块，请联系超级管理员');
+
             }
 
             return $next($request);
