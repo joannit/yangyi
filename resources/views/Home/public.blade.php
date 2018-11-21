@@ -10,18 +10,32 @@
     <link rel="stylesheet" href="/static/home/css/swiper.min.css">
     <link rel="stylesheet" href="/static/home/css/styles.css">
     <script src="/static/home/js/jquery.1.12.4.min.js" charset="UTF-8"></script>
+
+    <script src="js/bootstrap.min.js" charset="UTF-8"></script>
+    <script src="js/swiper.min.js" charset="UTF-8"></script>
+    <script src="js/global.js" charset="UTF-8"></script>
+    <script src="js/jquery.DJMask.2.1.1.js" charset="UTF-8"></script>
+
     <script src="/static/home/js/bootstrap.min.js" charset="UTF-8"></script>
     <script src="/static/home/js/swiper.min.js" charset="UTF-8"></script>
     <script src="/static/home/js/global.js" charset="UTF-8"></script>
     <script src="/static/home/js/jquery.DJMask.2.1.1.js" charset="UTF-8"></script>
+
     <title>@yield('title')</title>
+
+<style>
+
+</style>
 </head>
 <body>
+
     <!-- 顶部tab -->
     <div class="tab-header">
         <div class="inner">
             <div class="pull-left">
-                <div class="pull-left">嗨，欢迎来到 {{session('user')['id']}}<span class="cr">U袋网</span></div>
+
+
+                <div class="pull-left">嗨，欢迎来到<span class="cr">U袋网</span></div>
 
             </div>
             <div class="pull-right">
@@ -35,12 +49,13 @@
                 <a href="udai_order.html">我的订单</a>
                 <a href="udai_integral.html">积分平台</a>
             @endif
+
             </div>
         </div>
     </div>
     <!-- 搜索栏 -->
     <!-- <div class="top-search">
-  <!--   <div class="top-search">
+    <div class="top-search">
 
         <div class="inner">
             <a class="logo" href="/"><img src="/static/home/images/icons/logo.jpg" alt="U袋网" class="cover"></a> -->
@@ -161,7 +176,7 @@
         <div class="copy-box clearfix">
             <ul class="copy-links">
                 <a href="agent_level.html"><li>网店代销</li></a>
-                <a href="class_room.html"><li>U袋学堂</li></a>
+                <a href="/link"><li>友情链接</li></a>
                 <a href="udai_about.html"><li>联系我们</li></a>
                 <a href="temp_article/udai_article10.html"><li>企业简介</li></a>
                 <a href="temp_article/udai_article5.html"><li>新手上路</li></a>
@@ -174,4 +189,7 @@
         </div>
     </div>
 </body>
+<script>
+
+</script>
 </html>

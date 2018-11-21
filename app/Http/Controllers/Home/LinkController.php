@@ -4,11 +4,8 @@ namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
 use DB;
-
-use Hash;
-class HomeLoginController extends Controller
+class LinkController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +14,11 @@ class HomeLoginController extends Controller
      */
     public function index()
     {
-        return view("Home.Login.login");
+    	$data=DB::table('link')->where('status','=',1)->get();
+
+    	//dd($data);
+
+        return view('Home.Link.link',['data'=>$data]);
     }
 
     /**
@@ -25,10 +26,9 @@ class HomeLoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-  
-    public function create(Request $request)
+    public function create()
     {
-       
+        //
     }
 
     /**
@@ -39,36 +39,14 @@ class HomeLoginController extends Controller
      */
     public function store(Request $request)
     {
-       // $data=$request->all();
-        //var_dump($data);
-        $name=$request->input('user_name');
-        $password=$request->input('user_password');
-
-        $data=DB::table('user')->where('user_name','=',$name)->first();
-        $user=[];
-        if(count($data) && Hash::check($password,$data->user_password)){
-
-        		session(['id'=>$data->id]);
-        		session(['user_name',$data->user_name]);
-				return redirect("/")->with('success','登录成功');
-            // 把用户名和id存入session中
-            $user['id'] = $data->id;
-            $user['name'] = $data->user_name;
-            session(['user' => $user]);
-			return redirect("/");
-        }else{
-        	return back()->with('error','用户名或密码错误');
+        $data=$request->except(['_token']);
+        //var_dump($data);exit;
+        $link=DB::table('link')->insert($data);
+        if($link){ 
+        	return redirect("/link")->with('success','申请成功,审核结果会通过邮箱发送');
+        }else{ 
+        	return back()->with('error','申请失败,请重新申请');
         }
-
-
-    }
-
-    public function outlogin()
-    {
-       // 清除session
-       session()->pull('user');
-       echo'<script>alert("退出成功！");location="/login"</script>';
-
     }
 
     /**
@@ -90,7 +68,7 @@ class HomeLoginController extends Controller
      */
     public function edit($id)
     {
-        
+        //
     }
 
     /**

@@ -67,132 +67,23 @@
     Route::post('/doeditpwd','Home\PersonalController@doeditpwd');
 
 
-                                // end-----个人中心----
+
+    // 订单页(购物车跳转)
+    Route::resource('/order','Home\OrderController');
+    // 订单支付
+    Route::post('/orderinsert','Home\OrderController@insert');
+
     // 购物车
     Route::resource('/cart','Home\CartController');
     // 购物车数量加方法
     Route::get('/cartadd','Home\CartController@numadd');
     // 购物车删除方法
     Route::get('/cartdel','Home\CartController@cartdel');
-    // 购物车选择删除方法
-    Route::get('/cartdels','Home\CartController@cartdels');
-    // 后台登录和退出
-    Route::resource('/adminlogin','Admin\AdminLoginController');
 
-    Route::resource("/homeregister","Home\HomeRegisterController");
-    //前台注册
-    Route::get("/regits","Home\HomeRegisterController@regits");
-    //短信验证
-    Route::get("/phone","Home\HomeRegisterController@phone");
-    //发送验证
-    Route::get("/code","Home\HomeRegisterController@code");
-    //校验手机
-    Route::get("/dophone","Home\HomeRegisterController@dophone");
-    //注册成功去登录
-    Route::post("/doregister","Home\HomeRegisterController@doregister");
-    //角色列表ajax状态修改
-    Route::get("/ajaxedit","Admin\RolelistController@ajax");
-    //用户列表状态修改
-    Route::get("/ajaxuser","Admin\AdminuserController@ajaxuser");
-    //前台登录
-    Route::resource("/login","Home\HomeLoginController");
-    // 前台退出
-    Route::get("/outlogin","Home\HomeLoginController@outlogin");
-    // 前台首页
-    Route::resource('/','Home\IndexController');
-    //前台公告
-    Route::get('/home/notice','Home\IndexController@notice');
-    // 前台分类页
-    Route::resource('/home/type','Home\TypeController');
-
-                        // -----个人中心----
-    // 前台个人中心
-    Route::resource('/personal','Home\PersonalController');
-    // 前台个人中心收货地址
-    Route::get('/paddress','Home\PersonalController@address');
-    // 消息
-    Route::get('/message','Home\PersonalController@message');
-    // 删除消息
-    Route::get('/delmessage/{id}','Home\PersonalController@delmessage');
-    // ajax城市级联
-    Route::get('/city','Home\PersonalController@city');
-    // 处理地址添加
-    Route::post('/paddress/add','Home\PersonalController@createadd');
-    // 地址设为默认
-    Route::get('/paddress/default/{id}','Home\PersonalController@default');
-    // 删除地址
-    Route::get('/paddress/deladdress/{id}','Home\PersonalController@deladdress');
-    // 修改地址页面
-    Route::get('/paddress/editadd/{id}','Home\PersonalController@editadd');
-    // 处理地址修改
-    Route::post('/paddress/doeditadd','Home\PersonalController@doeditadd');
-    // 修改登录密码
-    Route::get('/editpwd','Home\PersonalController@editpwd');
-    // 验证密码
-    Route::post('/editpwds','Home\PersonalController@editpwds');
-    // 处理修改密码
-    Route::post('/doeditpwd','Home\PersonalController@doeditpwd');
-
-
-                                // end-----个人中心----
-    // 购物车
-    Route::resource('/cart','Home\CartController');
-    // 购物车数量加方法
-    Route::get('/cartadd','Home\CartController@numadd');
-    // 购物车删除方法
-    Route::get('/cartdel','Home\CartController@cartdel');
-    // 后台登录和退出
-    Route::resource('/adminlogin','Admin\AdminLoginController');
-// 后台登录权限管理
-Route::group(['middleware'=>'adminlogin'],function(){
-
-    //前台注册页面
-    Route::resource("/homeregister","Home\HomeRegisterController");
-    //前台注册
-    Route::get("/regits","Home\HomeRegisterController@regits");
-    //短信验证
-    Route::get("/phone","Home\HomeRegisterController@phone");
-    //发送验证
-    Route::get("/code","Home\HomeRegisterController@code");
-    //校验手机
-    Route::get("/dophone","Home\HomeRegisterController@dophone");
-    //注册成功去登录
-    Route::post("/doregister","Home\HomeRegisterController@doregister");
-    //角色列表ajax状态修改
-    Route::get("/ajaxedit","Admin\RolelistController@ajax");
-    //用户列表状态修改
-    Route::get("/ajaxuser","Admin\AdminuserController@ajaxuser");
-    //前台登录
-    Route::resource("/login","Home\HomeLoginController");
-    // 前台退出
-    Route::get("/outlogin","Home\HomeLoginController@outlogin");
-    // 前台首页
-    Route::resource('/','Home\IndexController');
-    //前台公告
-    Route::get('/home/notice','Home\IndexController@notice');
-    // 前台分类页
-    Route::resource('/home/type','Home\TypeController');
-
-                        // -----个人中心----
-    // 前台个人中心
-    Route::resource('/personal','Home\PersonalController');
-    // 前台个人中心收货地址
-    Route::get('/paddress','Home\PersonalController@address');
-    // ajax城市级联
-    Route::get('/city','Home\PersonalController@city');
-    // 处理地址添加
-    Route::post('/paddress/add','Home\PersonalController@createadd');
-    // 地址设为默认
-    Route::get('/paddress/default/{id}','Home\PersonalController@default');
-    // 删除地址
-    Route::get('/paddress/deladdress/{id}','Home\PersonalController@deladdress');
-    // 修改地址页面
-    Route::get('/paddress/editadd/{id}','Home\PersonalController@editadd');
-    // 处理地址修改
-    Route::post('/paddress/doeditadd','Home\PersonalController@doeditadd');
     // 修改登录密码
     Route::get('/paddress/editpwd','Home\PersonalController@editpwd');
-});
+
+
                                 // end-----个人中心----
     // 后台登录和退出
     Route::resource('/adminlogin','Admin\AdminLoginController');
@@ -215,12 +106,27 @@ Route::group(['middleware'=>'adminlogin'],function(){
     Route::get('/admineditpho','Admin\MasterController@admineditpho');
     // 执行号码修改
     Route::post('/adminupdatepho','Admin\MasterController@adminupdatepho');
-    // 后台商品分类
+    // 后台分类
     Route::resource('/admin/type','Admin\TypeController');
     // 后台商品模块
     Route::resource('/admin/goods','Admin\GoodsController');
+    // 后台订单模块
+    Route::resource('/admin/order','Admin\OrderController');
     // 后台公告模块
     Route::resource('/admin/notice','Admin\NoticeController');
+
+
+   	//后台友情链接
+   	Route::resource('/admin/link','Admin\LinkController');
+   	//后台广告模块
+   	Route::resource('/adminadvent','Admin\AdventController');
+   	//后台优惠券模块
+   	Route::resource('/coupons','Admin\CouponsController');
+   	//优惠用户关联模块
+   	Route::resource('/couponsuser','Admin\CouponsuserController');
+   	//优惠券过期时间处理
+   	Route::get('/times','Admin\CouponsController@timess');
+
 
     //后台分类下的品牌
     Route::resource('/admin/brand','Admin\BrandController');
@@ -239,29 +145,11 @@ Route::group(['middleware'=>'adminlogin'],function(){
     // 后台站内信模块
     Route::resource('/admin/message','Admin\MessageController');
 
+
 });
  // 后台公告ajax删除
     Route::get('/noticedel','Admin\NoticeController@del');
 
-
-    //前台
-    Route::resource("/homeregister","Home\HomeRegisterController");
-    //前台注册
-    Route::get("/regits","Home\HomeRegisterController@regits");
-    //短信验证
-    Route::get("/phone","Home\HomeRegisterController@phone");
-    // 发送验证
-    Route::get("/code","Home\HomeRegisterController@code");
-    //校验手机
-    Route::get("/dophone","Home\HomeRegisterController@dophone");
-    //注册成功去登录
-    Route::post("/doregister","Home\HomeRegisterController@doregister");
-    //角色列表ajax状态修改
-    Route::get("/ajaxedit","Admin\RolelistController@ajax");
-    //用户列表状态修改
-    Route::get("/ajaxuser","Admin\AdminuserController@ajaxuser");
-    //前台登录
-    Route::resource("/homelogin","Home\HomeLoginController");
 
 
     // 前台商品详情
@@ -292,3 +180,4 @@ Route::group(['middleware'=>'adminlogin'],function(){
     Route::get('/changestatus/{id}','Home\Order\OrderController@changestatus');
     // 订单中心的购买
     Route::get('/paynow/{id}','Home\Order\OrderController@paynow');
+

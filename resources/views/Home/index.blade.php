@@ -18,6 +18,11 @@
 	<style>
 	.iconfontce:hover{color: #f2f2f2};
 
+
+	#zxd_x{width:20px; height:20px;text-align:center;font-size:16px;color:red;position:absolute;right:0px; top:0px;cursor:pointer;
+	  }
+
+
 	</style>
 
 
@@ -26,6 +31,21 @@
 
 </head>
 <body>
+
+		<!--广告-->
+	<div style="z-index:999;display: block; position: fixed; right: 10px; top: 200px; " id="guanggao">
+	<div id="zxd_x" style="background-color:#ccc;">
+	<b style="margin-left:100px;">广告位</b>
+	<a title="点击关闭" style="text-decoration:none"><b style="color:red;margin-left:65px;cursor:pointer" id="anniu">X</b></a>
+	</div> 
+	<div class="content">
+	<a href="">
+	<img src="{{$advent->pic}}" width="220px"height="282px;">
+	</a>
+	</div >
+	<b style="color:orange;margin-left:60px">{{$advent->descr}}</b>
+	</div> 
+
 	<!-- 顶部tab -->
 	<div class="tab-header">
 		<div class="inner">
@@ -33,6 +53,11 @@
 				<div class="pull-left">嗨，欢迎来到<span class="cr">U袋网</span></div>
 			</div>
 			<div class="pull-right">
+
+				<a href="/homelogin"><span class="cr">登录</span></a>
+				<a href="/homeregister">注册</a>
+				<a href="udai_welcome.html">我的U袋</a>
+
 			@if(!session('user'))
 				<a href="/login"><span class="cr">登录</span></a>
 				<a href="/homeregister">注册</a>
@@ -40,6 +65,7 @@
 				<span>欢迎 {{session('user')['name']}}</span>
 				<a href="/outlogin">退出</a>
 				<a href="/personal">个人中心</a>
+
 				<a href="udai_order.html">我的订单</a>
 				<a href="udai_integral.html">积分平台</a>
 			@endif
@@ -318,7 +344,14 @@
 
 	</div>
 	<script>
+
+		$('#anniu').click(function(){ 
+			$('#guanggao').hide();
+		})
+		$(document).ready(function(){ 
+
 		$(document).ready(function(){
+
 			// 顶部banner轮播
 			var banner_swiper = new Swiper('.banner-box', {
 				autoplayDisableOnInteraction : false,
@@ -425,7 +458,7 @@
 		<div class="copy-box clearfix">
 			<ul class="copy-links">
 				<a href="agent_level.html"><li>网店代销</li></a>
-				<a href="class_room.html"><li>U袋学堂</li></a>
+				<a href="/link"><li>友情链接</li></a>
 				<a href="udai_about.html"><li>联系我们</li></a>
 				<a href="temp_article/udai_article10.html"><li>企业简介</li></a>
 				<a href="temp_article/udai_article5.html"><li>新手上路</li></a>

@@ -138,8 +138,6 @@
       </div>
       <div class="span6">
        <div class="dataTables_paginate paging_bootstrap pagination">
-
-
         {{$goods->appends($request)->render()}}
        </div>
       </div>
