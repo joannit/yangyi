@@ -52,8 +52,8 @@ class IndexController extends Controller
         //爆款推荐
         $tops = DB::select("select * from goods order by sales desc limit 6");
         //公告
-        $notice = DB:: table('notice')->get();
-        // dd($typeall);
+        $notice = DB:: table('notice')->limit(5)->get();
+        // dd($notice);
         return view('Home.index',['type'=>$type,'typeall'=>$typeall,'tops'=>$tops,'notice'=>$notice]);
     }
 

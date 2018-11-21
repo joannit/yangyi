@@ -9,10 +9,14 @@
 		<div class="content clearfix bgf5"> 
    <section class="user-center inner clearfix"> 
     <div class="user-content__box clearfix bgf"> 
+    	@if(count($cart))
+    	<div style="text-align: right"><a href="/" class="btn btn-success">继续购物</a></div>
+    	@endif
      <div class="title">
-      购物车
+      购物车	
      </div> 
-     <form action="udai_shopcart_pay.html" class="shopcart-form__box"> 
+
+     <form action="/order" class="shopcart-form__box" method="post" > 
       <table class="table table-bordered"> 
        <thead> 
         <tr> 
@@ -39,7 +43,7 @@
           <div class="type c9">
            颜色分类：{{$row->cname}} 尺码：{{$row->value}}
           </div> </td> 
-         <td class="price">&yen;{{$row->gprice}}</td> 
+         <td class="price">&yen;<span>{{$row->gprice}}</span></td> 
          <td> 
           <div class="cart-num__box"> 
            <input type="button" class="sub" value="-" /> 
@@ -47,11 +51,12 @@
            <input type="button" class="add" value="+" /> 
            <input type="hidden" name="id[]" value="{{$row->cid}}">
           </div> </td> 
-         <td class="my">&yen;{{$row->gprice*$row->num}}</td> 
+         <td class="my">&yen;<span>{{$row->gprice*$row->num}}</span></td> 
          <td><a href="jacascript::void(0)" class="del">删除</a></td> 
         </tr> 
         @endforeach
-       
+       {{csrf_field()}}
+
        </tbody> 
       </table> 
       <div class="user-form-group tags-box shopcart-submit pull-right"> 
@@ -63,15 +68,19 @@
        <div class="pull-right">
          已选商品 
         <span>0</span> 件 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合计（不含运费） 
-        <b class="cr">&yen;<span class="fz24">0</span></b> 
+        <b class="cr">&yen;<span class="fz24"></span></b> 
        </div> 
-
+	</form>
       </div> 
  		@else
         
         	<center><font size="5">暂无数据 <a href="/">点击购物</a></font></center>
    		 
-        @endif	
+        @endif
+
+    </div> 
+   </section> 
+  </div>	
       <script>
 						$(document).ready(function(){
 						
@@ -105,17 +114,18 @@
 			$('input[class=add]').click(function(){
 				var num = parseInt($(this).prev().val())+1;
 				var id = $(this).next().val();
-				var price = parseInt($(this).parents().prev().html().replace(/[^0-9]/ig,""));
-				var vals= price*num;
+				var price = parseFloat($(this).parents().prev('td').find('span').html());
+				var vals= (Number(price*num)).toFixed(2);
 				var c =$(this);
 				$.get('/cartadd',{num:num,id:id},function(data){
 					if(data == 1){
-						c.parents().next('td').html('¥'+vals);
+						c.parents().next('td').children('span').html(vals);	
 						// 总金额刷新
+						test();
 					test();
 					}else{
 						alert('库存数不够');
-						c.prev().val(data);
+						c.prev().val(num-1);
 						test();
 					}
 				})
@@ -129,11 +139,11 @@
 					num =1;
 				}
 				var id = $(this).next().next().next().val();
-				var price = parseInt($(this).parents().prev().html().replace(/[^0-9]/ig,""));
-				var vals= price*num;
+				var price = parseFloat($(this).parents().prev('td').find('span').html());
+				var vals= (Number(price*num)).toFixed(2);
 				$.get('/cartadd',{num:num,id:id},function(data){
 					if(data == 1){
-					c.parents().next('td').html('¥'+vals);
+					c.parents().next('td').children('span').html(vals);
 						// 总金额刷新
 					test();
 				}
@@ -194,6 +204,10 @@
 			      for(var i=0;i<arr.length;i++){
 			        //获取选中数据input
 			        $("input[value='"+arr[i]+"']").parents("tr").remove();
+			        if($('tbody').find('tr').length <1){
+			        $('form').remove();
+			        $('.bgf').html('<center><font size="5">暂无数据 <a href="/">点击购物</a></font></center>');
+			        }
 			      }
 			    }else{
 			        alert(data);
@@ -208,10 +222,10 @@
 			})
 			function test(){
 				var s = 0;
-				m = 0;
+				var m = 0;
 				$('.int').each(function(){
 				if($(this).prop("checked")){
-				m+=parseInt($(this).parents('tr').find('td[class=my]').html().replace(/[^0-9]/ig,""));
+				m+=parseFloat($(this).parents('tr').find('td[class=my]').children('span').html());
 				s+=1;
 				}
 				});
@@ -223,26 +237,46 @@
 				var id = $(this).next().next().val();
 				var num = $(this).val();
 				var c = $(this);
-				var price = parseInt($(this).parents().prev().html().replace(/[^0-9]/ig,""));
-				var vals= price*num;
+				var price = $(this).parents().prev().find('span').html();
+				// alert(price);
+				var vals= (Number(price*num)).toFixed(2);
 				$.get('/cartadd',{num:num,id:id},function(data){
 					if(data == 1){
-					c.parents().next('td').html('¥'+vals);
+					c.parents().next('td').find('span').html(vals);
 						// 总金额刷新
 					test();
 				}else{
-					alert('库存数不够');
-					c.val(data);
+					alert('库存数不够或数量为发生改变');
+					c.val(1);
 					test();
 				}
 			})
 			})
-			$('.check-all').trigger('click');	
+			var a = 0;
+			// 提交订单
+			$('.btn').click(function(){
+				// 如果没有选中就删除隐藏框
+				$('.int').each(function(){
+				if(!$(this).prop("checked")){
+					$(this).parents('tr').find('input[type=hidden]').remove();
+				}else{
+					a++;
+				}
+				});
+			})
+			$('.check-all').trigger('click');
+			$('form').submit(function(){
+				if(a>0){
+					return true;
+				}else{
+					alert('请选择商品');
+					return false;
+				}
+			// 小计刷新
+
+			})
 		</script>
 
-     </form> 
-    </div> 
-   </section> 
-  </div>
+    
 @endsection
 @section('title','购物车')

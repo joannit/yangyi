@@ -76,6 +76,11 @@ Route::get('/cartadd','Home\CartController@numadd');
 Route::get('/cartdel','Home\CartController@cartdel');
 // 购物车选择删除方法
 Route::get('/cartdels','Home\CartController@cartdels');
+// 订单页(购物车跳转)
+Route::resource('/order','Home\OrderController');
+// 订单支付
+Route::post('/orderinsert','Home\OrderController@insert');
+
 // 后台登录和退出
 Route::resource('/adminlogin','Admin\AdminLoginController');
 
@@ -215,13 +220,14 @@ Route::group(['middleware'=>'adminlogin'],function(){
     Route::get('/admineditpho','Admin\MasterController@admineditpho');
     // 执行号码修改
     Route::post('/adminupdatepho','Admin\MasterController@adminupdatepho');
-    // 后台商品分类
+    // 后台分类
     Route::resource('/admin/type','Admin\TypeController');
     // 后台商品模块
     Route::resource('/admin/goods','Admin\GoodsController');
+    // 后台订单模块
+    Route::resource('/admin/order','Admin\OrderController');
     // 后台公告模块
     Route::resource('/admin/notice','Admin\NoticeController');
-
     //后台分类下的品牌
     Route::resource('/admin/brand','Admin\BrandController');
     // 添加商品里的ajax查品牌
