@@ -87,7 +87,7 @@
                                 </ul>
                             </div>
                             <script>
-                            	
+
                                 // 会员价格折叠展开
                                 $(function () {
                                     $('.vip-price-panel').click(function() {
@@ -112,7 +112,7 @@
                         </li>
                         <li class="item-ind-item">
                             <a href=""><span class="ind-label c9">累计评论</span>
-                            <span class="ind-count cr">{{$comnum}}</span></a>
+                            <span class="ind-count cr">@if(count($comnum)){{$comnum}}@else 0 @endif</span></a>
                         </li>
                         <li class="item-ind-item">
                             <span class="ind-label c9">赠送积分</span>
@@ -192,7 +192,7 @@
             </div>
 
                 <script>
-                	
+
                     $(document).ready(function(){
                         // 顶部banner轮播
                         var picked_swiper = new Swiper('.picked-swiper', {
@@ -327,28 +327,28 @@
                 })
 
                 //判断进入页面收藏是否
-                $(function(){ 
+                $(function(){
 					vv=$('.goodscolor').find('input:first').val();
-					$.get('/shoucang',{id:vv},function(data){ 
+					$.get('/shoucang',{id:vv},function(data){
                 			//alert(data);
-                			if(data==1){ 
+                			if(data==1){
                 				$('#shoucangss').html('取消收藏');
-                			}else{ 
+                			}else{
                 				$('#shoucangss').html('收藏该商品');
                 			}
                 		});
                 });
 
                 //获取当前信息id
-                $('#shoucangss').click(function(){ 
+                $('#shoucangss').click(function(){
                 	vv=$('.goodscolor').find('input:first').val();
-                	$.get('/shoucangs',{id:vv},function(data){ 
+                	$.get('/shoucangs',{id:vv},function(data){
                 		//alert(data);
-                		if(data==1){ 
-                			$('#shoucangss').html('收藏该商品');	
-                		}else if(data==2){ 
+                		if(data==1){
+                			$('#shoucangss').html('收藏该商品');
+                		}else if(data==2){
 							$('#shoucangss').html('取消收藏');
-                		}else{ 
+                		}else{
                 			alert('请先登录在再收藏');
                 			$('#shoucangss').html('收藏该商品');
                 		}
@@ -373,7 +373,7 @@
                             <!-- 商品详情 -->
                             <center>
                             <p style="text-align: center;">
-                               <!-- {!!$goods->descr!!}   -->                  
+                               <!-- {!!$goods->descr!!}   -->
                             </p>
                             </center>
                         </div>
@@ -412,7 +412,7 @@
                                  </div>
                                     <!-- 分页 -->
                                     <div class="page text-center clearfix">
-                                       {{$comment->appends($request)->render()}} 
+                                       {{$comment->appends($request)->render()}}
                                     </div>
                                 </div>
                             </div>
@@ -449,7 +449,7 @@
                     </div>
 
                     <div role="tabpanel" class="tab-pane fade" id="service-tab" aria-labelledby="service-tab">
-                       
+
                     </div>
                 </div>
             </div>

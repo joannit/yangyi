@@ -44,7 +44,7 @@ class GoodsinfoController extends Controller
     public function store(Request $request)
     {
 
-       
+
         // 判断如果没登录则不能进入购买+++++++++++++++++++++++++++++++++++++++++++
         // dd($request->all());
         $gid=$request->input('gid');
@@ -156,13 +156,10 @@ class GoodsinfoController extends Controller
         // 查询评价
         $comment = DB::table('comment')->join('user_info','comment.uid','=','user_info.uid')->where('comment.gid','=',$data->id)->paginate(10);;
         // dd($comment);
-        return view('Home.Goods.index',['type'=>$goodsname,'goods'=>$data,'goodsinfo'=>$ginfo,'hot'=>$hot,'comment'=>$comment,'request'=>$request->all()]);
-
-        // 评论数
+         // 评论数
         $comnum=DB::table('comment')->where('gid','=',$id)->count();
+        return view('Home.Goods.index',['type'=>$goodsname,'goods'=>$data,'goodsinfo'=>$ginfo,'hot'=>$hot,'comment'=>$comment,'request'=>$request->all(),'comnum'=>$comnum]);
 
-        // dd($data,$comnum);
-        return view('Home.Goods.index',['type'=>$goodsname,'goods'=>$data,'goodsinfo'=>$ginfo,'comnum'=>$comnum]);
 
     }
     // 获取所有商品上级分类
@@ -202,36 +199,6 @@ class GoodsinfoController extends Controller
     // 添加到购物车
     public function addcart(Request $request)
     {
-
-        // 商品详情id
-        $id=$request->input('ginfoid');
-        // 数量
-        $num=$request->input('num');
-        // 获取用户id
-        $uid=session('user')['id'];
-
-        // 查询购物车表 商品重复则加数量不重复则添加
-        $bool=DB::table('cart')->where('ginfo_id','=',$id)->where('uid','=',$uid)->first();
-
-        // dd($bool);
-        if(count($bool)) {
-            $cid=$bool->id;
-            // 判断是否是否能大于库存
-            $gnum=DB::table('goodsinfo')->where('id','=',$bool->ginfo_id)->first()->store;
-            // dd($gnum);
-            // dd($cid);
-            // 购物车有相同商品数量想加
-            $bool->num+=$num;
-            foreach($bool as $key=>$val) {
-                $data[$key]=$val;
-            }
-            // 大于库存则等于库存
-            if($data['num'] > $gnum)$data['num']=$gnum;
-            // dd($data);
-            $bool1=DB::table('cart')->where('id','=',$cid)->update($data);
-            if ($bool) {
-
-        $gid=$request->input('gid');
 
 
         if(session('user')) {
@@ -398,7 +365,7 @@ class GoodsinfoController extends Controller
     }
     //收藏
     public function shoucang(Request $request)
-    { 
+    {
     	$id=$request->input('id');
     	//echo $row['gid'];exit;
     	$uid=session('user')['id'];
@@ -407,15 +374,15 @@ class GoodsinfoController extends Controller
     	$data=DB::table('house')->where('gid','=',$id)->where('uid','=',$uid)->get();
     	//echo $data;exit;
     	//echo $data;exit;
-    	if(count($data)){ 
+    	if(count($data)){
     		echo 1;
-    	}else{ 
+    	}else{
     		echo 2;
     	}
     }
 
     public function shoucangs(Request $request)
-    { 
+    {
     	$gid=$request->input('id');
     	$uid=session('user')['id'];
     	if(!empty(session('user'))){
@@ -424,32 +391,32 @@ class GoodsinfoController extends Controller
     	//echo $data;exit;
     	$row=json_decode($data,true);
     	//var_dump($row);exit;
-    	foreach($row as $value){ 
+    	foreach($row as $value){
 
     		$id=$value['id'];
     	}
-    	if(count($data)){ 
+    	if(count($data)){
     		$res=DB::table('house')->where('id','=',$id)->delete();
-    		if($res){ 
+    		if($res){
     			echo 1;
     		}
-    	}else{ 
+    	}else{
     		$row['gid']=$gid;
     		$row['uid']=$uid;
     		$rows=DB::table('house')->insert($row);
-    		if($row){ 
+    		if($row){
     			echo 2;
     		}
     	}
-    	}else{ 
+    	}else{
     		echo 3;
     	}
     }
     public function docoupons(Request $request)
-    { 
+    {
     	$id=$request->input('id');
     	//echo $id;exit;
-    	$datas=DB::table('couponsuser')->join('coupons','coupons.id','=','couponsuser.ponsid')->select('coupons.*','couponsuser.*','coupons.id as cid','couponsuser.id as cpid')->where('couponsuser.id','=',$id)->first();	
+    	$datas=DB::table('couponsuser')->join('coupons','coupons.id','=','couponsuser.ponsid')->select('coupons.*','couponsuser.*','coupons.id as cid','couponsuser.id as cpid')->where('couponsuser.id','=',$id)->first();
     	//dd($datas);
     	if(count($datas)){
     	$data['pname']=$datas->pname ;
@@ -459,7 +426,7 @@ class GoodsinfoController extends Controller
     	$data['cpid']=$datas->cpid;
     	$data['lowmoney']=$datas->lowmoney;
     	return $data;
-    	}else{ 
+    	}else{
     		return 0;
     	}
     }

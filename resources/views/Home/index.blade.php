@@ -33,11 +33,13 @@
 <body>
 
 		<!--广告-->
+		@if(count($advent))
 	<div style="z-index:999;display: block; position: fixed; right: 10px; top: 200px; " id="guanggao">
 	<div id="zxd_x" style="background-color:#ccc;">
 	<b style="margin-left:100px;">广告位</b>
 	<a title="点击关闭" style="text-decoration:none"><b style="color:red;margin-left:65px;cursor:pointer" id="anniu">X</b></a>
 	</div>
+
 	<div class="content">
 	<a href="">
 	<img src="{{$advent->pic}}" width="220px"height="282px;">
@@ -45,7 +47,7 @@
 	</div >
 	<b style="color:orange;margin-left:60px">{{$advent->descr}}</b>
 	</div>
-
+	@endif
 	<!-- 顶部tab -->
 	<div class="tab-header">
 		<div class="inner">
@@ -348,7 +350,6 @@
 
 	</div>
 	<script>
-<<<<<<< HEAD
 		//隐藏广告
 		$('#anniu').click(function(){
 			//alert(1);
@@ -377,7 +378,7 @@
 			// 页面下拉固定楼层导航
 			$('.floor-nav').smartFloat();
 			$('.to-top').toTop({position:false});
-		});
+
 	</script>
 	<!-- 右侧菜单 -->
 	@if(session('user'))
