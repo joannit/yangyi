@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Home;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
 use DB;
-
-use Hash;
-class HomeLoginController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view("Home.Login.login");
+        // 获取订单列表
+        $order = DB::table('order')->join('address','order.addid','=','address.id')->join('user','order.uid','=','user.id')->select('order.*','address.id as aid','address.*','user.user_name')->orderBy('ostatus','asc')->paginate(5);
+        // dd($order);
+        return view('Admin.Order.index',['order'=>$order,'request'=>$request->all()]);
     }
 
     /**
@@ -25,10 +25,9 @@ class HomeLoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function create(Request $request)
+    public function create()
     {
-
+        //
     }
 
     /**
@@ -39,39 +38,7 @@ class HomeLoginController extends Controller
      */
     public function store(Request $request)
     {
-       // $data=$request->all();
-        //var_dump($data);
-        $name=$request->input('user_name');
-        $password=$request->input('user_password');
-
-        $data=DB::table('user')->where('user_name','=',$name)->first();
-        $user=[];
-        if(count($data)){
-
-
-        	if(Hash::check($password,$data->user_password)){
-
-            // 把用户名和id存入session中
-           		 $user['id'] = $data->id;
-            	$user['name'] = $data->user_name;
-            	session(['user' => $user]);
-				return redirect("/");
-			}else{ 
-				return back()->with('error','密码有误');
-			}
-        }else{
-        	return back()->with('error','用户名错误');
-        }
-
-
-    }
-
-    public function outlogin()
-    {
-       // 清除session
-       session()->pull('user');
-       echo'<script>alert("退出成功！");location="/login"</script>';
-
+        //
     }
 
     /**
@@ -93,7 +60,7 @@ class HomeLoginController extends Controller
      */
     public function edit($id)
     {
-
+        //
     }
 
     /**

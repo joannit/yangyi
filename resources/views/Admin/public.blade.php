@@ -146,7 +146,7 @@
       </ul> </li>
      <li> <a class="active" href="javascript:;"> <i class="icon-file-text"></i> <span class="title">订单管理</span> <span class="arrow "></span> </a>
       <ul class="sub-menu">
-       <li> <a href="#"> 订单列表 </a> </li>
+       <li> <a href="/admin/order"> 订单列表 </a> </li>
       </ul> </li>
      <li> <a class="active" href="javascript:;"> <i class="icon-thumbs-up"></i> <span class="title">评价管理</span> <span class="arrow "></span> </a>
       <ul class="sub-menu">

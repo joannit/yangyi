@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
     //前台
 	Route::resource("/homeregister","Home\HomeRegisterController");
 	//前台注册
@@ -56,11 +57,11 @@
 	Route::get('/outlogins','Home\LoginsController@outlogins');
     //前台登录
     Route::resource("/login","Home\HomeLoginController");
-    // 前台退出
+    // // 前台退出
     Route::get("/outlogin","Home\HomeLoginController@outlogin");
     // 前台首页
     Route::resource('/','Home\IndexController');
-    //前台公告
+    // //前台公告
     Route::get('/home/notice','Home\IndexController@notice');
     // 前台分类页
     Route::resource('/home/type','Home\TypeController');
@@ -110,14 +111,29 @@ Route::group(['middleware'=>'login'],function(){
                                 // end-----个人中心----	
 });
    
+
+
+    // 订单页(购物车跳转)
+    Route::resource('/order','Home\OrderController');
+    // 订单支付
+    Route::post('/orderinsert','Home\OrderController@insert');
+
     // 购物车
     Route::resource('/cart','Home\CartController');
     // 购物车数量加方法
     Route::get('/cartadd','Home\CartController@numadd');
     // 购物车删除方法
     Route::get('/cartdel','Home\CartController@cartdel');
-    // 后台登录和退出
-    Route::resource('/adminlogin','Admin\AdminLoginController');
+
+
+
+
+
+
+
+    // 修改登录密码
+    Route::get('/paddress/editpwd','Home\PersonalController@editpwd');
+
 
                                 // end-----个人中心----
     // 后台登录和退出
@@ -141,12 +157,15 @@ Route::group(['middleware'=>'adminlogin'],function(){
     Route::get('/admineditpho','Admin\MasterController@admineditpho');
     // 执行号码修改
     Route::post('/adminupdatepho','Admin\MasterController@adminupdatepho');
-    // 后台商品分类
+    // 后台分类
     Route::resource('/admin/type','Admin\TypeController');
     // 后台商品模块
     Route::resource('/admin/goods','Admin\GoodsController');
+    // 后台订单模块
+    Route::resource('/admin/order','Admin\OrderController');
     // 后台公告模块
     Route::resource('/admin/notice','Admin\NoticeController');
+
 
    	//后台友情链接
    	Route::resource('/admin/link','Admin\LinkController');
@@ -182,6 +201,8 @@ Route::group(['middleware'=>'adminlogin'],function(){
  // 后台公告ajax删除
     Route::get('/noticedel','Admin\NoticeController@del');
 
+
+
     // 前台商品详情
 
     Route::get('/homegoodsinfo/{id}','Home\Goods\GoodsinfoController@goodsinfo');
@@ -195,10 +216,31 @@ Route::group(['middleware'=>'adminlogin'],function(){
  
     // 加入购物车
     Route::any('/addcart','Home\Goods\GoodsinfoController@addcart');
+
   
     //前台优惠券的使用
     Route::get('/docoupons','Home\Goods\GoodsinfoController@docoupons');
 
+
+
     // 支付页设置默认地址
     Route::get('/defaultadd','Home\Goods\GoodsinfoController@defaultadd');
+
+
+    //立即购买支付
+    Route::any('/pay','Home\Goods\GoodsinfoController@pays');
+
+    // 支付成功页面
+    Route::get('/payfinished','Home\Goods\GoodsinfoController@payfinished');
+    // 订单中心
+    Route::resource('/myorder','Home\Order\OrderController');
+    // 确认订单后改变订单状态
+    Route::get('/changestatus/{id}','Home\Order\OrderController@changestatus');
+    // 订单中心的购买
+    Route::get('/paynow/{id}','Home\Order\OrderController@paynow');
+    // 确认订单时没有地址返回
+    Route::get('/ordersure','Home\Goods\GoodsinfoController@goodsinfo');
+
+    // 企业简介
+    Route::get('/aboutus','Home\IndexController@aboutus');
 

@@ -52,6 +52,9 @@ class IndexController extends Controller
         //爆款推荐
         $tops = DB::select("select * from goods order by sales desc limit 6");
         //公告
+
+        $notice = DB:: table('notice')->limit(5)->get();
+        // dd($notice);
         $notice = DB:: table('notice')->get();
 
         //广告
@@ -156,5 +159,10 @@ class IndexController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function aboutus()
+    {
+        return view('Home.aboutus');
     }
 }

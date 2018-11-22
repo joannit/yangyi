@@ -22,17 +22,19 @@
     <script src="/static/home/js/jquery.DJMask.2.1.1.js" charset="UTF-8"></script>
 
     <title>@yield('title')</title>
-  
+
 <style>
 
 </style>
 </head>
 <body>
-	
+
     <!-- 顶部tab -->
     <div class="tab-header">
         <div class="inner">
             <div class="pull-left">
+
+
                 <div class="pull-left">嗨，欢迎来到<span class="cr">U袋网</span></div>
 
             </div>
@@ -41,12 +43,13 @@
                 <a href="/login"><span class="cr">登录</span></a>
                 <a href="/homeregister">注册</a>
             @else
-                <span>欢迎 {{session('user')['name']}}</span>
+                <font>欢迎 {{session('user')['name']}}</font>
                 <a href="/outlogin">退出</a>
                 <a href="/personal">个人中心</a>
                 <a href="udai_order.html">我的订单</a>
                 <a href="udai_integral.html">积分平台</a>
             @endif
+
             </div>
         </div>
     </div>
@@ -62,7 +65,7 @@
         @endif
     <!-- 搜索栏 -->
     <!-- <div class="top-search">
-  <!--   <div class="top-search">
+    <div class="top-search">
 
         <div class="inner">
             <a class="logo" href="/"><img src="/static/home/images/icons/logo.jpg" alt="U袋网" class="cover"></a> -->
@@ -197,6 +200,6 @@
     </div>
 </body>
 <script>
-	
+
 </script>
 </html>

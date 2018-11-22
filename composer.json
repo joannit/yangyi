@@ -33,6 +33,7 @@
 			"app/Library/helper.php"
 		]
 
+
     },
     "autoload-dev": {
         "psr-4": {

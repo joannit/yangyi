@@ -26,11 +26,13 @@ class CartController extends Controller
         $id = $request->input('id');
         // 查询当前商品库存
         $store = DB::table('goodsinfo')->join('cart','goodsinfo.id','=','cart.ginfo_id')->where('cart.id','=',$id)->first();
+
         if($num>$store->store){
-            echo $store->store;
+            echo 2;
         }else{
-            echo 1;
-            DB::table('cart')->where('id','=',$id)->update(['num'=>$num]);
+            if(DB::table('cart')->where('id','=',$id)->update(['num'=>$num])){
+                echo 1;
+            }
         }
     }
     // ajax删除
