@@ -196,10 +196,9 @@ class GoodsinfoController extends Controller
     }
 
 
-    // 添加到购物车
+   // 添加到购物车
     public function addcart(Request $request)
     {
-
         // 商品详情id
         $id=$request->input('ginfoid');
         // 数量
@@ -228,61 +227,23 @@ class GoodsinfoController extends Controller
             $bool1=DB::table('cart')->where('id','=',$cid)->update($data);
             if ($bool) {
 
-        $gid=$request->input('gid');
-
-
-        if(session('user')) {
-        // 商品详情id
-            $id=$request->input('ginfoid');
-            // $id=11;
-            // 数量
-            $num=$request->input('num');
-            // 获取用户id
-            $uid=session('user')['id'];
-            // echo $uid;
-            // echo $id;
-            // dd($uid);
-            // 查询购物车表 商品重复则加数量不重复则添加
-            $bool=DB::table('cart')->where('ginfo_id','=',$id)->where('uid','=',$uid)->first();
-
-            // dd($bool);
-            if(count($bool)) {
-                $cid=$bool->id;
-                // 判断是否是否能大于库存
-                $gnum=DB::table('goodsinfo')->where('id','=',$bool->ginfo_id)->first()->store;
-                // dd($gnum);
-                // dd($cid);
-                // 购物车有相同商品数量想加
-                $bool->num+=$num;
-                foreach($bool as $key=>$val) {
-                    $data[$key]=$val;
-                }
-                // 大于库存则等于库存
-                if($data['num'] > $gnum)$data['num']=$gnum;
-                // dd($data);
-                $bool1=DB::table('cart')->where('id','=',$cid)->update($data);
-                if ($bool) {
-
-                    return redirect('/cart');
-                } else {
-                    // 添加购无车失败 未知错误
-                    return back()->with('error','添加失败,未知错误');
-                }
+                return redirect('/cart');
             } else {
-                // 没有重复商品 插入
-                $bool2=DB::table('cart')->insert(['uid'=>$uid,'ginfo_id'=>$id,'num'=>$num]);
-                // echo $bool2;
-                if($bool2) {
-                    // 插入成功++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                     return redirect('/cart');
-                } else {
-                    // 插入失败
-                    return back()->with('error','添加失败,未知错误');
-                }
-
+                // 添加购无车失败 未知错误
+                return back()->with('error','添加失败,未知错误');
             }
         } else {
-            echo '<script>alert("您还未登录,请先登录");location="/homegoodsinfo/'.$gid.'";</script>';
+            // 没有重复商品 插入
+            $bool2=DB::table('cart')->insert(['uid'=>$uid,'ginfo_id'=>$id,'num'=>$num]);
+            // echo $bool2;
+            if($bool2) {
+                // 插入成功++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                 return redirect('/cart');
+            } else {
+                // 插入失败
+                return back()->with('error','添加失败,未知错误');
+            }
+
         }
 
     }
