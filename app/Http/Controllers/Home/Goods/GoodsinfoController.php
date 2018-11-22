@@ -137,11 +137,13 @@ class GoodsinfoController extends Controller
         krsort($goodsname);
 
         $ginfo=GoodsInfo::where('gid','=',$id)->get();
-
-        return view('Home.Goods.index',['type'=>$goodsname,'goods'=>$data,'goodsinfo'=>$ginfo]);
+        // 爆款推荐
+        $hot = DB::table('goods')->orderBy('sales')->get();
+        // 查询评价
+        $comment = DB::table('comment')->join('user_info','comment.uid','=','user_info.uid')->where('comment.gid','=',$data->id)->paginate(10);;
+        // dd($comment);
+        return view('Home.Goods.index',['type'=>$goodsname,'goods'=>$data,'goodsinfo'=>$ginfo,'hot'=>$hot,'comment'=>$comment,'request'=>$request->all()]);
     }
-
-
     // 获取所有商品上级分类
     public function type($pid)
     {

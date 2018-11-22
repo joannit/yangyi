@@ -93,7 +93,7 @@
 			</div>
 			<div class="cart-box">
 				<a href="/cart" class="cart-but">
-					<i class="iconfont icon-shopcart cr fz16"></i> 购物车 0 件
+					<i class="iconfont icon-shopcart cr fz16"></i> 购物车
 				</a>
 			</div>
 		</div>
@@ -256,8 +256,9 @@
 					<div class="notice-box bgf5">
 						<div class="swiper-container">
 							<div class="swiper-wrapper">
-							@foreach($notice as $n)
-								<a class="swiper-slide ep" href="/home/notice?id={{$n->id}}" target="_blank">[公告] {{$n->title}}</a>
+							@foreach($notice as $nt)
+								<a class="swiper-slide ep" href="/home/notice?id={{$nt->id}}" target="_blank">[公告] {{$nt->title}}</a>
+
 							@endforeach
 							</div>
 						</div>
@@ -343,8 +344,8 @@
 		$('#anniu').click(function(){ 
 			$('#guanggao').hide();
 		})
-		$(document).ready(function(){ 
-
+		// $(document).ready(function(){ 
+		// })
 		$(document).ready(function(){
 
 			// 顶部banner轮播

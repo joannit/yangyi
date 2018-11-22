@@ -79,7 +79,8 @@
     Route::get('/cartadd','Home\CartController@numadd');
     // 购物车删除方法
     Route::get('/cartdel','Home\CartController@cartdel');
-
+    //购物车批量删除
+    Route::get('/cartdels','Home\CartController@cartdels');
     // 修改登录密码
     Route::get('/paddress/editpwd','Home\PersonalController@editpwd');
 
@@ -114,8 +115,6 @@ Route::group(['middleware'=>'adminlogin'],function(){
     Route::resource('/admin/order','Admin\OrderController');
     // 后台公告模块
     Route::resource('/admin/notice','Admin\NoticeController');
-
-
    	//后台友情链接
    	Route::resource('/admin/link','Admin\LinkController');
    	//后台广告模块
@@ -126,8 +125,6 @@ Route::group(['middleware'=>'adminlogin'],function(){
    	Route::resource('/couponsuser','Admin\CouponsuserController');
    	//优惠券过期时间处理
    	Route::get('/times','Admin\CouponsController@timess');
-
-
     //后台分类下的品牌
     Route::resource('/admin/brand','Admin\BrandController');
     // 添加商品里的ajax查品牌
@@ -138,13 +135,12 @@ Route::group(['middleware'=>'adminlogin'],function(){
     Route::any('/updatebrand','Admin\GoodsController@updatebr');
     // 商品详情
     Route::resource('/admin/goodsinfo','Admin\GoodsInfoController');
-
+    // 商品描述
+    Route::resource('/admin/gdescr','Admin\GoodsDescrController');
     // 后台评论管理模块
     Route::resource('/admin/comment','Admin\CommentController');
-
     // 后台站内信模块
     Route::resource('/admin/message','Admin\MessageController');
-
 
 });
  // 后台公告ajax删除

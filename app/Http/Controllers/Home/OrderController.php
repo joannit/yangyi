@@ -59,7 +59,7 @@ class OrderController extends Controller
         // 购物车id
         $cid = $request->input('cid');
         $count = $request->input('count');
-        // $oid =$order['ordernum'];
+        $onum =$order['ordernum'];
         // 获取订单详情需要的数据
         $info = DB::table('cart')->join('goodsinfo','cart.ginfo_id','=','goodsinfo.id')->whereIn('cart.id',$cid)->select('cart.ginfo_id as ginfoid','cart.num','goodsinfo.gprice as price','goodsinfo.discount as discount')->get();  
         // dd($info);
@@ -95,14 +95,13 @@ class OrderController extends Controller
             foreach ($ar as $v) {
                 DB::table('goodsinfo')->where('id','=',$v['ginfoid'])->decrement('store',$v['num']);
             }
+
             
         }
         }else{
             echo '<script>alert("订单提交失败");location="/order"</script>';
         }
-        
-       
-
+        pay($onum,$oid,'羊燚网商');
     }
 
     /**
