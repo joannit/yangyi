@@ -331,4 +331,40 @@ class PersonalController extends Controller
             echo '<script>alert("删除失败！");location="/message"</script>';
         }
     }
+    //获取优惠券
+    public function coupons()
+    { 
+    	$uid=session('user')['id'];
+    	//echo $uid;exit;
+    	$data=DB::table('couponsuser')->join('coupons','coupons.id','=','couponsuser.ponsid')->where('couponsuser.uid','=',$uid)->select('coupons.*')->orderBy('couponsuser.id','asc')->get();
+    	//dd($data);
+    	return view('Home.Personal.coupons',['data'=>$data]);
+    }
+    //获取收藏
+    public function house()
+    { 
+    	$uid=session('user')['id'];
+    	//echo $uid;
+    	$data=DB::table('house')->join('goodsinfo','house.gid','=','goodsinfo.id')->join('goods','goodsinfo.gid','=','goods.id')->select('goods.*','goodsinfo.id as gid')->get();
+    	//dd($data);
+    	return view('Home.Personal.house',['data'=>$data]);
+    }
+    //删除收藏
+    public function houses(Request $request,$id)
+    { 
+    	//获取用户id 和 商品 id;
+    	$uidss=session('user')['id'];
+    	//dd($uid);
+    	$gid=$id;
+    	//dd($gid);
+    	//删除数据
+    	$data=DB::table('house')->where('gid','=',$gid)->where('uid','=',$uidss)->delete();
+    	//删除成功跳转
+    	if($data){ 
+    		return redirect('/house');
+    	}else{ 
+    		return redirect('/house');
+    	}
+
+    }
 }

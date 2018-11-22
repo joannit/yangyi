@@ -54,9 +54,7 @@
 			</div>
 			<div class="pull-right">
 
-				<a href="/homelogin"><span class="cr">登录</span></a>
-				<a href="/homeregister">注册</a>
-				<a href="udai_welcome.html">我的U袋</a>
+				
 
 			@if(!session('user'))
 				<a href="/login"><span class="cr">登录</span></a>
@@ -73,6 +71,14 @@
 			</div>
 		</div>
 	</div>
+
+	  @if(session('error'))
+          <div class="alert alert-warning alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span></button>
+        <center><strong>{{session('error')}}</strong></center>
+        </div>
+        @endif
 	<!-- 搜索栏 -->
 	<div class="top-search">
 		<div class="inner">
@@ -236,7 +242,7 @@
 					</a>
 					<div class="right-box hot-box">
 					@foreach($tops as $hot)
-						<a href="item_show.html" class="floor-item">
+						<a href="/homegoodsinfo/{{$hot->id}}" class="floor-item">
 							<div class="item-img hot-img">
 								<img src="/uploads/goods/{{$hot->pic}}" alt="{{$hot->name}}" class="cover">
 							</div>
@@ -267,7 +273,7 @@
 					</div>
 					<div class="buts-box bgf5">
 						<div class="but-div">
-							<a href="">
+							<a href="http://m.kuaidi100.com/index_all.html?type={$vo{$vo['postmode']}&postid=" style="color: #999;">
 								<i class="but-icon"></i>
 								<p>物流查询</p>
 							</a>
@@ -342,11 +348,12 @@
 
 	</div>
 	<script>
-
-		$('#anniu').click(function(){ 
+		//隐藏广告
+		$('#anniu').click(function(){
+			//alert(1);
 			$('#guanggao').hide();
 		})
-		$(document).ready(function(){ 
+
 
 		$(document).ready(function(){
 

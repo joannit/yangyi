@@ -50,6 +50,16 @@
             </div>
         </div>
     </div>
+
+
+
+      @if(session('error'))
+          <div class="alert alert-warning alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span></button>
+        <center><strong>{{session('error')}}</strong></center>
+        </div>
+        @endif
     <!-- 搜索栏 -->
     <!-- <div class="top-search">
   <!--   <div class="top-search">

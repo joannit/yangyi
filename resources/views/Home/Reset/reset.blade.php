@@ -16,7 +16,7 @@
  </head> 
  <body> 
   <div class="public-head-layout container"> 
-   <a class="logo" href="index.html"><img src="/static/home/images/icons/logo.jpg" alt="U袋网" class="cover" /></a> 
+   <a class="logo" href="/"><img src="/static/home/images/icons/logo.jpg" alt="U袋网" class="cover" /></a> 
   </div> 
   <div style="background:url(/static/home/images/login_bg.jpg) no-repeat center center; "> 
    <div class="login-layout container"> 
@@ -146,7 +146,7 @@
     <!--密码找回-->
     <div class="form-box resetpwd" style="display: block;"> 
      <div class="tabs-nav clearfix"> 
-      <h2>找回密码<a href="/homelogin" class="pull-right fz16" id="pwdlogin">返回登录</a></h2> 
+      <h2>找回密码<a href="/login" class="pull-right fz16" id="pwdlogin">返回登录</a></h2> 
      </div> 
      <div class="tabs_container"> 
       <form class="tabs_form" action="/doreset" method="post" id="resetpwd_form"> 
@@ -179,7 +179,7 @@
        <div class="form-group">
   
         <div class="error_msg" id="resetpwd_error"></div> 
-    
+    	{{csrf_field()}}
        </div> 
        <button class="btn btn-large btn-primary btn-lg btn-block submit" id="resetpwd_submit" type="submit">重置密码</button> 
       </form> 
@@ -230,7 +230,7 @@
 
 			}else{ 
 			$("#resetpwd_error").html('请输入正确的手机号').css('color','red');
-				$("#btns").attr('disabled',true);
+				//$("#btns").attr('disabled',true);
 				PHONE=false;
 			}
 				
@@ -275,7 +275,7 @@
 			code=$(this).val();
 			//alert(code);
 			//AJAX传值
-			$.get('/code',{code:code},function(data){ 
+			$.get('/codes',{code:code},function(data){ 
 
 				if(data==1){ 
 					$("#resetpwd_error").html('验证码正确').css('color','green');
@@ -309,9 +309,9 @@
 		$(".tabs_form").submit(function(){ 
 			//符合所有条件可以提交
 		
-			$("#resetpwd_pwd").trigger("blur");
-			$("#resetpwd_sms").trigger("blur");
-			$('#resetpwd_phone').trigger("blur");
+			//$("#resetpwd_pwd").trigger("blur");
+			//$("#resetpwd_sms").trigger("blur");
+			//$('#resetpwd_phone').trigger("blur");
 			if(PHONE == true && p_wd == true && p_hone){ 
 				return true;
 			}else{ 

@@ -61,10 +61,14 @@ class GoodsinfoController extends Controller
         // dd(count($address));
         $goodsinfo->createtime = date('Y-m-d　H:i:s',time());
 
+       	//获取优惠券的信息
+       	$uid=session('user')['id'];
+       	$data=DB::table('couponsuser')->where('uid','=',$uid)->join('coupons','coupons.id','=','couponsuser.ponsid')->select('couponsuser.*','coupons.*','couponsuser.id as crid','coupons.id as cid')->where('p_status','=',0)->get();
+       //	dd($data);
         // dd($time);
         // echo uniqid(date('Ymd',time()));
         // exit;
-        return view('Home.Goods.orderpay',['address'=>$address,'goodsinfo'=>$goodsinfo]);
+        return view('Home.Goods.orderpay',['address'=>$address,'goodsinfo'=>$goodsinfo,'data'=>$data]);
         // dd($id,$num);
 
     }
@@ -244,6 +248,71 @@ class GoodsinfoController extends Controller
     {
         dd($request->all());
     }
+    //收藏
+    public function shoucang(Request $request)
+    { 
+    	$id=$request->input('id');
+    	//echo $row['gid'];exit;
+    	$uid=session('user')['id'];
+    	//echo $uid;exit;
+    	//通过传过来的id取查询 有数据表示已经存在数据不添加 否则添加
+    	$data=DB::table('house')->where('gid','=',$id)->where('uid','=',$uid)->get();
+    	//echo $data;exit;
+    	//echo $data;exit;
+    	if(count($data)){ 
+    		echo 1;
+    	}else{ 
+    		echo 2;
+    	}
+    }
 
+    public function shoucangs(Request $request)
+    { 
+    	$gid=$request->input('id');
+    	$uid=session('user')['id'];
+    	if(!empty(session('user'))){
+    	//通过传过来的id取查询 有数据表示已经存在数据删除 否则添加
+    	$data=DB::table('house')->where('gid','=',$gid)->where('uid','=',$uid)->get();
+    	//echo $data;exit;
+    	$row=json_decode($data,true);
+    	//var_dump($row);exit;
+    	foreach($row as $value){ 
 
+    		$id=$value['id'];
+    	}
+    	if(count($data)){ 
+    		$res=DB::table('house')->where('id','=',$id)->delete();
+    		if($res){ 
+    			echo 1;
+    		}
+    	}else{ 
+    		$row['gid']=$gid;
+    		$row['uid']=$uid;
+    		$rows=DB::table('house')->insert($row);
+    		if($row){ 
+    			echo 2;
+    		}
+    	}
+    	}else{ 
+    		echo 3;
+    	}
+    }
+    public function docoupons(Request $request)
+    { 
+    	$id=$request->input('id');
+    	//echo $id;exit;
+    	$datas=DB::table('couponsuser')->join('coupons','coupons.id','=','couponsuser.ponsid')->select('coupons.*','couponsuser.*','coupons.id as cid','couponsuser.id as cpid')->where('couponsuser.id','=',$id)->first();	
+    	//dd($datas);
+    	if(count($datas)){
+    	$data['pname']=$datas->pname ;
+    	$data['discount']=$datas->discount ;
+    	$data['money']=$datas->money;
+    	$data['type']=$datas->type;
+    	$data['cpid']=$datas->cpid;
+    	$data['lowmoney']=$datas->lowmoney;
+    	return $data;
+    	}else{ 
+    		return 0;
+    	}
+    }
 }

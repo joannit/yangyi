@@ -86,7 +86,7 @@
     </div> 
     <div class="form-box register" style="display: block;" style=""> 
      <div class="tabs-nav" style=""> 
-      <h2>欢迎注册<a href="/homelogin" class="pull-right fz16" id="reglogin">返回登录</a></h2> 
+      <h2>欢迎注册<a href="/login" class="pull-right fz16" id="reglogin">返回登录</a></h2> 
      </div> 
      <div class="tabs_container"> 
 
@@ -369,10 +369,10 @@
 		//注册按钮提交时匹配所有规则	
 		$(".tabs_form").submit(function(){ 
 			//符合所有条件可以提交	
-			$('#redister_name').trigger("blur");
-			$('#register_phone').trigger("blur");
-			$("#register_pwd").trigger("blur");
-			$('#register_sms').trigger('blur');
+			//$('#redister_name').trigger("blur");
+			//$('#register_phone').trigger("blur");
+			//$("#register_pwd").trigger("blur");
+			//$('#register_sms').trigger('blur');
 			if(n_ame == true && p_wd == true && p_hone==true && PHONE==true){ 
 				return true;
 			}else{ 

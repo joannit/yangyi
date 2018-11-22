@@ -1,10 +1,7 @@
 @extends("Home.public")
 @section("main")
 <!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8"/>
-	<title></title>
+
 	<link href="/static/admin/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 	 <script src="/static/home/js/jquery.1.12.4.min.js" charset="UTF-8"></script> 
 	<style>
@@ -23,9 +20,16 @@
                 <strong>{{session('success')}}</strong>
         	    </div>
   				@endif
-
+			<div class="bgf5 clearfix">
+				<div class="top-user">
+					<div class="inner">
+					<a class="logo" href="/"><img src="/static/home/images/icons/logo.jpg" alt="U袋网" class="cover"></a>
+					<div class="title">友情链接</div>
+					</div>
+				</div>
+			</div>
 			<div class="link_content" style="background-color:#ccc">
-				<h3 class="link_tit">友情链接</h3>
+				<!--<h3 class="link_tit">友情链接</h3>-->
 				<ul class="link_list" style="float:left;">
 				@foreach($data as $row)
 						<span style="font-size:1.3em;margin-left:15px;font-color:#ccc"><a href="{{$row->url}}" target="_blank">{{$row->linkname}}</a></span>	

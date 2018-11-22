@@ -46,18 +46,19 @@ class HomeLoginController extends Controller
 
         $data=DB::table('user')->where('user_name','=',$name)->first();
         $user=[];
-        if(count($data) && Hash::check($password,$data->user_password)){
+        if(count($data)){
 
-        		session(['id'=>$data->id]);
-        		session(['user_name',$data->user_name]);
-				return redirect("/")->with('success','登录成功');
+        	if(Hash::check($password,$data->user_password)){
             // 把用户名和id存入session中
-            $user['id'] = $data->id;
-            $user['name'] = $data->user_name;
-            session(['user' => $user]);
-			return redirect("/");
+           		 $user['id'] = $data->id;
+            	$user['name'] = $data->user_name;
+            	session(['user' => $user]);
+				return redirect("/");
+			}else{ 
+				return back()->with('error','密码有误');
+			}
         }else{
-        	return back()->with('error','用户名或密码错误');
+        	return back()->with('error','用户名错误');
         }
 
 

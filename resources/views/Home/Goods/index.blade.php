@@ -67,7 +67,9 @@
                     <div class="item-title">
                         <div class="name ep2">{{$goods->name}}</div>
 
-                        <div class="sale cr discount">优惠活动：该商品享受8折优惠</div>
+                        <div class="sale cr discount">优惠活动：该商品享受8折优惠<span  id="shoucangss" class="btn btn-warning" style="margin-left:310px;background-color:;">收藏该商品</span></div>
+
+
                     </div>
                     <div class="item-price bgf5">
                         <div class="price-box clearfix">
@@ -85,6 +87,7 @@
                                 </ul>
                             </div>
                             <script>
+                            	
                                 // 会员价格折叠展开
                                 $(function () {
                                     $('.vip-price-panel').click(function() {
@@ -249,6 +252,7 @@
                 <div class="picked-button-prev"></div>
                 <div class="picked-button-next"></div>
                 <script>
+                	
                     $(document).ready(function(){
                         // 顶部banner轮播
                         var picked_swiper = new Swiper('.picked-swiper', {
@@ -382,6 +386,34 @@
                     })
                 })
 
+                //判断进入页面收藏是否
+                $(function(){ 
+					vv=$('.goodscolor').find('input:first').val();
+					$.get('/shoucang',{id:vv},function(data){ 
+                			//alert(data);
+                			if(data==1){ 
+                				$('#shoucangss').html('取消收藏');
+                			}else{ 
+                				$('#shoucangss').html('收藏该商品');
+                			}
+                		});
+                });
+
+                //获取当前信息id
+                $('#shoucangss').click(function(){ 
+                	vv=$('.goodscolor').find('input:first').val();
+                	$.get('/shoucangs',{id:vv},function(data){ 
+                		//alert(data);
+                		if(data==1){ 
+                			$('#shoucangss').html('收藏该商品');	
+                		}else if(data==2){ 
+							$('#shoucangss').html('取消收藏');
+                		}else{ 
+                			alert('请先登录在再收藏');
+                			$('#shoucangss').html('收藏该商品');
+                		}
+                	})
+                });
                 </script>
             </div>
         </section>

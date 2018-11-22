@@ -26,7 +26,7 @@ class CouponsController extends Controller
     			break;
     	}
     	//dd($k);
-    	$data=DB::table('coupons')->where('type','like','%'.$k.'%')->paginate(3);
+    	$data=DB::table('coupons')->where('type','like','%'.$k.'%')->orderBy('id','asc')->paginate(3);
     	//dd($data);
         return view('Admin.Coupons.coupons',['data'=>$data,'request'=>$request->all()]);
     }
@@ -50,7 +50,7 @@ class CouponsController extends Controller
     public function store(Amincouponsinsert $request)
     {
         $data=$request->except(['_token']);
-
+        $data['number']=time();
         $res=DB::table('coupons')->insert($data);
         if($res){ 
         	return redirect("/coupons")->with('success','添加成功');

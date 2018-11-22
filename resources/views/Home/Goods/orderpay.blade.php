@@ -32,7 +32,7 @@
     <div class="content clearfix bgf5">
         <section class="user-center inner clearfix">
             <div class="user-content__box clearfix bgf">
-                <div class="title">购物车-确认支付 </div>
+                <div class="title">购物车-确认支付</div>
                 <div class="shop-title">收货地址</div>
                 <!-- 表单 -->
                 <form action="/pay" class="shopcart-form__box" method="post">
@@ -95,7 +95,7 @@
                                     <td >{{$goodsinfo->discount/100}}折</td>
                                     <td >0.0</td>
                                     <td >¥{{($goodsinfo->gprice)*($goodsinfo->num)}}</td>
-                                    <td >¥{{($goodsinfo->gprice)*($goodsinfo->discount/100)*($goodsinfo->num)}}</td>
+                                    <td id="zongjia">¥{{($goodsinfo->gprice)*($goodsinfo->discount/100)*($goodsinfo->num)}}</td>
                                 </tr>
                                 <!-- end订单 -->
 
@@ -111,14 +111,12 @@
                         <div class="pull-right text-right">
                             <div class="form-group">
                                 <label for="coupon" class="control-label">优惠券使用：</label>
-                                <select id="coupon" >
-                                    <option value="-1" selected>- 请选择可使用的优惠券 -</option>
-                                    <option value="1">【满￥20.0元减￥2.0】</option>
-                                    <option value="2">【满￥30.0元减￥2.0】</option>
-                                    <option value="3">【满￥25.0元减￥1.0】</option>
-                                    <option value="4">【满￥10.0元减￥1.5】</option>
-                                    <option value="5">【满￥15.0元减￥1.5】</option>
-                                    <option value="6">【满￥20.0元减￥1.0】</option>
+
+                                <select id="coupon" name="crid">
+                                    <option value="-1" selected disabled>- 请选择可使用的优惠券 -</option>
+                                    @foreach($data as $rows)
+                                    <option value="{{$rows->crid}}" id="optis">【{{$rows->pname}}】</option>
+                                    @endforeach()
                                 </select>
                             </div>
                             <script>
@@ -126,9 +124,9 @@
                                     console.log($(this).val());
                                 })
                             </script>
-                            <div class="info-line">优惠活动：<span class="c6">无</span></div>
+                            <div class="info-line">优惠活动：<span class="c6 youhui"></span></div>
                             <div class="info-line">运费：<span class="c6">¥0.00</span></div>
-                            <div class="info-line"><span class="favour-value">已优惠 ¥2.0</span>合计：<b class="fz18 cr">¥18.0</b></div>
+                            <div class="info-line"><span class="favour-value">已优惠 ¥0.0</span>合计：<b class="fz18 cr" id="jiner">¥{{($goodsinfo->gprice)*($goodsinfo->discount/100)*($goodsinfo->num)}}</b></div>
                             <div class="info-line fz12 c9">（可获 <span class="c6">20</span> 积分）</div>
                         </div>
                     </div>
@@ -147,7 +145,7 @@
                                 <input name="pay-mode" value="2" autocomplete="off" type="radio"><i class="iconfont icon-radio"></i>
                                 <img src="/static/home/images/icons/alipay.png" alt="支付宝支付">
                             </label>
-                            <div class="pay-value">支付<b class="fz16 cr">18.00</b>元</div>
+                            <div class="pay-value">支付<b class="fz16 cr ">18.00</b>元</div>
                         </div>
                         <!-- <div class="radio-line radio-box">
                             <label class="radio-label ep">
@@ -172,8 +170,6 @@
             </div>
         </section>
     </div>
-
-
     <!-- 右侧菜单 -->
     <div class="right-nav">
         <ul class="r-with-gotop">
@@ -227,8 +223,39 @@
 
                 alert(data);
               });
+		});
+        //获取订单总价数据
+		tal=$('#zongjia').html();
+		var str = new String(tal);
+		var tals=str.slice(1,5);
+		//触发change事件
+        $('#coupon').change(function(){ 
+        	id=$(this).val();
+        	//通过id 去获取值
+        	$.get('/docoupons',{id:id},function(data){ 
+        		if(data){
+        			//alert(data['lowmoney'])
+        			//alert(tals);
+        			if(tals>=parseInt(data['lowmoney'])){
+        				$('.youhui').html(data['pname']);
+        				//计算总价 判断是满减还是折扣
+        				if(data['type']==0){ 
+        					jianman=$('#jiner').html('￥'+(tals-data['money']));
+        					$('.favour-value').html('已优惠:￥'+(tals-(tals-data['money'])));
+        				}else{ 
 
-});
+        					zhekou=$('#jiner').html('￥'+(tals*(data['discount']/10)).toFixed(2));
+        					$('.favour-value').html('已优惠:￥'+((tals-(tals*(data['discount']/10)).toFixed(2))).toFixed(2));
+        				}
+
+        			}else{ 
+        				alert('不满足优惠条件,请换一个优惠券');
+        				//$('#optis').attr('disabled');
+        			}
+
+        		}
+        	});
+        });
         </script>
 
 
