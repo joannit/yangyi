@@ -123,8 +123,7 @@
         {{csrf_field()}}
         <button class="btn red icn-only" style="margin-top:10px">删除</button>
         </form>
-
-
+        <a href="/admin/gdescr/{{$row->id}}/edit" class="btn">查看描述</a>
         </td>
        </tr>
        @endforeach

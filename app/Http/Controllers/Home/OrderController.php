@@ -37,8 +37,8 @@ class OrderController extends Controller
     // 跳转订单页
     public function store(Request $request)
     {
-
         $id = ($request->except('_token'));
+
         // 查询传过来的商品已经详情
         $list = DB::table('cart')->join('goodsinfo','cart.ginfo_id','=','goodsinfo.id')->join('goods','goodsinfo.gid','=','goods.id')->join('color','goodsinfo.colorid','=','color.id')->join('size','goodsinfo.sizeid','=','size.id')->whereIn('cart.id',$id['id'])->select('cart.*','goodsinfo.gprice','goodsinfo.discount','goods.name','goods.pic','color.cname','size.value')->get();
         // dd($list);
@@ -58,18 +58,20 @@ class OrderController extends Controller
         $order['uid']=session('user')['id'];
         // 购物车id
         $cid = $request->input('cid');
-        // $oid =$order['ordernum'];
+        $count = $request->input('count');
+        $onum =$order['ordernum'];
         // 获取订单详情需要的数据
-        $info = DB::table('cart')->join('goodsinfo','cart.ginfo_id','=','goodsinfo.id')->whereIn('cart.id',$cid)->select('cart.ginfo_id as ginfoid','cart.num','goodsinfo.gprice as price')->get();   
-        // 把oid和count放入数组中
+        $info = DB::table('cart')->join('goodsinfo','cart.ginfo_id','=','goodsinfo.id')->whereIn('cart.id',$cid)->select('cart.ginfo_id as ginfoid','cart.num','goodsinfo.gprice as price','goodsinfo.discount as discount')->get();  
         // dd($info);
         foreach ($info as $key => $value) {
-            $value->count = $value->num*$value->price;
+            $value->count = number_format($value->num*$value->price*($value->discount/100),2);
             // $value->oid = $oid;
             $arr[$key]=$value;
+           unset($value->discount);
         };
         // dd($arr);
         // 插入订单表
+        // dd($order);
         $oid=DB::table('order')->insertGetId($order);
 
         foreach ($arr as $key => $value) {
@@ -93,14 +95,13 @@ class OrderController extends Controller
             foreach ($ar as $v) {
                 DB::table('goodsinfo')->where('id','=',$v['ginfoid'])->decrement('store',$v['num']);
             }
+
             
         }
         }else{
             echo '<script>alert("订单提交失败");location="/order"</script>';
         }
-        
-       
-
+        pay($onum,$oid,'羊燚网商');
     }
 
     /**

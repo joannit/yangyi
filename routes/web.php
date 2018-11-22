@@ -65,7 +65,19 @@
     Route::get('/home/notice','Home\IndexController@notice');
     // 前台分类页
     Route::resource('/home/type','Home\TypeController');
-    //前台登录中间件
+        // 前台商品详情
+
+    Route::get('/homegoodsinfo/{id}','Home\Goods\GoodsinfoController@goodsinfo');
+
+    // 订单详情页面点击规格后显示数据处理
+    Route::get('/ajaxginfo','Home\Goods\GoodsinfoController@ajaxginfo');
+
+
+    // 企业简介
+    Route::get('/aboutus','Home\IndexController@aboutus');
+
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~前台登录中间件~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Route::group(['middleware'=>'login'],function(){ 
 	 // -----个人中心----
     // 前台个人中心
@@ -100,47 +112,68 @@ Route::group(['middleware'=>'login'],function(){
     Route::get('/house','Home\PersonalController@house');
     //删除收藏
     Route::get('/houses/{id}','Home\PersonalController@houses');
+     // 订单页(购物车跳转)
+    Route::resource('/order','Home\OrderController');
+    // 订单支付
+    Route::post('/orderinsert','Home\OrderController@insert');
+        //判断前台收藏Ajax
+    Route::get('/shoucang','Home\Goods\GoodsinfoController@shoucang');
+    //前台收藏
+    Route::get('/shoucangs','Home\Goods\GoodsinfoController@shoucangs');
+ 
+    // 加入购物车
+    Route::any('/addcart','Home\Goods\GoodsinfoController@addcart');
 
+  
+    //前台优惠券的使用
+    Route::get('/docoupons','Home\Goods\GoodsinfoController@docoupons');
+
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~购物车~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Route::resource('/cart','Home\CartController');
+    // 购物车数量加方法
+    Route::get('/cartadd','Home\CartController@numadd');
+    // 购物车删除方法
+    Route::get('/cartdel','Home\CartController@cartdel');
+    //购物车批量删除
+    Route::get('/cartdels','Home\CartController@cartdels');
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
       //立即购买支付
     Route::any('/pay','Home\Goods\GoodsinfoController@pay');
 
     	// 立即购买
     Route::resource('/home/goodsinfo','Home\Goods\GoodsinfoController');
+        // 支付页设置默认地址
+    Route::get('/defaultadd','Home\Goods\GoodsinfoController@defaultadd');
+
+
+    //立即购买支付
+    Route::any('/pay','Home\Goods\GoodsinfoController@pays');
+
+    // 支付成功页面
+    Route::get('/payfinished','Home\Goods\GoodsinfoController@payfinished');
+    // 订单中心
+    Route::resource('/myorder','Home\Order\OrderController');
+    // 确认订单后改变订单状态
+    Route::get('/changestatus/{id}','Home\Order\OrderController@changestatus');
+    // 订单中心的购买
+    Route::get('/paynow/{id}','Home\Order\OrderController@paynow');
+    // 确认订单时没有地址返回
+    Route::get('/ordersure','Home\Goods\GoodsinfoController@goodsinfo');
 
                                 // end-----个人中心----	
 });
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~end~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+
+
    
-
-
-    // 订单页(购物车跳转)
-    Route::resource('/order','Home\OrderController');
-    // 订单支付
-    Route::post('/orderinsert','Home\OrderController@insert');
-
-    // 购物车
-    Route::resource('/cart','Home\CartController');
-    // 购物车数量加方法
-    Route::get('/cartadd','Home\CartController@numadd');
-    // 购物车删除方法
-    Route::get('/cartdel','Home\CartController@cartdel');
-
-
-
-
-
-
-
     // 修改登录密码
     Route::get('/paddress/editpwd','Home\PersonalController@editpwd');
-
-
-                                // end-----个人中心----
     // 后台登录和退出
     Route::resource('/adminlogin','Admin\AdminLoginController');
-    // 后台登录权限管理
-Route::group(['middleware'=>'adminlogin'],function(){
 
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~后台登录权限管理~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Route::group(['middleware'=>'adminlogin'],function(){
     // 后台首页
     Route::get("/admin",'Admin\AdminController@index');
     //前台用户(会员)管理路由
@@ -165,8 +198,6 @@ Route::group(['middleware'=>'adminlogin'],function(){
     Route::resource('/admin/order','Admin\OrderController');
     // 后台公告模块
     Route::resource('/admin/notice','Admin\NoticeController');
-
-
    	//后台友情链接
    	Route::resource('/admin/link','Admin\LinkController');
    	//后台广告模块
@@ -175,10 +206,7 @@ Route::group(['middleware'=>'adminlogin'],function(){
    	Route::resource('/coupons','Admin\CouponsController');
    	//优惠用户关联模块
    	Route::resource('/couponsuser','Admin\CouponsuserController');
-   	//优惠券过期时间处理
-   //Route::get('/times','Admin\CouponsController@timess');
-
-
+   	Route::get('/times','Admin\CouponsController@timess');
     //后台分类下的品牌
     Route::resource('/admin/brand','Admin\BrandController');
     // 添加商品里的ajax查品牌
@@ -189,58 +217,19 @@ Route::group(['middleware'=>'adminlogin'],function(){
     Route::any('/updatebrand','Admin\GoodsController@updatebr');
     // 商品详情
     Route::resource('/admin/goodsinfo','Admin\GoodsInfoController');
-
+    // 商品描述
+    Route::resource('/admin/gdescr','Admin\GoodsDescrController');
     // 后台评论管理模块
     Route::resource('/admin/comment','Admin\CommentController');
-
     // 后台站内信模块
     Route::resource('/admin/message','Admin\MessageController');
-
-
-});
- // 后台公告ajax删除
+     // 后台公告ajax删除
     Route::get('/noticedel','Admin\NoticeController@del');
 
-
-
-    // 前台商品详情
-
-    Route::get('/homegoodsinfo/{id}','Home\Goods\GoodsinfoController@goodsinfo');
-
-    // 订单详情页面点击规格后显示数据处理
-    Route::get('/ajaxginfo','Home\Goods\GoodsinfoController@ajaxginfo');
-    //判断前台收藏Ajax
-    Route::get('/shoucang','Home\Goods\GoodsinfoController@shoucang');
-    //前台收藏
-    Route::get('/shoucangs','Home\Goods\GoodsinfoController@shoucangs');
- 
-    // 加入购物车
-    Route::any('/addcart','Home\Goods\GoodsinfoController@addcart');
-
-  
-    //前台优惠券的使用
-    Route::get('/docoupons','Home\Goods\GoodsinfoController@docoupons');
+});
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~end~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 
-    // 支付页设置默认地址
-    Route::get('/defaultadd','Home\Goods\GoodsinfoController@defaultadd');
 
-
-    //立即购买支付
-    Route::any('/pay','Home\Goods\GoodsinfoController@pays');
-
-    // 支付成功页面
-    Route::get('/payfinished','Home\Goods\GoodsinfoController@payfinished');
-    // 订单中心
-    Route::resource('/myorder','Home\Order\OrderController');
-    // 确认订单后改变订单状态
-    Route::get('/changestatus/{id}','Home\Order\OrderController@changestatus');
-    // 订单中心的购买
-    Route::get('/paynow/{id}','Home\Order\OrderController@paynow');
-    // 确认订单时没有地址返回
-    Route::get('/ordersure','Home\Goods\GoodsinfoController@goodsinfo');
-
-    // 企业简介
-    Route::get('/aboutus','Home\IndexController@aboutus');
 

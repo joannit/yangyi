@@ -53,8 +53,8 @@
       </div>
       <div class="span6">
        <div class="dataTables_filter" id="sample_2_filter">
-       <form action="/admin/goods" method="get">
-        <label>搜索: <input type="text" aria-controls="sample_2" class="m-wrap small" name="keywords" value="{{$request['keywords'] or ''}}"/>
+       <form action="/admin/order" method="get">
+        <label>订单号: <input type="text" aria-controls="sample_2" class="m-wrap small" name="keywords" value="{{$request['keywords'] or ''}}"/>
         <button class="btn blue icn-only" type="submit"><i class="m-icon-swapright m-icon-white"></i></button>
         </label>
         </form>
@@ -93,16 +93,16 @@
           @if($list->ostatus==1)
             待付款
           @elseif($list->ostatus==2)
-          <button class="btn green">点击发货</button>
+          <a href="/admin/order/{{$list->id}}/edit" class="btn green">点击发货</a>
           @elseif($list->ostatus==3)
-          已发货
+          待收货
           @elseif($list->ostatus==4)
           交易完成
           @elseif($list->ostatus==5)
           <a href="" class="btn">查看评价</a>
           @endif
         </td>
-        <td class="hidden-480 "><a href="" class="btn icn-only"><i class="icon-zoom-in"></i></a></td>
+        <td class="hidden-480 "><a href="/admin/order/{{$list->id}}" class="btn icn-only"><i class="icon-zoom-in"></i></a></td>
        </tr>
       @endforeach
       </tbody>

@@ -14,7 +14,7 @@
 			<div class="user-content__box clearfix bgf">
 				<div class="title">购物车-确认支付 </div>
 				<div class="shop-title">收货地址</div>
-				<form action="/orderinsert" class="shopcart-form__box" method="post">
+				<form action="/orderinsert" class="shopcart-form__box form" method="post">
 					<div class="addr-radio">
                         @if (count($address))
                         @foreach($address as $val)
@@ -35,7 +35,7 @@
                         @endforeach
 
                         @else
-                        <div class=" active">
+                        <div class=" active add">
                             <center><h2 style="color:red;">您还未添加收货地址</h2></center>
                              </div>
                         @endif
@@ -104,7 +104,7 @@
 							</script>
 							<div class="info-line">优惠活动：<span class="c6">无</span></div>
 							<div class="info-line">运费：<span class="c6">¥0.00</span></div>
-							<div class="info-line"><span class="favour-value">已优惠 ¥2.0</span>合计：<b class="fz18 cr">¥</b></div>
+							合计：<b class="fz18 cr">¥</b></div>
 							<div class="info-line fz12 c9">（可获 <span class="c6">20</span> 积分）</div>
 						</div>
 					</div>
@@ -129,6 +129,15 @@
 		</section>
 	</div>
 	<script type="text/javascript">
+		// 表单提交时间
+		$('.form').submit(function(){
+			if($('.add').html()){
+				alert('请先添加地址');
+				return false;
+			}else{
+				return true;
+			}
+		})
 		//实际付款总计
 		var m = 0;
 		var s = 0;
@@ -137,9 +146,9 @@
 			s+=parseFloat($(this).prev().find('span').html());
 		});
 		// alert(m);
-		$('.fz18').html(m);
-		$('input[name=pay]').val(m);
-		$('input[name=tprice]').val(s);
+		$('.fz18').html(m.toFixed(2));
+		$('input[name=pay]').val(m.toFixed(2));
+		$('input[name=tprice]').val(s.toFixed(2));
 
 	 node=$('.notadefault');
             de= $('.adefault');
@@ -187,7 +196,6 @@
 
                 }
               });
-
               });
             </script>
 

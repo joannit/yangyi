@@ -17,6 +17,7 @@ class CartController extends Controller
         // 查询当前用户购物车
         $cart = DB::table('cart')->join('goodsinfo','cart.ginfo_id','=','goodsinfo.id')->join('goods','goodsinfo.gid','=','goods.id')->join('color','goodsinfo.colorid','=','color.id')->join('size','goodsinfo.sizeid','=','size.id')->where('uid','=',$uid)->select('cart.*','goodsinfo.*','goods.pic','goods.name','color.cname','size.value','cart.id as cid')->get();
         // dd($cart);
+
         return view('Home.cart',['cart'=>$cart]);
     }
     // 购物车数量改变

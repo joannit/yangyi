@@ -62,7 +62,7 @@
         <td class="">{{$data->birthday}}</td>
         <td class=" ">{{$data->created_at}}</td>
         <td class="">{{$data->updated_at}}</td>
-        <td class=""><img src=""></td>
+        <td class=""><img src="{{$data->pic}}" style="height: 100px"></td>
        </tr>
 
 
@@ -76,8 +76,7 @@
       </div>
       <div class="span6">
        <div class="dataTables_paginate paging_bootstrap pagination">
-
-
+        <a href="/admin/user" class="btn blue">返回上一级</a>
        </div>
       </div>
      </div>
