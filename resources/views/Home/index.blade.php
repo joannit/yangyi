@@ -26,9 +26,6 @@
 	</style>
 
 
-
-	</style>
-
 </head>
 <body>
 
@@ -348,7 +345,7 @@
 
 	</div>
 	<script>
-<<<<<<< HEAD
+	//alert(1);
 		//隐藏广告
 		$('#anniu').click(function(){
 			//alert(1);
@@ -377,7 +374,7 @@
 			// 页面下拉固定楼层导航
 			$('.floor-nav').smartFloat();
 			$('.to-top').toTop({position:false});
-		});
+	
 	</script>
 	<!-- 右侧菜单 -->
 	@if(session('user'))
