@@ -154,4 +154,9 @@ class IndexController extends Controller
     {
         //
     }
+
+    public function aboutus()
+    {
+        return view('Home.aboutus');
+    }
 }

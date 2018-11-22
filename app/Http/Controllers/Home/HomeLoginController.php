@@ -25,10 +25,10 @@ class HomeLoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-  
+
     public function create(Request $request)
     {
-       
+
     }
 
     /**
@@ -47,6 +47,7 @@ class HomeLoginController extends Controller
         $data=DB::table('user')->where('user_name','=',$name)->first();
         $user=[];
         if(count($data) && Hash::check($password,$data->user_password)){
+
             // 把用户名和id存入session中
             $user['id'] = $data->id;
             $user['name'] = $data->user_name;
@@ -86,7 +87,7 @@ class HomeLoginController extends Controller
      */
     public function edit($id)
     {
-        
+
     }
 
     /**

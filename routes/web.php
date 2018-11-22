@@ -15,6 +15,8 @@
     Route::resource("/homeregister","Home\HomeRegisterController");
     //前台注册
     Route::get("/regits","Home\HomeRegisterController@regits");
+    //前台密码找回
+    Route::resource('/homereset','Home\HomeresetController');
     // //短信验证
     Route::get("/phone","Home\HomeRegisterController@phone");
     // //发送验证
@@ -176,4 +178,9 @@ Route::group(['middleware'=>'adminlogin'],function(){
     Route::get('/changestatus/{id}','Home\Order\OrderController@changestatus');
     // 订单中心的购买
     Route::get('/paynow/{id}','Home\Order\OrderController@paynow');
+    // 确认订单时没有地址返回
+    Route::get('/ordersure','Home\Goods\GoodsinfoController@goodsinfo');
+
+    // 企业简介
+    Route::get('/aboutus','Home\IndexController@aboutus');
 

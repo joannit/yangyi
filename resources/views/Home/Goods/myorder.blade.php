@@ -109,7 +109,13 @@
              <a href="udai_shopcart_pay.html" class="but but-primary">查看评价</a>
             @endif
 
-            @if($val->ostatus <=2) <a href="" class="but c3">取消订单</a>
+            @if($val->ostatus < 2)
+             <form action="/myorder/{{$val->id}}" method="post">
+             {{csrf_field()}}
+             {{method_field('DELETE')}}
+             <input class="but c3"  type="submit" value="取消订单">
+             </form>
+            <!-- <a href="" class="but c3">取消订单</a> -->
             @endif
             </td>
 

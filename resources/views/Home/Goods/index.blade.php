@@ -1,5 +1,5 @@
 @extends('Home.Goods.public')
-
+@section('title','商品详情')
 @section('body')
  <div class="top-search">
         <div class="inner">
@@ -105,15 +105,15 @@
                     <ul class="item-ind-panel clearfix">
                         <li class="item-ind-item">
                             <span class="ind-label c9">累计销量</span>
-                            <span class="ind-count cr">1688</span>
+                            <span class="ind-count cr">{{$goods->sales}}</span>
                         </li>
                         <li class="item-ind-item">
                             <a href=""><span class="ind-label c9">累计评论</span>
-                            <span class="ind-count cr">1314</span></a>
+                            <span class="ind-count cr">{{$comnum}}</span></a>
                         </li>
                         <li class="item-ind-item">
-                            <a href=""><span class="ind-label c9">赠送积分</span>
-                            <span class="ind-count cg">666</span></a>
+                            <span class="ind-label c9">赠送积分</span>
+                            <span class="ind-count cg">你丑，不赠送</span>
                         </li>
                     </ul>
                     <div class="item-key">
@@ -154,7 +154,7 @@
                         </div>
                         <div class="item-action clearfix bgf5">
 
-
+                             <div><input type="hidden" name="gid" value="{{$goodsinfo[0]->gid}}"></div>>
                             <button ata-addfastbuy="true" title="点击此按钮，到下一步确认购买信息。" role="button" class="item-action__buy">立即购买</button>
                             {{csrf_field()}}
                         </form>
@@ -224,7 +224,7 @@
                        // alert();
                        // 取两位小数
                        $('.disprice').html(gprice.toFixed(2));
-                       $('.all-price__box').css('visibility','visible');
+                       $('.all-price__box').css('visibility','visable');
                       $('input[name=ginfoid]').val(data.id);
 
                     });
