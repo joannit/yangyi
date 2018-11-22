@@ -23,7 +23,7 @@
 					<a href="udai_collection.html"><dd>我的收藏</dd></a>
 					<a href="udai_refund.html"><dd>退款/退货</dd></a>
 				</dl>
-			</div>	
+			</div>
 @section('right')
 @show
 		</section>

@@ -45,7 +45,7 @@
                 <div class="title">购物车-确认支付 </div>
                 <div class="shop-title">收货地址</div>
                 <!-- 表单 -->
-                <form action="/pay" class="shopcart-form__box" method="post">
+                <form action="/pay" class="shopcart-form__box" method="post" >
                     <div class="addr-radio">
 
 
@@ -293,6 +293,19 @@
               });
 
             // });
+
+            // 判断用户是否有地址
+        $('.shopcart-form__box').submit(function(){
+            if($('input[name=default]').val()) {
+                return true;
+            } else {
+
+            alert('你还未选地址');
+            return false;
+            }
+
+        })
+
         </script>
 
 

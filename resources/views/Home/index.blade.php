@@ -37,14 +37,14 @@
 	<div id="zxd_x" style="background-color:#ccc;">
 	<b style="margin-left:100px;">广告位</b>
 	<a title="点击关闭" style="text-decoration:none"><b style="color:red;margin-left:65px;cursor:pointer" id="anniu">X</b></a>
-	</div> 
+	</div>
 	<div class="content">
 	<a href="">
 	<img src="{{$advent->pic}}" width="220px"height="282px;">
 	</a>
 	</div >
 	<b style="color:orange;margin-left:60px">{{$advent->descr}}</b>
-	</div> 
+	</div>
 
 	<!-- 顶部tab -->
 	<div class="tab-header">
@@ -54,9 +54,7 @@
 			</div>
 			<div class="pull-right">
 
-				<a href="/homelogin"><span class="cr">登录</span></a>
-				<a href="/homeregister">注册</a>
-				<a href="udai_welcome.html">我的U袋</a>
+
 
 			@if(!session('user'))
 				<a href="/login"><span class="cr">登录</span></a>
@@ -141,12 +139,12 @@
 			<!-- 首页导航栏结束 -->
 			<ul class="nva-list">
 				<a href="index.html"><li class="active">首页</li></a>
-				<a href="temp_article/udai_article10.html"><li>企业简介</li></a>
-				<a href="temp_article/udai_article5.html"><li>新手上路</li></a>
+				<a href="/aboutus"><li>企业简介</li></a>
+				<!-- <a href="temp_article/udai_article5.html"><li>新手上路</li></a>
 				<a href="class_room.html"><li>U袋学堂</li></a>
 				<a href="enterprise_id.html"><li>企业账号</li></a>
 				<a href="udai_contract.html"><li>诚信合约</li></a>
-				<a href="item_remove.html"><li>实时下架</li></a>
+				<a href="item_remove.html"><li>实时下架</li></a> -->
 			</ul>
 			<div class="user-info__box">
 				<div class="login-box">
@@ -345,10 +343,10 @@
 	</div>
 	<script>
 
-		$('#anniu').click(function(){ 
+		$('#anniu').click(function(){
 			$('#guanggao').hide();
 		})
-		$(document).ready(function(){ 
+		$(document).ready(function(){
 
 		$(document).ready(function(){
 

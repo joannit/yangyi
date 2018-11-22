@@ -118,8 +118,19 @@ class OrderController extends Controller
     // 删除订单 删除订单详情
     public function destroy($id)
     {
-        //
-        echo $id;
+        // 删除订单详情
+        $bool=DB::table('orderinfo')->where('oid','=',$id)->delete();
+       if ($bool) {
+        // 删除订单
+            $bool1 = DB::table('order')->where('id','=',$id)->delete();
+            if ($bool1) {
+                return redirect('/myorder')->with('success','订单已清除');
+            } else {
+                return redirect('/myorder')->with('error','操作失败');
+            }
+       } else {
+            return redirect('/myorder')->with('error','操作失败');
+       }
     }
 
     // 改变订单状态
@@ -129,6 +140,8 @@ class OrderController extends Controller
         $bool=DB::table('order')->where('id','=',$id)->update(['ostatus'=>4]);
         if ($bool) {
             echo '<script>alert("已确认收货");location="/myorder"</script>';
+        } else {
+            echo '<script>alert("数据处理失败,请截图联系商家");location="/myorder"</script>';
         }
     }
 
