@@ -22,18 +22,21 @@
     <script src="/static/home/js/jquery.DJMask.2.1.1.js" charset="UTF-8"></script>
 
     <title>@yield('title')</title>
-  
+
 <style>
 
 </style>
 </head>
 <body>
-	
+
     <!-- 顶部tab -->
     <div class="tab-header">
         <div class="inner">
             <div class="pull-left">
+
+
                 <div class="pull-left">嗨，欢迎来到<span class="cr">U袋网</span></div>
+
             </div>
             <div class="pull-right">
             @if(!session('user'))
@@ -187,6 +190,6 @@
     </div>
 </body>
 <script>
-	
+
 </script>
 </html>

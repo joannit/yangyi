@@ -14,9 +14,11 @@
      <a href="javascript:;" class="remove"></a>
     </div>
    </div>
-   <div class="portlet-body form">
+
+
+<!--    <div class="portlet-body form">
     <h3 class="block"></h3>
-    <!-- BEGIN FORM-->
+
     <form action="/admin/goods" class="form-horizontal" method="post" enctype="multipart/form-data">
      <div class="control-group ">
       <label class="control-label" for="inputWarning">商品名称</label>
@@ -24,7 +26,7 @@
        <input type="text" class="span6 m-wrap" id="inputWarning" name="name" value="{{old('name')}}"/>
        <span class="help-inline"></span>
       </div>
-     </div>
+     </div> -->
  <!--     <div class="control-group ">
    <label class="control-label">选择分类</label>
    <div class="controls">

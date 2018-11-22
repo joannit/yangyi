@@ -231,7 +231,8 @@
 					</a>
 					<div class="right-box hot-box">
 					@foreach($tops as $hot)
-						<a href="item_show.html" class="floor-item">
+
+						<a href="/homegoodsinfo/{{$hot->id}}" class="floor-item">
 							<div class="item-img hot-img">
 								<img src="/uploads/goods/{{$hot->pic}}" alt="{{$hot->name}}" class="cover">
 							</div>
@@ -242,6 +243,7 @@
 							<div class="name ep" title="{{$hot->name}}">{{$hot->name}}</div>
 						</a>
 						@endforeach
+
 					</div>
 				</div>
 			</div>
