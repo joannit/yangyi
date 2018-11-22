@@ -178,17 +178,13 @@ class GoodsinfoController extends Controller
     // 添加到购物车
     public function addcart(Request $request)
     {
-        // dd($request->all(),222);
         // 商品详情id
         $id=$request->input('ginfoid');
-        // $id=11;
         // 数量
         $num=$request->input('num');
         // 获取用户id
         $uid=session('user')['id'];
-        // echo $uid;
-        // echo $id;
-        // dd($uid);
+
         // 查询购物车表 商品重复则加数量不重复则添加
         $bool=DB::table('cart')->where('ginfo_id','=',$id)->where('uid','=',$uid)->first();
         // dd($bool);

@@ -123,7 +123,7 @@
         {{csrf_field()}}
         <button class="btn red icn-only" style="margin-top:10px">删除</button>
         </form>
-
+        <a href="/admin/gdescr" class="btn">添加描述</a>
 
         </td>
        </tr>

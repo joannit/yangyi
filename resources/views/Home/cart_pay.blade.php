@@ -104,7 +104,7 @@
 							</script>
 							<div class="info-line">优惠活动：<span class="c6">无</span></div>
 							<div class="info-line">运费：<span class="c6">¥0.00</span></div>
-							<div class="info-line"><span class="favour-value">已优惠 ¥2.0</span>合计：<b class="fz18 cr">¥</b></div>
+							合计：<b class="fz18 cr">¥</b></div>
 							<div class="info-line fz12 c9">（可获 <span class="c6">20</span> 积分）</div>
 						</div>
 					</div>

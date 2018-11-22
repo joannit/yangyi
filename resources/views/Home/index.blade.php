@@ -53,11 +53,6 @@
 				<div class="pull-left">嗨，欢迎来到<span class="cr">U袋网</span></div>
 			</div>
 			<div class="pull-right">
-
-				<a href="/homelogin"><span class="cr">登录</span></a>
-				<a href="/homeregister">注册</a>
-				<a href="udai_welcome.html">我的U袋</a>
-
 			@if(!session('user'))
 				<a href="/login"><span class="cr">登录</span></a>
 				<a href="/homeregister">注册</a>

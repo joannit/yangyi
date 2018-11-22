@@ -8,10 +8,9 @@
 			<div class="pull-left">
 				<div class="msg-list">
 					@foreach($msgall as $row)
-					<a class="ep @if($row->id == $msg->id) active @endif " href="/message?id={{$row->id}}">【消息】{{substr($row->content,0,5)}}...</a>
+					<a class="ep @if($row->id == $msg->id) active @endif " href="/message?id={{$row->id}}">【消息】{{$row->content}} ...</a>
 					@endforeach
 				</div>
-
 			</div>
 			<div class="message-box pull-right" style="width: 500px">
 
