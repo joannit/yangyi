@@ -1,5 +1,5 @@
 @extends('Home.Personal.public')
-
+@section('title','订单详情')
 @section('right')
 <html>
  <head></head>

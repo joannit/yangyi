@@ -260,7 +260,7 @@
                             }
                         //减法
                         } else if ($(this).hasClass('sub')) {
-                            if (num == 1){
+                            if (num <= 1){
                                 return DJMask.open({
                                 　　width:"300px",
                                 　　height:"100px",

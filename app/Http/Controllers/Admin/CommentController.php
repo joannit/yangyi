@@ -19,7 +19,7 @@ class CommentController extends Controller
         // dd($k);
         // 获取所有评价
         $list = DB::table('comment')->join('goods','gid','=','goods.id')->join('user','uid','=','user.id')->select('comment.*', 'goods.name','user.user_name')->where('goods.name','like','%'.$k.'%')->paginate(5);
-        
+
         // 加载评价列表
         return view('Admin.Comment.index',['request'=>$request->all(),'list'=>$list]);
     }
@@ -31,7 +31,7 @@ class CommentController extends Controller
      */
     public function create()
     {
- 
+
     }
 
     /**
@@ -62,6 +62,7 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // 回复评价
     public function edit($id)
     {
         $info = DB::table('comment')->join('goods','gid','=','goods.id')->join('user','uid','=','user.id')->select('comment.*', 'goods.name','user.user_name')->where('comment.id','=',$id)->first();

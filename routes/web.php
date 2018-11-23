@@ -78,7 +78,7 @@
 
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~前台登录中间件~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Route::group(['middleware'=>'login'],function(){ 
+Route::group(['middleware'=>'login'],function(){
 	 // -----个人中心----
     // 前台个人中心
     Route::resource('/personal','Home\PersonalController');
@@ -120,11 +120,11 @@ Route::group(['middleware'=>'login'],function(){
     Route::get('/shoucang','Home\Goods\GoodsinfoController@shoucang');
     //前台收藏
     Route::get('/shoucangs','Home\Goods\GoodsinfoController@shoucangs');
- 
+
     // 加入购物车
     Route::any('/addcart','Home\Goods\GoodsinfoController@addcart');
 
-  
+
     //前台优惠券的使用
     Route::get('/docoupons','Home\Goods\GoodsinfoController@docoupons');
 
@@ -161,12 +161,12 @@ Route::group(['middleware'=>'login'],function(){
     // 确认订单时没有地址返回
     Route::get('/ordersure','Home\Goods\GoodsinfoController@goodsinfo');
 
-                                // end-----个人中心----	
+                                // end-----个人中心----
 });
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~end~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~end~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-   
+
     // 修改登录密码
     Route::get('/paddress/editpwd','Home\PersonalController@editpwd');
     // 后台登录和退出
@@ -206,7 +206,10 @@ Route::group(['middleware'=>'adminlogin'],function(){
    	Route::resource('/coupons','Admin\CouponsController');
    	//优惠用户关联模块
    	Route::resource('/couponsuser','Admin\CouponsuserController');
+
    	Route::get('/times','Admin\CouponsController@timess');
+
+
     //后台分类下的品牌
     Route::resource('/admin/brand','Admin\BrandController');
     // 添加商品里的ajax查品牌

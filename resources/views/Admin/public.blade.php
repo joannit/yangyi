@@ -46,53 +46,22 @@
      <!-- BEGIN TOP NAVIGATION MENU -->
      <ul class="nav pull-right">
       <!-- BEGIN NOTIFICATION DROPDOWN -->
-    <!--   <li class="dropdown" id="header_notification_bar"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-warning-sign"></i> <span class="badge">6</span> </a>
-       <ul class="dropdown-menu extended notification">
-        <li> <p>You have 14 new notifications</p> </li>
-        <li> <a href="#"> <span class="label label-success"><i class="icon-plus"></i></span> New user registered. <span class="time">Just now</span> </a> </li>
-        <li> <a href="#"> <span class="label label-important"><i class="icon-bolt"></i></span> Server #12 overloaded. <span class="time">15 mins</span> </a> </li>
-        <li> <a href="#"> <span class="label label-warning"><i class="icon-bell"></i></span> Server #2 not respoding. <span class="time">22 mins</span> </a> </li>
-        <li> <a href="#"> <span class="label label-info"><i class="icon-bullhorn"></i></span> Application error. <span class="time">40 mins</span> </a> </li>
-        <li> <a href="#"> <span class="label label-important"><i class="icon-bolt"></i></span> Database overloaded 68%. <span class="time">2 hrs</span> </a> </li>
-        <li> <a href="#"> <span class="label label-important"><i class="icon-bolt"></i></span> 2 user IP blocked. <span class="time">5 hrs</span> </a> </li>
-        <li class="external"> <a href="#">See all notifications <i class="m-icon-swapright"></i></a> </li>
-       </ul> </li> -->
-      <!-- END NOTIFICATION DROPDOWN -->
-      <!-- BEGIN INBOX DROPDOWN -->
-     <!--  <li class="dropdown" id="header_inbox_bar"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-envelope"></i> <span class="badge">5</span> </a>
-       <ul class="dropdown-menu extended inbox">
-        <li> <p>You have 12 new messages</p> </li>
-        <li> <a href="inbox.html?a=view"> <span class="photo"><img src="/static/admin/image/avatar2.jpg" alt="" /></span> <span class="subject"> <span class="from">Lisa Wong</span> <span class="time">Just Now</span> </span> <span class="message"> Vivamus sed auctor nibh congue nibh. auctor nibh auctor nibh... </span> </a> </li>
-        <li> <a href="inbox.html?a=view"> <span class="photo"><img src="/static/admin/image/avatar3.jpg" alt="" /></span> <span class="subject"> <span class="from">Richard Doe</span> <span class="time">16 mins</span> </span> <span class="message"> Vivamus sed congue nibh auctor nibh congue nibh. auctor nibh auctor nibh... </span> </a> </li>
-        <li> <a href="inbox.html?a=view"> <span class="photo"><img src="/static/admin/image/avatar1.jpg" alt="" /></span> <span class="subject"> <span class="from">Bob Nilson</span> <span class="time">2 hrs</span> </span> <span class="message"> Vivamus sed nibh auctor nibh congue nibh. auctor nibh auctor nibh... </span> </a> </li>
-        <li class="external"> <a href="inbox.html">See all messages <i class="m-icon-swapright"></i></a> </li>
-       </ul> </li> -->
-      <!-- END INBOX DROPDOWN -->
-      <!-- BEGIN TODO DROPDOWN -->
 
-     <!--  <li class="dropdown" id="header_task_bar"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-tasks"></i> <span class="badge">5</span> </a>
-       <ul class="dropdown-menu extended tasks">
-        <li> <p>You have 12 pending tasks</p> </li>
-        <li> <a href="#"> <span class="task"> <span class="desc">New release v1.2</span> <span class="percent">30%</span> </span> <span class="progress progress-success "> <span style="width: 30%;" class="bar"></span> </span> </a> </li>
-        <li> <a href="#"> <span class="task"> <span class="desc">Application deployment</span> <span class="percent">65%</span> </span> <span class="progress progress-danger progress-striped active"> <span style="width: 65%;" class="bar"></span> </span> </a> </li>
-        <li> <a href="#"> <span class="task"> <span class="desc">Mobile app release</span> <span class="percent">98%</span> </span> <span class="progress progress-success"> <span style="width: 98%;" class="bar"></span> </span> </a> </li>
-        <li> <a href="#"> <span class="task"> <span class="desc">Database migration</span> <span class="percent">10%</span> </span> <span class="progress progress-warning progress-striped"> <span style="width: 10%;" class="bar"></span> </span> </a> </li>
-        <li> <a href="#"> <span class="task"> <span class="desc">Web server upgrade</span> <span class="percent">58%</span> </span> <span class="progress progress-info"> <span style="width: 58%;" class="bar"></span> </span> </a> </li>
-        <li> <a href="#"> <span class="task"> <span class="desc">Mobile development</span> <span class="percent">85%</span> </span> <span class="progress progress-success"> <span style="width: 85%;" class="bar"></span> </span> </a> </li>
-        <li class="external"> <a href="#">See all tasks <i class="m-icon-swapright"></i></a> </li>
-       </ul> </li> -->
+
+
 
 
       <!-- END TODO DROPDOWN -->
       <!-- BEGIN USER LOGIN DROPDOWN -->
-      <li class="dropdown user"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img alt="" src="/static/admin/image/avatar1_small.jpg" /> <span class="username">{{session('admin_name')}}</span> <i class="icon-angle-down"></i> </a>
-       <ul class="dropdown-menu">
-        <li><a href="/admineditpwd"><i class="icon-user"></i> 密码修改</a></li> <li><a href="/admineditpho"><i class="icon-user"></i> 手机号码修改</a></li>
+      <li class="dropdown user" id="xiugai"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img alt="" src="/static/admin/image/avatar1_small.jpg" /> <span class="username">{{session('admin_name')}}</span> <i class="icon-angle-down"></i> </a>
+       <ul class="dropdown-menu" id="xianshi">
+        <li><a href="/admineditpwd" ><i class="icon-user"></i> 密码修改</a></li> <li><a href="/admineditpho"><i class="icon-user" class="lll"></i> 手机号码修改</a></li>
 
-        <li><a href="/adminlogin"><i class="icon-key"></i> 退出</a></li>
+        <li><a href="/adminlogin" ><i class="icon-key"></i> 退出</a></li>
        </ul> </li>
       <!-- END USER LOGIN DROPDOWN -->
      </ul>
+
      <!-- END TOP NAVIGATION MENU -->
     </div>
    </div>
@@ -111,13 +80,13 @@
       <!-- BEGIN SIDEBAR TOGGLER BUTTON --> </li>
      <li>
       <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
-      <form class="sidebar-search">
+    <!--   <form class="sidebar-search">
        <div class="input-box">
         <a href="javascript:;" class="remove"></a>
         <input type="text" placeholder="Search..." />
         <input type="button" class="submit" value=" " />
        </div>
-      </form>
+      </form> -->
       <!-- END RESPONSIVE QUICK SEARCH FORM --> </li>
      <li class="start active "> <a href="/admin"> <i class="icon-home"></i> <span class="title">主页</span> <span class="selected"></span> </a> </li>
 
@@ -126,8 +95,8 @@
       <ul class="sub-menu">
        <li> <a href="/admin/master"> 管理员列表</a> </li>
        <li> <a href="/admin/master/create"> 添加管理员</a> </li>
-       <li> <a href=""> 权限管理</a> </li>
-      </ul>
+      <!--  <li> <a href=""> 权限管理</a> </li>
+ -->      </ul>
       </li>
      <li class=""> <a href="javascript:;"> <i class="icon-user"></i> <span class="title">会员管理</span> <span class="arrow "></span> </a>
       <ul class="sub-menu">
@@ -151,7 +120,7 @@
      <li> <a class="active" href="javascript:;"> <i class="icon-thumbs-up"></i> <span class="title">评价管理</span> <span class="arrow "></span> </a>
       <ul class="sub-menu">
        <li> <a href="/admin/comment"> 评价列表 </a> </li>
-       
+
       </ul> </li>
       <li> <a class="active" href="javascript:;"> <i class="icon-thumbs-up"></i> <span class="title">优惠券管理</span> <span class="arrow "></span> </a>
       <ul class="sub-menu">
@@ -283,6 +252,21 @@
 
     });
 
+
+    // alert($);
+
+    $('#xiugai').click(function(){
+        $('#xianshi').css('display','block');
+
+    });
+
+    $('#xiugai').dblclick(function(){
+        $('#xianshi').css('display','none');
+        // alert(33);
+    });
+
+
+    // $('.dropdown-menu').attr('display','block');
   </script>
   <!-- END BODY -->
  </body>

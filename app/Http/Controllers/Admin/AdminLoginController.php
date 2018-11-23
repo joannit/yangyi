@@ -47,8 +47,9 @@ class AdminLoginController extends Controller
      */
     public function store(Request $request)
     {
+        $request->flash();
         // 执行登录
-        // dd($request->all());
+
         // 获得输入的用户名
         $admin_name=$request->input('admin_name');
         // 获得密码
@@ -56,9 +57,7 @@ class AdminLoginController extends Controller
         // 根据用户名查询数据 检测用户名
         $info=DB::table('admin')->where('admin_name','=',$admin_name)->first();
         // 数据库是否有数据
-        // dd($info->id);
         if(count($info)==1) {
-            // echo 'aaa';
             // 检测密码
             if(Hash::check($admin_password,$info->admin_password)){
                 // 检测状态
@@ -67,7 +66,6 @@ class AdminLoginController extends Controller
                     // 把用户名存储在session
                     session(['admin_name'=>$admin_name]);
                     // 获取登录后台的所有全限
-
                     $sql="select n.nname,n.cname,n.way from role_node as rn,node as n where rn.nid = n.id  and rn.rid={$info->id}";
                     // 执行
                     $list=DB::select($sql);
@@ -87,9 +85,7 @@ class AdminLoginController extends Controller
                     } else {
 
                         foreach ($list as $key=>$value) {
-                            // var_dump($key);
-                            // var_dump($value->cname);
-                            // var_dump($value->way);
+
                             // 把所有去权限信息写进$nodelsit
                             $nodelist[$value->cname][]=$value->way;
                             // 如果有个方法create则会有store
@@ -106,11 +102,7 @@ class AdminLoginController extends Controller
 
                     // 把所有信息存在session
                 session(['nodelist'=>$nodelist]);
-                // $a=session('nodelsit');
-                // var_dump($a);
-                            // var_dump($nodelsit);
 
-                    // exit;
                     return redirect('/admin')->with('success','登录成功');
                 }else {
 
@@ -119,12 +111,10 @@ class AdminLoginController extends Controller
 
             }else{
                 return back()->with('error','密码不正确');
-                //echo '密码不正确';
             }
 
         }else{
             return back()->with('error','用户不存在');
-            //echo '用户名不存在';
         }
 
     }

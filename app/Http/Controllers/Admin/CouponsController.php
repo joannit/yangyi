@@ -17,7 +17,7 @@ class CouponsController extends Controller
     public function index(Request $request)
     {
     	$k=$request->input('keywords');
-    	switch($k){ 
+    	switch($k){
     		case '满减':
     			$k= 0;
     			break;
@@ -52,9 +52,9 @@ class CouponsController extends Controller
         $data=$request->except(['_token']);
         $data['number']=time();
         $res=DB::table('coupons')->insert($data);
-        if($res){ 
+        if($res){
         	return redirect("/coupons")->with('success','添加成功');
-        }else{ 
+        }else{
         	return back()->with('error','添加失败');
         }
     }
@@ -98,7 +98,7 @@ class CouponsController extends Controller
 
         	return redirect('/coupons')->with('success','修改成功');
 
-        }else{ 
+        }else{
 
         	return back()->withInput()->with('error','修改失败,可能原因->数据未做改变');
         }
@@ -113,21 +113,21 @@ class CouponsController extends Controller
     public function destroy($id)
     {
         $data=DB::table('coupons')->where('id','=',$id)->delete();
-        if($data){ 
+        if($data){
         	return redirect('/coupons')->with('success','删除成功');
-        }else{ 
+        }else{
         	return redirect('/coupons')->with('error','删除失败');
         }
     }
 
     //时间比较
-    public function timess(Request $request)
-    { 
-    	//$time=$request->input('time');
-    	//echo $time;exit;
-    	$times=strtotime('2018-11-20');
-    	$time=time();
-    	var_dump($time);
-    	var_dump($times);
-    }
+    // public function timess(Request $request)
+    // {
+    // 	//$time=$request->input('time');
+    // 	//echo $time;exit;
+    // 	$times=strtotime('2018-11-20');
+    // 	$time=time();
+    // 	var_dump($time);
+    // 	var_dump($times);
+    // }
 }
