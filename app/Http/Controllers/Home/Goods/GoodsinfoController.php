@@ -155,8 +155,9 @@ class GoodsinfoController extends Controller
         $hot = DB::table('goods')->orderBy('sales')->get();
         // 查询评价
 
-        $comment = DB::table('comment')->join('user_info','comment.uid','=','user_info.uid')->where('comment.gid','=',$data->id)->paginate(10        // dd($comment);
-        	//评论数
+        $comment = DB::table('comment')->join('user_info','comment.uid','=','user_info.uid')->where('comment.gid','=',$data->id)->paginate(10);
+        // dd($comment);
+        //评论数
         $comnum=DB::table('comment')->where('gid','=',$id)->count();
         return view('Home.Goods.index',['type'=>$goodsname,'goods'=>$data,'goodsinfo'=>$ginfo,'hot'=>$hot,'comment'=>$comment,'request'=>$request->all(),'comnum'=>$comnum]);
 
@@ -201,6 +202,7 @@ class GoodsinfoController extends Controller
 
         if(session('user')) {
         // 商品详情id
+
             $id=$request->input('ginfoid');
             // $id=11;
             // 数量
