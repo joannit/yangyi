@@ -31,10 +31,12 @@ class PersonalController extends Controller
         // 查询待评价数
             // 获取当前用户订单详情的商品id
             
-            $oinfo = DB::table('order')->where('uid','=',$id)->join('orderinfo','order.id','=','orderinfo.oid')->join('goodsinfo','orderinfo.ginfoid','=','goodsinfo.id')->join('goods','goodsinfo.gid','=','goods.id')->where('uid','=',$id)->select('orderinfo.ginfoid','goods.id')->get();
+            $oinfo = DB::table('order')->join('orderinfo','order.id','=','orderinfo.oid')->join('goodsinfo','orderinfo.ginfoid','=','goodsinfo.id')->join('goods','goodsinfo.gid','=','goods.id')->where('order.uid','=',$id)->where('order.ostatus','>',3)->select('orderinfo.ginfoid','goods.id')->get();
             // 如果有多个商品
+            // dd($oinfo);
             $gnum = count($oinfo);
-            if(count($oinfo)>1){
+
+            if($gnum>1){
                 $gid = [];
                 foreach ($oinfo as $key => $value) {
                 $gid[] = $value->id;
@@ -44,7 +46,7 @@ class PersonalController extends Controller
                 // dd($a);
                 $cnum = $gnum-$a;
             // 如果只有一个商品
-            }else{
+            }elseif($gnum == 1){
                $gid =$oinfo[0]->id;
                // 查询评论表
                if(count(DB::table('comment')->where('gid','=',$gid)->where('uid','=',40)->get())>0){
@@ -52,6 +54,8 @@ class PersonalController extends Controller
                 }else{
                 $cnum = 1;
                 }
+            }else{
+                $cnum = 0;
             }
 
             // dd($cnum);
@@ -405,25 +409,12 @@ class PersonalController extends Controller
     // 处理快递查询
      public function doexpress(Request $request)
     {
-       // $type = $request->input('type');
-       // $ponsid = $request->input('ponsid');
-       // $url = 'http://www.baidu.com/';
+       $type = $request->input('type');
+       $ponsid = $request->input('ponsid');
 
-       //  $options = array(  
-       //      'http' => array(  
-       //          'method' => 'GET',  
-       //          'header' => 'Content-type:application/x-www-form-urlencoded',  
-       //          'content' => $data,
-       //          'timeout' => 60 // 超时时间（单位:s）  
-       //      )  
-       //  ); 
-
-       //  $context = stream_context_create($options); 
-       // $result file_get_contents($url, false, $context);
-       // var_dump($result);
         $data = array(  
-                    'type'=>'zhongtong',   
-                    'postid'=>'640006627091' );   
+                    'type'=>$type,   
+                    'postid'=>$ponsid );   
         $data = http_build_query($data);   
   
         $options = array(  

@@ -16,12 +16,12 @@
                        </div>
                        <br>
                         <div class="input-group col-sm-6">
-                            <input class="form-control" placeholder="快递单号" type="text">
+                            <input class="form-control" placeholder="快递单号" type="text" name="ponsid">
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button">查询</button>
                             </span>
                         </div>
-                        <div class="help-block">例如，您可以输入：<span class="cr">40105060123</span></div>
+                        <div class="help-block">例如，您可以输入：<span class="cr">3101949135061</span></div>
                         <div class="query-result__box"></div>
                         <script>
 
@@ -29,16 +29,15 @@
                                 // 模拟查询请求
                                 $('.btn-primary').on('click',function() {
                                     var type = $('#type').val();
-                                    var postid = $('.form-control').val();
-                                    $.get('/doexpress',{type:type,postid:postid},function(data){
+                                    var ponsid = $('.form-control').val();
+                                    $.get('/doexpress',{type:type,ponsid:ponsid},function(data){
                                         console.log(data);
                                         $('.query-result__box').html('');
                                         $str = '';
                                         $.each(data.data,function(i,val){
-                                        $str = $str + '<tr>';
-                                        $str = $str + '<td> '+val.time+' </td>';
-                                        $str = $str + '<td> '+val.context+' </td>';
-                                        $str = $str + '</tr>';
+                                        $str = $str + '<p> '+val.time+' </p>';
+                                        $str = $str + '<p> '+val.context+' </p>';
+                                        
                                         });
                                        $('.query-result__box').html('').append($str);
                                     },'json');
