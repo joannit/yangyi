@@ -160,7 +160,8 @@ Route::group(['middleware'=>'login'],function(){
     Route::get('/paynow/{id}','Home\Order\OrderController@paynow');
     // 确认订单时没有地址返回
     Route::get('/ordersure','Home\Goods\GoodsinfoController@goodsinfo');
-
+    // 订单查询 待付款
+    Route::get('/waitpay/{ostatus}','Home\Order\OrderController@waitpay');
                                 // end-----个人中心----
 });
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~end~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

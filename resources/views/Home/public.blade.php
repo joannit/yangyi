@@ -11,10 +11,10 @@
     <link rel="stylesheet" href="/static/home/css/styles.css">
     <script src="/static/home/js/jquery.1.12.4.min.js" charset="UTF-8"></script>
 
-    <script src="js/bootstrap.min.js" charset="UTF-8"></script>
-    <script src="js/swiper.min.js" charset="UTF-8"></script>
-    <script src="js/global.js" charset="UTF-8"></script>
-    <script src="js/jquery.DJMask.2.1.1.js" charset="UTF-8"></script>
+    <script src="/static/home/js/bootstrap.min.js" charset="UTF-8"></script>
+    <script src="/static/home/js/swiper.min.js" charset="UTF-8"></script>
+    <script src="/static/home/js/global.js" charset="UTF-8"></script>
+    <script src="/static/home/js/jquery.DJMask.2.1.1.js" charset="UTF-8"></script>
 
     <script src="/static/home/js/bootstrap.min.js" charset="UTF-8"></script>
     <script src="/static/home/js/swiper.min.js" charset="UTF-8"></script>
@@ -74,7 +74,7 @@
         <ul class="r-with-gotop">
             <li class="r-toolbar-item">
                 <a href="/personal" class="r-item-hd">
-                    <i class="iconfont icon-user" data-badge="0"></i>
+                    <i class="iconfont icon-user" data-badge=""></i>
                     <div class="r-tip__box"><span class="r-tip-text">用户中心</span></div>
                 </a>
             </li>

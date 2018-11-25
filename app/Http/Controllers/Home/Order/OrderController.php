@@ -16,7 +16,8 @@ class OrderController extends Controller
     {
 
         $uid=session('user')['id'];
-
+       // dd ($request->all());
+        // 全部订单
         $data=DB::table('order')->where('uid','=',$uid)->paginate(4);
         // dd($data);
         foreach ($data as $key => $value) {
@@ -28,7 +29,6 @@ class OrderController extends Controller
 
             $data[$key]->info=$info;
         }
-
 
         // dd($aa);
         // dd($info);
@@ -157,5 +157,11 @@ class OrderController extends Controller
         $orderdescr='test by joann';
         // 调用支付接口
         pay($ordernum,$ordername,$orderdescr);
+    }
+
+
+    public function waipay(Request $request)
+    {
+        dd($request->all());
     }
 }

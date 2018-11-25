@@ -14,7 +14,7 @@ class TypeController extends Controller
      */
     public function index(Request $request)
     {
-        // 搜索商品    
+        // 搜索商品
         $k = $request->keywords;
         $list = DB::table('goods')->where('name','like','%'.$k.'%')->get();
         // dd($list);
@@ -64,16 +64,18 @@ class TypeController extends Controller
         $typeid = join(",",$pid);
         // dd($typeid) ;
         $list = DB::select("select * from goods where typeid in ($typeid)");
+        // dd($list);
         }else{
             $list = DB::select("select * from goods where typeid = $id");
         }
         // // 加载分类页
-        // dd($list);
+
         // 爆款推荐
-        $tops = DB::select("select * from goods order by sales desc limit 10");
+        $tops = DB::select("select * from goods order by sales desc limit 5");
+        // dd($tops);
         return view('Home.Type.type',['list'=>$list,'type'=>$type,'tops'=>$tops]);
     }
-    
+
 
     /**
      * Show the form for editing the specified resource.

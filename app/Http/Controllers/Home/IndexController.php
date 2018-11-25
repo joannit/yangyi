@@ -64,7 +64,15 @@ class IndexController extends Controller
         //广告
         $advent = DB::table('advent')->where('status','=',1)->first();
 
-        return view('Home.index',['type'=>$type,'typeall'=>$typeall,'tops'=>$tops,'notice'=>$notice,'advent'=>$advent,'goodsinfo'=>$goodsinfo]);
+        // 用户等级
+        if(session('user'))
+        {
+            $level=DB::table('user')->where('id','=',session('user')['id'])->first();
+        } else {
+            $level=array();
+        }
+        // dd($level);
+        return view('Home.index',['type'=>$type,'typeall'=>$typeall,'tops'=>$tops,'notice'=>$notice,'advent'=>$advent,'goodsinfo'=>$goodsinfo,'level'=>$level]);
 
     }
 
