@@ -187,13 +187,6 @@
     	{{csrf_field()}}
        </div> 
        <button class="btn btn-large btn-primary btn-lg btn-block submit" id="resetpwd_submit" type="submit">重置密码</button> 
-      </form> 
-
-
-        <div class="error_msg" id="resetpwd_error"></div>
-
-       </div>
-       <button class="btn btn-large btn-primary btn-lg btn-block submit" id="resetpwd_submit" type="submit">重置密码</button>
       </form>
 
 

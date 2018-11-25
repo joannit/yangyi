@@ -5,23 +5,16 @@ namespace App\Http\Controllers\Home;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
-class TypeController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        // 搜索商品
-        $k = $request->keywords;
-        $list = DB::table('goods')->where('name','like','%'.$k.'%')->get();
-        // dd($list);
-        // 爆款推荐
-        $tops = DB::table('goods')->where('status','=',0)->orderBy('sales','desc')->limit(8)->get();
-        // dd($tops);
-         return view('Home.Type.type',['list'=>$list,'tops'=>$tops]);
+        
     }
 
     /**
@@ -31,7 +24,7 @@ class TypeController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -53,30 +46,12 @@ class TypeController extends Controller
      */
     public function show($id)
     {
-        // 按商品分类显示
-        $type = DB::table('type')->where('pid','=',$id)->get();
-        // dd($type);
-        if(count($type)>0){
-        $pid=[];
-        $pid[] = $id;
-        foreach ($type as $key => $value) {
-            $pid[] = $value->id;
-        }
-        $typeid = join(",",$pid);
-        // dd($typeid) ;
-        $list = DB::select("select * from goods where typeid in ($typeid)");
-        // dd($list);
-        }else{
-            $list = DB::select("select * from goods where typeid = $id");
-        }
-        // // 加载分类页
-
-        // 爆款推荐
-        $tops = DB::select("select * from goods order by sales desc limit 5");
-        // dd($tops);
-        return view('Home.Type.type',['list'=>$list,'type'=>$type,'tops'=>$tops]);
+        $uid = session('user')['id'];
+        $gid = $id;
+        $info = DB::table('comment')->where('gid','=',$gid)->where('uid','=',$uid)->first();
+        // dd($info);
+        return view('Home.Personal.showcomment',['info'=>$info]);
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -86,7 +61,9 @@ class TypeController extends Controller
      */
     public function edit($id)
     {
-        //
+        
+        // 加载评论页
+        return view('Home.Personal.comment',['id'=>$id]);
     }
 
     /**
@@ -98,7 +75,15 @@ class TypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->except('_token','_method');
+        $data['uid'] = session('user')['id'];
+        $data['gid'] = $id;
+        $data['time'] = date('Y-m-d H:i',time());
+        // dd($data);
+        // 插入评论表
+        if(DB::table('comment')->insert($data)){
+            echo '<script>alert("发表成功！");location="/myorder"</script>';
+        }
     }
 
     /**

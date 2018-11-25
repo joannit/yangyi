@@ -64,44 +64,43 @@ class OrderController extends Controller
         $info = DB::table('cart')->join('goodsinfo','cart.ginfo_id','=','goodsinfo.id')->whereIn('cart.id',$cid)->select('cart.ginfo_id as ginfoid','cart.num','goodsinfo.gprice as price','goodsinfo.discount as discount')->get();  
         // dd($info);
         foreach ($info as $key => $value) {
-            $value->count = number_format($value->num*$value->price*($value->discount/100),2);
+            $value->count = number_format($value->num*$value->price*($value->discount/100),2,".","");
             // $value->oid = $oid;
             $arr[$key]=$value;
            unset($value->discount);
         };
-        // dd($arr);
         // 插入订单表
-        // dd($order);
+        // dd($arr);
         $oid=DB::table('order')->insertGetId($order);
-
-        foreach ($arr as $key => $value) {
-            foreach ($value as $k => $v) {
-               $ar[$key][$k]=$v;
-               $ar[$key]['oid']=$oid;
-            }
-            }
-            // dd($ar);
+            // 把订单号写入数组中
+            foreach ($arr as $key => $value) {
+                foreach ($value as $k => $v) {
+                   $ar[$key][$k]=$v;
+                   $ar[$key]['oid']=$oid;
+                }
+                }
+                
          // 如果订单插入成功     
         if($oid){
-            // 把数据插入详情表   
-            foreach ($ar as $key => $value) {
-            $result =DB::table('orderinfo')->insert($value);
-        }
-        // 如果插入详情表成功
-        if(count($result)>0){
-            // 删除购物车数据
-            DB::table('cart')->whereIn('id',$cid)->delete();
-            // 修改库存
-            foreach ($ar as $v) {
-                DB::table('goodsinfo')->where('id','=',$v['ginfoid'])->decrement('store',$v['num']);
-            }
+                // 把数据插入详情表   
+                foreach ($ar as $key => $value) {
+                $result =DB::table('orderinfo')->insert($value);
+                }
+            // 如果插入详情表成功
+            if(count($result)>0){
+                // 删除购物车数据
+                DB::table('cart')->whereIn('id',$cid)->delete();
+                // 修改库存
+                foreach ($ar as $v) {
+                    DB::table('goodsinfo')->where('id','=',$v['ginfoid'])->decrement('store',$v['num']);
+                    }
+                }
 
-            
-        }
         }else{
             echo '<script>alert("订单提交失败");location="/order"</script>';
         }
-        pay($onum,$oid,'羊燚网商');
+
+        pay($onum,$oid,rand(1,9999));
     }
 
     /**

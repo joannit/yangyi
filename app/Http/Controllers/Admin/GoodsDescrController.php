@@ -76,6 +76,16 @@ class GoodsDescrController extends Controller
     {
       $descr = ($request->except('_token','_method'));
       $info = DB::table('goods')->where('id','=',$id)->first();
+
+       /*preg_match_all('/<img.*?src="(.*?)".*?>/is', $info->descr, $arr);
+             if(isset($arr[1])){
+           foreach ($arr[1] as $key => $value) {
+                unlink('.'.$value);
+             }
+            }
+            */
+      // if(DB::table('goods')->where('id','=',$id)->update($descr)){
+
   preg_match_all('/<img.*?src="(.*?)".*?>/is', $info->descr, $arr);
 
       if(DB::table('goods')->where('id','=',$id)->update($descr)){
@@ -90,7 +100,10 @@ class GoodsDescrController extends Controller
             return redirect('/admin/goods')->with('success','修改成功！');
 
       }else{
-            return redirect('/admin/goods')->with('error','修改失败');
+
+            return redirect('/admin/goods')->with('error','修改失败！');
+
+
       }
 
 }

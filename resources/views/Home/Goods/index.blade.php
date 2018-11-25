@@ -373,7 +373,7 @@
                             <!-- 商品详情 -->
                             <center>
                             <p style="text-align: center;">
-                               <!-- {!!$goods->descr!!}   -->
+                               {!!$goods->descr!!}  
                             </p>
                             </center>
                         </div>
@@ -394,11 +394,22 @@
                                         </div>
                                         <div class="eval-content">
                                             <div class="eval-text">
+                                                评价等级：
+                                                @if($c->level==1)
+                                                好评
+                                                @elseif($c->level ==2)
+                                                中评
+                                                @else
+                                                差评
+                                                @endif
+                                                <br>
+                                                
+                                                <br>
                                                 {{$c->content}}
                                             </div>
                                             <br>
                                             <div class="eval-text">
-                                               <font color="red">商家回复：</font>{{$c->recontent}}
+                                               <font color="red">商家回复：</font>{!!$c->recontent!!}
                                             </div>
                                             <div class="eval-time">
                                                 {{$c->time}}

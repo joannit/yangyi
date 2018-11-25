@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 <head>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="/static/home/favicon.ico">
     <link rel="stylesheet" href="/static/home/css/iconfont.css">

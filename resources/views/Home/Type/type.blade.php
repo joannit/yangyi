@@ -99,11 +99,17 @@
 						<span class="c6">爆款推荐</span>
 					</div>
 					<div class="picked-box">
+
 						@if(count($tops))
 						@foreach($tops as $val)
 						<a href="/homegoodsinfo/{{$val->id}}" class="picked-item"><img src="/uploads/goods/{{$val->pic}}" alt="{{$val->name}}" class="cover"><span class="look_price">¥{{$val->price}}</span></a>
 						@endforeach
 						@endif
+
+
+						@foreach($tops as $tp)
+						<a href="{{$tp->id}}" class="picked-item"><img src="/uploads/goods/{{$tp->pic}}" alt="" class="cover"><span class="look_price">¥{{$tp->price}}</span></a>
+						@endforeach
 
 					</div>
 				</div>

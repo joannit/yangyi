@@ -64,6 +64,7 @@ class IndexController extends Controller
         //广告
         $advent = DB::table('advent')->where('status','=',1)->first();
 
+
         // 用户等级
         if(session('user'))
         {
@@ -72,7 +73,13 @@ class IndexController extends Controller
             $level=array();
         }
         // dd($level);
-        return view('Home.index',['type'=>$type,'typeall'=>$typeall,'tops'=>$tops,'notice'=>$notice,'advent'=>$advent,'goodsinfo'=>$goodsinfo,'level'=>$level]);
+        // 伦播图
+        $images=DB::table("images")->where('status','=',1)->get();
+        return view('Home.index',['type'=>$type,'typeall'=>$typeall,'tops'=>$tops,'notice'=>$notice,'advent'=>$advent,'goodsinfo'=>$goodsinfo,'level'=>$level,'images'=>$images]);
+
+
+
+
 
     }
 

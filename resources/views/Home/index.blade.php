@@ -217,11 +217,9 @@
 	<!-- 顶部轮播 -->
     <div class="swiper-container banner-box">
         <div class="swiper-wrapper">
-            <div class="swiper-slide"><a href="item_show.html"><img src="/static/home/images/temp/banner_1.jpg" class="cover"></a></div>
-            <div class="swiper-slide"><a href="item_show.html"><img src="/static/home/images/temp/banner_2.jpg" class="cover"></a></div>
-            <div class="swiper-slide"><a href="item_category.html"><img src="/static/home/images/temp/banner_3.jpg" class="cover"></a></div>
-            <div class="swiper-slide"><a href="item_show.html"><img src="/static/home/images/temp/banner_4.jpg" class="cover"></a></div>
-            <div class="swiper-slide"><a href="item_sale_page.html"><img src="/static/home/images/temp/banner_5.jpg" class="cover"></a></div>
+        	@foreach($images as $i)
+            <div class="swiper-slide"><a href="/home/type?keywords=男士"><img src="/uploads/{{$i->pic}}" class="cover"></a></div>
+            @endforeach
         </div>
         <div class="swiper-pagination"></div>
     </div>
@@ -276,7 +274,7 @@
 					</div>
 					<div class="buts-box bgf5">
 						<div class="but-div">
-							<a href="http://m.kuaidi100.com/index_all.html?type={$vo{$vo['postmode']}&postid=" style="color: #999;">
+							<a href="http://www.kuaidi100.com"style="color: #999;">
 								<i class="but-icon"></i>
 								<p>物流查询</p>
 							</a>
@@ -360,6 +358,8 @@
 			$('#guanggao').hide();
 		})
 
+
+
 			$(document).ready(function(){
 
 			// 顶部banner轮播
@@ -382,7 +382,8 @@
 			// 页面下拉固定楼层导航
 			$('.floor-nav').smartFloat();
 			$('.to-top').toTop({position:false});
-		});
+
+	});
 
 	</script>
 	<!-- 右侧菜单 -->
