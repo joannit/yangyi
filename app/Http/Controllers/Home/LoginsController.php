@@ -68,7 +68,10 @@ class LoginsController extends Controller
         if($data){ 
         	if(Hash::check($password,$data->user_password)){ 
         		if($fcode==$vcode){ 
-        			return redirect('/')->with('success','登录成功');
+        			$user['id'] = $data->id;
+           			$user['name'] = $data->user_name;
+           			session(['user' => $user]);
+        			return redirect('/');
         		}else{ 
         			return back()->with('error','校验码有误');
         		}
@@ -76,8 +79,16 @@ class LoginsController extends Controller
         		return back()->with('error','密码有误');
         	}
         }else{ 
-        	return back()->with('error','邮箱有误');
+        	return back()->with('error','邮箱有误或用户没有激活');
         }
+    }
+
+    public function outlogins()
+    {
+       // 清除session
+       session()->pull('user');
+       echo'<script>alert("退出成功！");location="/logins"</script>';
+
     }
 
     /**

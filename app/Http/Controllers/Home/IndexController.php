@@ -55,7 +55,10 @@ class IndexController extends Controller
         $notice = DB:: table('notice')->limit(5)->get();
         //广告
         $advent = DB::table('advent')->where('status','=',1)->first();
-        return view('Home.index',['type'=>$type,'typeall'=>$typeall,'tops'=>$tops,'notice'=>$notice,'advent'=>$advent]);
+        // 伦播图
+        $images=DB::table("images")->where('status','=',1)->get();
+        // dd($images);
+        return view('Home.index',['type'=>$type,'typeall'=>$typeall,'tops'=>$tops,'notice'=>$notice,'advent'=>$advent,'images'=>$images]);
 
     }
 

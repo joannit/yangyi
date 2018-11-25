@@ -67,7 +67,9 @@
                     <div class="item-title">
                         <div class="name ep2">{{$goods->name}}</div>
 
-                        <div class="sale cr discount">优惠活动：该商品享受8折优惠</div>
+                        <div class="sale cr discount">优惠活动：该商品享受8折优惠<span  id="shoucangss" class="btn btn-warning" style="margin-left:310px;background-color:;">收藏该商品</span></div>
+
+
                     </div>
                     <div class="item-price bgf5">
                         <div class="price-box clearfix">
@@ -85,6 +87,7 @@
                                 </ul>
                             </div>
                             <script>
+
                                 // 会员价格折叠展开
                                 $(function () {
                                     $('.vip-price-panel').click(function() {
@@ -109,7 +112,7 @@
                         </li>
                         <li class="item-ind-item">
                             <a href=""><span class="ind-label c9">累计评论</span>
-                            <span class="ind-count cr">{{$comnum}}</span></a>
+                            <span class="ind-count cr">@if(count($comnum)){{$comnum}}@else 0 @endif</span></a>
                         </li>
                         <li class="item-ind-item">
                             <span class="ind-label c9">赠送积分</span>
@@ -189,6 +192,7 @@
             </div>
 
                 <script>
+
                     $(document).ready(function(){
                         // 顶部banner轮播
                         var picked_swiper = new Swiper('.picked-swiper', {
@@ -322,6 +326,34 @@
                     })
                 })
 
+                //判断进入页面收藏是否
+                $(function(){
+					vv=$('.goodscolor').find('input:first').val();
+					$.get('/shoucang',{id:vv},function(data){
+                			//alert(data);
+                			if(data==1){
+                				$('#shoucangss').html('取消收藏');
+                			}else{
+                				$('#shoucangss').html('收藏该商品');
+                			}
+                		});
+                });
+
+                //获取当前信息id
+                $('#shoucangss').click(function(){
+                	vv=$('.goodscolor').find('input:first').val();
+                	$.get('/shoucangs',{id:vv},function(data){
+                		//alert(data);
+                		if(data==1){
+                			$('#shoucangss').html('收藏该商品');
+                		}else if(data==2){
+							$('#shoucangss').html('取消收藏');
+                		}else{
+                			alert('请先登录在再收藏');
+                			$('#shoucangss').html('收藏该商品');
+                		}
+                	})
+                });
                 </script>
             </div>
         </section>
@@ -341,7 +373,7 @@
                             <!-- 商品详情 -->
                             <center>
                             <p style="text-align: center;">
-                               <!-- {!!$goods->descr!!}   -->                  
+                               {!!$goods->descr!!}  
                             </p>
                             </center>
                         </div>
@@ -362,11 +394,22 @@
                                         </div>
                                         <div class="eval-content">
                                             <div class="eval-text">
+                                                评价等级：
+                                                @if($c->level==1)
+                                                好评
+                                                @elseif($c->level ==2)
+                                                中评
+                                                @else
+                                                差评
+                                                @endif
+                                                <br>
+                                                
+                                                <br>
                                                 {{$c->content}}
                                             </div>
                                             <br>
                                             <div class="eval-text">
-                                               <font color="red">商家回复：</font>{{$c->recontent}}
+                                               <font color="red">商家回复：</font>{!!$c->recontent!!}
                                             </div>
                                             <div class="eval-time">
                                                 {{$c->time}}
@@ -380,7 +423,7 @@
                                  </div>
                                     <!-- 分页 -->
                                     <div class="page text-center clearfix">
-                                       {{$comment->appends($request)->render()}} 
+                                       {{$comment->appends($request)->render()}}
                                     </div>
                                 </div>
                             </div>
@@ -417,7 +460,7 @@
                     </div>
 
                     <div role="tabpanel" class="tab-pane fade" id="service-tab" aria-labelledby="service-tab">
-                       
+
                     </div>
                 </div>
             </div>

@@ -1,45 +1,47 @@
 <html lang="zh-cmn-Hans">
- <head>
-  <meta charset="UTF-8" />
-  <link rel="shortcut icon" href="favicon.ico" />
-  <link rel="stylesheet" href="/static/home/css/iconfont.css" />
-  <link rel="stylesheet" href="/static/home/css/global.css" />
-  <link rel="stylesheet" href="/static/home/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="/static/home/css/bootstrap-theme.min.css" />
-  <link rel="stylesheet" href="/static/home/css/login.css" />
-  <script src="/static/home/js/jquery.1.12.4.min.js" charset="UTF-8"></script>
-  <script src="/static/home/js/bootstrap.min.js" charset="UTF-8"></script>
-  <script src="/static/home/js/jquery.form.js" charset="UTF-8"></script>
-  <script src="/static/home/js/global.js" charset="UTF-8"></script>
-  <script src="/static/home/js/login.js" charset="UTF-8"></script>
-  <title>U袋网 - 登录 / 注册</title>
- </head>
- <body>
-  <div class="public-head-layout container">
-   <a class="logo" href="index.html"><img src="/static/home/images/icons/logo.jpg" alt="U袋网" class="cover" /></a>
-  </div>
-  <div style="background:url(/static/home/images/login_bg.jpg) no-repeat center center; ">
-   <div class="login-layout container">
-    <div class="form-box login" style="display: none;">
-     <div class="tabs-nav">
-      <h2>欢迎登录U袋网平台</h2>
-     </div>
-     <div class="tabs_container">
-      <form class="tabs_form" action="" method="post" id="login_form">
-       <div class="form-group">
-        <div class="input-group">
-         <div class="input-group-addon">
-          <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
-         </div>
-         <input class="form-control phone" name="phone" id="login_phone" required="" placeholder="手机号" maxlength="11" autocomplete="off" type="text" />
-        </div>
-       </div>
-       <div class="form-group">
-        <div class="input-group">
-         <div class="input-group-addon">
-          <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
-         </div>
-         <input class="form-control password" name="password" id="login_pwd" placeholder="请输入密码" autocomplete="off" type="password" />
+
+ <head> 
+  <meta charset="UTF-8" /> 
+  <link rel="shortcut icon" href="favicon.ico" /> 
+  <link rel="stylesheet" href="/static/home/css/iconfont.css" /> 
+  <link rel="stylesheet" href="/static/home/css/global.css" /> 
+  <link rel="stylesheet" href="/static/home/css/bootstrap.min.css" /> 
+  <link rel="stylesheet" href="/static/home/css/bootstrap-theme.min.css" /> 
+  <link rel="stylesheet" href="/static/home/css/login.css" /> 
+  <script src="/static/home/js/jquery.1.12.4.min.js" charset="UTF-8"></script> 
+  <script src="/static/home/js/bootstrap.min.js" charset="UTF-8"></script> 
+  <script src="/static/home/js/jquery.form.js" charset="UTF-8"></script> 
+  <script src="/static/home/js/global.js" charset="UTF-8"></script> 
+  <script src="/static/home/js/login.js" charset="UTF-8"></script> 
+  <title>U袋网 - 登录 / 注册</title> 
+ </head> 
+ <body> 
+  <div class="public-head-layout container"> 
+   <a class="logo" href="/"><img src="/static/home/images/icons/logo.jpg" alt="U袋网" class="cover" /></a> 
+  </div> 
+  <div style="background:url(/static/home/images/login_bg.jpg) no-repeat center center; "> 
+   <div class="login-layout container"> 
+    <div class="form-box login" style="display: none;"> 
+     <div class="tabs-nav"> 
+      <h2>欢迎登录U袋网平台</h2> 
+     </div> 
+     <div class="tabs_container"> 
+      <form class="tabs_form" action="" method="post" id="login_form"> 
+       <div class="form-group"> 
+        <div class="input-group"> 
+         <div class="input-group-addon"> 
+          <span class="glyphicon glyphicon-phone" aria-hidden="true"></span> 
+         </div> 
+         <input class="form-control phone" name="phone" id="login_phone" required="" placeholder="手机号" maxlength="11" autocomplete="off" type="text" /> 
+        </div> 
+       </div> 
+       <div class="form-group"> 
+        <div class="input-group"> 
+         <div class="input-group-addon"> 
+          <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> 
+         </div> 
+         <input class="form-control password" name="password" id="login_pwd" placeholder="请输入密码" autocomplete="off" type="password" /> 
+
          <div class="input-group-addon pwd-toggle" title="显示密码">
           <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
          </div>
@@ -144,32 +146,34 @@
     </div>
 
     <!--密码找回-->
-    <div class="form-box resetpwd" style="display: block;">
-     <div class="tabs-nav clearfix">
-      <h2>找回密码<a href="/login" class="pull-right fz16" id="pwdlogin">返回登录</a></h2>
-     </div>
-     <div class="tabs_container">
-      <form class="tabs_form" action="/doreset" method="post" id="resetpwd_form">
-       <div class="form-group">
-        <div class="input-group">
-         <div class="input-group-addon">
-          <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
-         </div>
-         <input class="form-control phone" name="user_phone" id="resetpwd_phone" required="" placeholder="手机号" maxlength="11" autocomplete="off" type="text" />
-        </div>
-       </div>
-       <div class="form-group">
-        <div class="input-group">
-         <input class="form-control" name="sms" id="resetpwd_sms" placeholder="输入验证码" type="text" />
-         <span class="input-group-btn"> <button class="btn btn-primary getsms" type="button" id="btns">发送短信验证码</button> </span>
-        </div>
-       </div>
-       <div class="form-group">
-        <div class="input-group">
-         <div class="input-group-addon">
-          <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
-         </div>
-         <input class="form-control password" name="user_password" id="resetpwd_pwd" placeholder="新的密码" autocomplete="off" type="password" />
+
+    <div class="form-box resetpwd" style="display: block;"> 
+     <div class="tabs-nav clearfix"> 
+      <h2>找回密码<a href="/login" class="pull-right fz16" id="pwdlogin">返回登录</a></h2> 
+     </div> 
+     <div class="tabs_container"> 
+      <form class="tabs_form" action="/doreset" method="post" id="resetpwd_form"> 
+       <div class="form-group"> 
+        <div class="input-group"> 
+         <div class="input-group-addon"> 
+          <span class="glyphicon glyphicon-phone" aria-hidden="true"></span> 
+         </div> 
+         <input class="form-control phone" name="user_phone" id="resetpwd_phone" required="" placeholder="手机号" maxlength="11" autocomplete="off" type="text" /> 
+        </div> 
+       </div> 
+       <div class="form-group"> 
+        <div class="input-group"> 
+         <input class="form-control" name="sms" id="resetpwd_sms" placeholder="输入验证码" type="text" /> 
+         <span class="input-group-btn"> <button class="btn btn-primary getsms" type="button" id="btns">发送短信验证码</button> </span> 
+        </div> 
+       </div> 
+       <div class="form-group"> 
+        <div class="input-group"> 
+         <div class="input-group-addon"> 
+          <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> 
+         </div> 
+         <input class="form-control password" name="user_password" id="resetpwd_pwd" placeholder="新的密码" autocomplete="off" type="password" /> 
+
          <div class="input-group-addon pwd-toggle" title="显示密码">
           <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
          </div>
@@ -177,6 +181,14 @@
        </div>
        <!-- 错误信息 -->
        <div class="form-group">
+
+  
+        <div class="error_msg" id="resetpwd_error"></div> 
+    	{{csrf_field()}}
+       </div> 
+       <button class="btn btn-large btn-primary btn-lg btn-block submit" id="resetpwd_submit" type="submit">重置密码</button> 
+      </form> 
+
 
         <div class="error_msg" id="resetpwd_error"></div>
 
@@ -230,7 +242,7 @@
 
 			}else{
 			$("#resetpwd_error").html('请输入正确的手机号').css('color','red');
-				$("#btns").attr('disabled',true);
+				//$("#btns").attr('disabled',true);
 				PHONE=false;
 			}
 
@@ -275,7 +287,9 @@
 			code=$(this).val();
 			//alert(code);
 			//AJAX传值
-			$.get('/code',{code:code},function(data){
+
+			$.get('/codes',{code:code},function(data){ 
+
 
 				if(data==1){
 					$("#resetpwd_error").html('验证码正确').css('color','green');
@@ -309,10 +323,12 @@
 		$(".tabs_form").submit(function(){
 			//符合所有条件可以提交
 
-			$("#resetpwd_pwd").trigger("blur");
-			$("#resetpwd_sms").trigger("blur");
-			$('#resetpwd_phone').trigger("blur");
-			if(PHONE == true && p_wd == true && p_hone){
+		
+			//$("#resetpwd_pwd").trigger("blur");
+			//$("#resetpwd_sms").trigger("blur");
+			//$('#resetpwd_phone').trigger("blur");
+			if(PHONE == true && p_wd == true && p_hone){ 
+
 				return true;
 			}else{
 				return false;

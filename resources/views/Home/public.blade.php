@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 <head>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="/static/home/favicon.ico">
     <link rel="stylesheet" href="/static/home/css/iconfont.css">
@@ -11,10 +12,10 @@
     <link rel="stylesheet" href="/static/home/css/styles.css">
     <script src="/static/home/js/jquery.1.12.4.min.js" charset="UTF-8"></script>
 
-    <script src="js/bootstrap.min.js" charset="UTF-8"></script>
-    <script src="js/swiper.min.js" charset="UTF-8"></script>
-    <script src="js/global.js" charset="UTF-8"></script>
-    <script src="js/jquery.DJMask.2.1.1.js" charset="UTF-8"></script>
+    <script src="/static/home/js/bootstrap.min.js" charset="UTF-8"></script>
+    <script src="/static/home/js/swiper.min.js" charset="UTF-8"></script>
+    <script src="/static/home/js/global.js" charset="UTF-8"></script>
+    <script src="/static/home/js/jquery.DJMask.2.1.1.js" charset="UTF-8"></script>
 
     <script src="/static/home/js/bootstrap.min.js" charset="UTF-8"></script>
     <script src="/static/home/js/swiper.min.js" charset="UTF-8"></script>
@@ -53,6 +54,16 @@
             </div>
         </div>
     </div>
+
+
+
+      @if(session('error'))
+          <div class="alert alert-warning alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span></button>
+        <center><strong>{{session('error')}}</strong></center>
+        </div>
+        @endif
     <!-- 搜索栏 -->
     <!-- <div class="top-search">
     <div class="top-search">

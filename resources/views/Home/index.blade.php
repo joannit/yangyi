@@ -26,18 +26,17 @@
 	</style>
 
 
-
-	</style>
-
 </head>
 <body>
 
 		<!--广告-->
+		@if(count($advent))
 	<div style="z-index:999;display: block; position: fixed; right: 10px; top: 200px; " id="guanggao">
 	<div id="zxd_x" style="background-color:#ccc;">
 	<b style="margin-left:100px;">广告位</b>
 	<a title="点击关闭" style="text-decoration:none"><b style="color:red;margin-left:65px;cursor:pointer" id="anniu">X</b></a>
 	</div>
+
 	<div class="content">
 	<a href="">
 	<img src="{{$advent->pic}}" width="220px"height="282px;">
@@ -45,7 +44,7 @@
 	</div >
 	<b style="color:orange;margin-left:60px">{{$advent->descr}}</b>
 	</div>
-
+	@endif
 	<!-- 顶部tab -->
 	<div class="tab-header">
 		<div class="inner">
@@ -68,6 +67,14 @@
 			</div>
 		</div>
 	</div>
+
+	  @if(session('error'))
+          <div class="alert alert-warning alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span></button>
+        <center><strong>{{session('error')}}</strong></center>
+        </div>
+        @endif
 	<!-- 搜索栏 -->
 	<div class="top-search">
 		<div class="inner">
@@ -207,11 +214,9 @@
 	<!-- 顶部轮播 -->
     <div class="swiper-container banner-box">
         <div class="swiper-wrapper">
-            <div class="swiper-slide"><a href="item_show.html"><img src="/static/home/images/temp/banner_1.jpg" class="cover"></a></div>
-            <div class="swiper-slide"><a href="item_show.html"><img src="/static/home/images/temp/banner_2.jpg" class="cover"></a></div>
-            <div class="swiper-slide"><a href="item_category.html"><img src="/static/home/images/temp/banner_3.jpg" class="cover"></a></div>
-            <div class="swiper-slide"><a href="item_show.html"><img src="/static/home/images/temp/banner_4.jpg" class="cover"></a></div>
-            <div class="swiper-slide"><a href="item_sale_page.html"><img src="/static/home/images/temp/banner_5.jpg" class="cover"></a></div>
+        	@foreach($images as $i)
+            <div class="swiper-slide"><a href="/home/type?keywords=男士"><img src="/uploads/{{$i->pic}}" class="cover"></a></div>
+            @endforeach
         </div>
         <div class="swiper-pagination"></div>
     </div>
@@ -265,7 +270,7 @@
 					</div>
 					<div class="buts-box bgf5">
 						<div class="but-div">
-							<a href="">
+							<a href="http://m.kuaidi100.com/index_all.html?type={$vo{$vo['postmode']}&postid=" style="color: #999;">
 								<i class="but-icon"></i>
 								<p>物流查询</p>
 							</a>
@@ -341,10 +346,13 @@
 	</div>
 	<script>
 
+		//隐藏广告
 		$('#anniu').click(function(){
+			//alert(1);
 			$('#guanggao').hide();
 		})
-		$(document).ready(function(){
+
+
 
 			// 顶部banner轮播
 			var banner_swiper = new Swiper('.banner-box', {
@@ -366,7 +374,8 @@
 			// 页面下拉固定楼层导航
 			$('.floor-nav').smartFloat();
 			$('.to-top').toTop({position:false});
-		});
+
+
 	</script>
 	<!-- 右侧菜单 -->
 	@if(session('user'))

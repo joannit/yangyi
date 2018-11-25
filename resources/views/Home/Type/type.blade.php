@@ -98,9 +98,9 @@
 						<span class="c6">爆款推荐</span>
 					</div>
 					<div class="picked-box">
-
-						<a href="" class="picked-item"><img src="" alt="" class="cover"><span class="look_price">¥</span></a>
-
+						@foreach($tops as $tp)
+						<a href="{{$tp->id}}" class="picked-item"><img src="/uploads/goods/{{$tp->pic}}" alt="" class="cover"><span class="look_price">¥{{$tp->price}}</span></a>
+						@endforeach
 					</div>
 				</div>
 			</div>

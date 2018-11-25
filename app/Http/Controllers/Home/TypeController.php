@@ -19,7 +19,8 @@ class TypeController extends Controller
         $list = DB::table('goods')->where('name','like','%'.$k.'%')->get();
         // dd($list);
         // 爆款推荐
-        $tops = DB::select("select * from goods order by sales desc limit 10");
+        $tops = DB::table('goods')->where('status','=',0)->orderBy('sales','desc')->limit(8)->get();
+        // dd($tops);
          return view('Home.Type.type',['list'=>$list,'tops'=>$tops]);
     }
 

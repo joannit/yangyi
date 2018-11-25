@@ -101,7 +101,8 @@ class RegistersController extends Controller
         	//数据插入
         	if($id=DB::table('user')->insertGetid($data)){ 
         		$this->sendMail($data['email'],$id,$data['token']);
-        		echo "激活用户邮箱已经发送,请登录邮箱查看用户激活用户";	
+        		//echo "激活用户邮箱已经发送,请登录邮箱查看用户激活用户";
+        		return redirect('/logins/create')->with('success','激活用户邮箱已经发送,请登录邮箱查看用户激活用户');
         	}
         }else{ 
 				return redirect("/registers")->with('error','校验码有误,请重新输入');

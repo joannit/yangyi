@@ -78,13 +78,24 @@ class OrderController extends Controller
         // dd($info);
         // foreach ($info as $key => $value) {
 
-         $info=DB::table('orderinfo as or')->join('goodsinfo as gi','or.ginfoid','gi.id')->join('goods as g','g.id','=','gi.gid')->join('color as c','c.id','=','gi.colorid')->join('size as s','s.id','=','gi.sizeid')->join('brand as b','g.bid','=','b.id')->select('b.name as bname','gi.gprice','gi.discount','g.name as gname','c.cname','s.value','or.num')->where('or.oid','=',$id)->get();
+         $info=DB::table('orderinfo as or')->join('goodsinfo as gi','or.ginfoid','gi.id')->join('goods as g','g.id','=','gi.gid')->join('color as c','c.id','=','gi.colorid')->join('size as s','s.id','=','gi.sizeid')->join('brand as b','g.bid','=','b.id')->select('b.name as bname','gi.gprice','gi.discount','g.name as gname','c.cname','s.value','or.num','gi.gid')->where('or.oid','=',$id)->get();
         // }
         // dd($info);
         // dd($id);
         // dd($data);
+         // 获取所有gid
+        $uid = session('user')['id'];
+         foreach ($info as $key => $value) {
+            
+            if(count(DB::table('comment')->where('gid','=',$value->gid)->where('uid','=',$uid)->get())>0){
+                $value->level = 1;
+             }else{
+                $value->level = 0;
+         }
+       // dd($info);
         return view('Home.Goods.orderinfo',['data'=>$data,'info'=>$info]);
     }
+}
 
     /**
      * Show the form for editing the specified resource.

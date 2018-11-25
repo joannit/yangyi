@@ -19,12 +19,12 @@
      <a href="/myorder" class="user-nav__but"> <i class="iconfont icon-rmb fz40 cr"></i> 
       <div class="c6">
        待支付 
-       <span class="cr">1</span>
+       <span class="cr">@if(count($notpay)) {{$notpay}} @endif</span>
       </div> </a> 
-     <a href="" class="user-nav__but"> <i class="iconfont icon-eval fz40 cr"></i> 
+     <a href="/myorder" class="user-nav__but"> <i class="iconfont icon-eval fz40 cr"></i> 
       <div class="c6">
        待评价 
-       <span class="c3">0</span>
+       <span class="c3">@if(count($cnum)) {{$cnum}} @endif</span>
       </div> </a> 
      <a href="" class="user-nav__but"> <i class="iconfont icon-star fz40 cr"></i> 
       <div class="c6">

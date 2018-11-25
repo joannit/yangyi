@@ -25,12 +25,42 @@ class PersonalController extends Controller
         // 查询消息
         $msg = DB::table('message')->where('uid','=',$id)->get();
         // dd($msg);
+        // 查询未支付订单数
+        $notpay = DB::table('order')->where('uid','=',$id)->where('ostatus','=',1)->get();
+        $notpay=count($notpay);
+        // 查询待评价数
+            // 获取当前用户订单详情的商品id
+            
+            $oinfo = DB::table('order')->where('uid','=',$id)->join('orderinfo','order.id','=','orderinfo.oid')->join('goodsinfo','orderinfo.ginfoid','=','goodsinfo.id')->join('goods','goodsinfo.gid','=','goods.id')->where('uid','=',$id)->select('orderinfo.ginfoid','goods.id')->get();
+            // 如果有多个商品
+            $gnum = count($oinfo);
+            if(count($oinfo)>1){
+                $gid = [];
+                foreach ($oinfo as $key => $value) {
+                $gid[] = $value->id;
+                }
+                // 查询评论表是否有对应商品评论数据
+                $a = count(DB::table('comment')->whereIn('gid',$gid)->where('uid','=',$id)->get());
+                // dd($a);
+                $cnum = $gnum-$a;
+            // 如果只有一个商品
+            }else{
+               $gid =$oinfo[0]->id;
+               // 查询评论表
+               if(count(DB::table('comment')->where('gid','=',$gid)->where('uid','=',40)->get())>0){
+                $cnum = 0;
+                }else{
+                $cnum = 1;
+                }
+            }
+
+            // dd($cnum);
         // 加载个人中心首页
         if($user_info){
-            return view('Home.Personal.index',['user_info'=>$user_info,'msg'=>$msg]);
+            return view('Home.Personal.index',['user_info'=>$user_info,'msg'=>$msg,'notpay'=>$notpay,'cnum'=>$cnum]);
         }else{
             $user_info=array();
-             return view('Home.Personal.index',['user_info'=>$user_info,'msg'=>$msg]);
+             return view('Home.Personal.index',['user_info'=>$user_info,'msg'=>$msg,'notpay'=>$notpay,'cnum'=>$cnum]);
         }
         
     }
@@ -331,4 +361,85 @@ class PersonalController extends Controller
             echo '<script>alert("删除失败！");location="/message"</script>';
         }
     }
+    //获取优惠券
+    public function coupons()
+    { 
+    	$uid=session('user')['id'];
+    	//echo $uid;exit;
+    	$data=DB::table('couponsuser')->join('coupons','coupons.id','=','couponsuser.ponsid')->where('couponsuser.uid','=',$uid)->select('coupons.*')->orderBy('couponsuser.id','asc')->get();
+    	//dd($data);
+    	return view('Home.Personal.coupons',['data'=>$data]);
+    }
+    //获取收藏
+    public function house()
+    { 
+    	$uid=session('user')['id'];
+    	//echo $uid;
+    	$data=DB::table('house')->join('goodsinfo','house.gid','=','goodsinfo.id')->join('goods','goodsinfo.gid','=','goods.id')->select('goods.*','goodsinfo.id as gid')->get();
+    	//dd($data);
+    	return view('Home.Personal.house',['data'=>$data]);
+    }
+    //删除收藏
+    public function houses(Request $request,$id)
+    { 
+    	//获取用户id 和 商品 id;
+    	$uidss=session('user')['id'];
+    	//dd($uid);
+    	$gid=$id;
+    	//dd($gid);
+    	//删除数据
+    	$data=DB::table('house')->where('gid','=',$gid)->where('uid','=',$uidss)->delete();
+    	//删除成功跳转
+    	if($data){ 
+    		return redirect('/house');
+    	}else{ 
+    		return redirect('/house');
+    	}
+
+    }
+    // 加载快递查询页面
+    public function express()
+    {
+        return view('Home.Personal.express');
+    }
+    // 处理快递查询
+     public function doexpress(Request $request)
+    {
+       // $type = $request->input('type');
+       // $ponsid = $request->input('ponsid');
+       // $url = 'http://www.baidu.com/';
+
+       //  $options = array(  
+       //      'http' => array(  
+       //          'method' => 'GET',  
+       //          'header' => 'Content-type:application/x-www-form-urlencoded',  
+       //          'content' => $data,
+       //          'timeout' => 60 // 超时时间（单位:s）  
+       //      )  
+       //  ); 
+
+       //  $context = stream_context_create($options); 
+       // $result file_get_contents($url, false, $context);
+       // var_dump($result);
+        $data = array(  
+                    'type'=>'zhongtong',   
+                    'postid'=>'640006627091' );   
+        $data = http_build_query($data);   
+  
+        $options = array(  
+        'http' => array(  
+        'method' => 'POST',  
+        'header' => 'Content-type:application/x-www-form-urlencoded',  
+        'content' => $data , 
+        'timeout' => 60 // 超时时间（单位:s）  
+        )  
+        );  
+  
+    $url = "http://www.kuaidi100.com/query";  
+    $context = stream_context_create($options);  
+    $result = file_get_contents($url, false, $context);  
+    $info = json_decode($result,true);
+    return $info;
+
+        }
 }

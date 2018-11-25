@@ -18,9 +18,9 @@ class CommentController extends Controller
         $k = $request->input('keywords');
         // dd($k);
         // 获取所有评价
-        $list = DB::table('comment')->join('goods','gid','=','goods.id')->join('user','uid','=','user.id')->select('comment.*', 'goods.name','user.user_name')->where('goods.name','like','%'.$k.'%')->paginate(5);
-        
+        $list = DB::table('comment')->join('goods','comment.gid','=','goods.id')->join('user','comment.uid','=','user.id')->select('comment.*', 'goods.name','user.user_name')->where('goods.name','like','%'.$k.'%')->paginate(5);
         // 加载评价列表
+        // dd($list);
         return view('Admin.Comment.index',['request'=>$request->all(),'list'=>$list]);
     }
 

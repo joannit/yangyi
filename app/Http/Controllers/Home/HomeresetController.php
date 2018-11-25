@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Home;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
+use Hash;
 class HomeresetController extends Controller
 {
     /**
@@ -123,20 +124,22 @@ class HomeresetController extends Controller
     public function doreset(Request $request)
     { 
 
-    	$data=$request->except(['_token','smscode']);
+    	$data=$request->except(['_token','sms']);
+    	//dd($data);
 
     	$data['user_password']=Hash::make($data['user_password']);
 
-    	//var_dump($data);exit;
-
-    	$reset=DB::table('user')->insert($data);
+    	//var_dump($data['user_phone']);exit;
+    	$res=DB::table('user')->where('user_phone','=',$data['user_phone'])->first();
+    	$id=$res->id;
+    	$reset=DB::table('user')->where('id','=',$id)->update($data);
 
     	if($reset){ 
 
-    		return redirect("/homelogin")->with('success','注册成功,请登录');
+    		return redirect("/login")->with('success','修改成功,请登录');
     	}else{ 
 
-    		return back()->with('error','注册失败,请认真检查');
+    		return back()->with('error','修改失败,请认真检查');
     	}
     }
 }

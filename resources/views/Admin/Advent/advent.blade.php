@@ -46,7 +46,7 @@
     </div> 
    </div> 
    <div class="portlet-body"> 
-  
+  <a href="/adminadvent/create" class="btn btn info">添加广告 <i class="icon-plus"></i></a>
     <div id="sample_2_wrapper" class="dataTables_wrapper form-inline" role="grid">
      <div class="row-fluid">
       <div class="span6">
@@ -100,9 +100,6 @@
         </div></td>
         <td class="hidden-480 ">
         <ul>
-        <li class="fl">
-        <a href="/adminadvent/create" class="btn btn info"><i class="icon-plus"></i></a>
-        </li>
         <li class="fl">
         <a href="/adminadvent/{{$row->id}}/edit" class="btn blue icn-only"><i class=" icon-pencil"></i></a>
         </li>
