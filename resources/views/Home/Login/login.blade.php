@@ -17,7 +17,7 @@
  </head> 
  <body> 
    @if(session('success'))
-      <div class="alert alert-danger" >
+      <div class="alert alert-danger" id="divss">
                   <button class="close" data-dismiss="alert"></button>
                   <strong>{{session('success')}}</strong>
         	    </div>
@@ -223,7 +223,9 @@
     </div> 
     <script>
   	//alert(1);
-    
+    $('#divss').click(function(){ 
+    	$(this).hide();
+    })
 	$(document).ready(function() {
 					// 判断直接进入哪个页面 例如 login.php?p=register
 	switch($.getUrlParam('p')) {

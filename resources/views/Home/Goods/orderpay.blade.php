@@ -188,6 +188,7 @@
                         <button type="submit" class="btn">继续支付</button>
                     </div>
                     <script>
+                   // alert(1);
                         $(document).ready(function(){
                             $(this).on('change','input',function() {
                                 $(this).parents('.radio-box').addClass('active').siblings().removeClass('active');
@@ -242,7 +243,7 @@
     </div>
 
         <script>
-
+        //alert(1);
             node=$('.notadefault');
             de= $('.adefault');
             $('.adefault').click(function(){
@@ -288,9 +289,8 @@
                     alert('设置成功');
 
                 }
-              });
-
-              });
+           });
+             
 		});
         //获取订单总价数据
 		tal=$('#zongjia').html();
@@ -299,6 +299,7 @@
 		//触发change事件
         $('#coupon').change(function(){ 
         	id=$(this).val();
+        	//alert(1);
         	//通过id 去获取值
         	$.get('/docoupons',{id:id},function(data){ 
         		if(data){
@@ -320,8 +321,6 @@
         				alert('不满足优惠条件,请换一个优惠券');
         				//$('#optis').attr('disabled');
         			}
-
-
         		}
         	});
         });

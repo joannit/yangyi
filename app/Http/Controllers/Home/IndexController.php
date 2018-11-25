@@ -64,10 +64,21 @@ class IndexController extends Controller
         //广告
         $advent = DB::table('advent')->where('status','=',1)->first();
 
+
+        // 用户等级
+        if(session('user'))
+        {
+            $level=DB::table('user')->where('id','=',session('user')['id'])->first();
+        } else {
+            $level=array();
+        }
+        // dd($level);
         // 伦播图
         $images=DB::table("images")->where('status','=',1)->get();
-        // dd($images);
-        return view('Home.index',['type'=>$type,'typeall'=>$typeall,'tops'=>$tops,'notice'=>$notice,'advent'=>$advent,'images'=>$images,'goodsinfo'=>$goodsinfo]);
+        return view('Home.index',['type'=>$type,'typeall'=>$typeall,'tops'=>$tops,'notice'=>$notice,'advent'=>$advent,'goodsinfo'=>$goodsinfo,'level'=>$level,'images'=>$images]);
+
+
+
 
 
     }

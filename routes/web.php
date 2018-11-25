@@ -106,6 +106,8 @@ Route::group(['middleware'=>'login'],function(){
     Route::post('/doeditpwd','Home\PersonalController@doeditpwd');
     //优惠券
     Route::get('/couponss','Home\PersonalController@coupons');
+    //已经使用的优惠券
+    Route::get('/couponsss','Home\PersonalController@couponsss');
     //我的收藏
     Route::get('/house','Home\PersonalController@house');
     //删除收藏
@@ -158,13 +160,19 @@ Route::group(['middleware'=>'login'],function(){
     Route::get('/paynow/{id}','Home\Order\OrderController@paynow');
     // 确认订单时没有地址返回
     Route::get('/ordersure','Home\Goods\GoodsinfoController@goodsinfo');
+
+    // 订单查询 待付款
+    Route::get('/waitpay/{ostatus}','Home\Order\OrderController@waitpay');
+
     // 评价
     Route::resource('/goods/comment','Home\CommentController');
     // 抽奖
     Route::resource('/draw','Home\IndexController');
     // 快递查询
     Route::get('/express','Home\PersonalController@express');
+    // 快递ajax
     Route::get('/doexpress','Home\PersonalController@doexpress');
+
 
                                 // end-----个人中心----
 });
@@ -235,7 +243,7 @@ Route::group(['middleware'=>'adminlogin'],function(){
     Route::get('/noticedel','Admin\NoticeController@del');
     // 后台轮播图
     Route::resource('/adminimages','Admin\AdminimagesController');
-    
+
 
 });
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~end~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

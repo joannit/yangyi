@@ -10,7 +10,7 @@
    <div class="collection-list__area clearfix"> 
    @foreach($data as $row)
     <div class="item-card"> 
-     <a href="item_show.html" class="photo"> <img src="/uploads/goods/{{$row->pic}}" alt="{{$row->name}}" class="cover" /> 
+     <a href="/homegoodsinfo/{{$row->gids}}" class="photo"> <img src="/uploads/goods/{{$row->pic}}" alt="{{$row->name}}" class="cover" /> 
       <div class="name">
       {{$row->name}}
       </div> </a> 

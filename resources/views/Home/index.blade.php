@@ -49,7 +49,7 @@
 	<div class="tab-header">
 		<div class="inner">
 			<div class="pull-left">
-				<div class="pull-left">嗨，欢迎来到<span class="cr">U袋网</span></div>
+				<div class="pull-left">嗨，欢迎来到<span class="cr">羊燚</span></div>
 			</div>
 			<div class="pull-right">
 			@if(!session('user'))
@@ -60,8 +60,8 @@
 				<a href="/outlogin">退出</a>
 				<a href="/personal">个人中心</a>
 
-				<a href="udai_order.html">我的订单</a>
-				<a href="udai_integral.html">积分平台</a>
+				<a href="/myorder">我的订单</a>
+				<!-- <a href="udai_integral.html">积分平台</a> -->
 			@endif
 
 			</div>
@@ -78,10 +78,10 @@
 	<!-- 搜索栏 -->
 	<div class="top-search">
 		<div class="inner">
-			<a class="logo" href="index.html"><img src="/static/home/images/icons/logo.jpg" alt="U袋网" class="cover"></a>
+			<a class="logo" href="/"><img src="/static/home/images/icons/logo.jpg" alt="羊燚" class="cover"></a>
 			<div class="search-box">
 				<form class="input-group" action="/home/type" method="get" >
-					<input placeholder="Ta们都在搜U袋网" type="text" name="keywords">
+					<input placeholder="Ta们都在搜羊燚" type="text" name="keywords">
 					<span class="input-group-btn">
 						<button type="type">
 							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -155,20 +155,23 @@
 					<div class="avt-port">
 						<img src="/static/home/images/icons/default_avt.png" alt="欢迎来到U袋网" class="cover b-r50">
 					</div>
+					@if(session('user'))
 					<!-- 已登录 -->
-					<div class="name c6">Hi~ <span class="cr">18759808122</span></div>
-					<div class="point c6">积分: 30</div>
-
+					<div class="name c6">Hi~ <span class="cr">{{session('user')['name']}}</span></div>
+					<div class="point c6">@if($level->user_level)VIP用户 @else 普通会员@endif</div>
+					@else
 					<!-- 未登录 -->
-					<!-- <div class="name c6">Hi~ 你好</div>
-					<div class="point c6"><a href="">点此登录</a>，发现更多精彩</div> -->
+					<div class="name c6">Hi~ 你好</div>
+					<div class="point c6"><a href="">点此登录</a>，发现更多精彩</div>
+					@endif
 					<div class="report-box">
-						<span class="badge">+30</span>
-						<a class="btn btn-info btn-block disabled" href="#" role="button">已签到1天</a>
+
+						<!-- <span class="badge">+30</span> -->
+						<!-- <a class="btn btn-info btn-block disabled" href="#" role="button">已签到1天</a> -->
 						<!-- <a class="btn btn-primary btn-block" href="#" role="button">签到领积分</a> -->
 					</div>
 				</div>
-				<div class="agent-box">
+				<!-- <div class="agent-box">
 					<a href="#" class="agent">
 						<i class="iconfont icon-fushi"></i>
 						<p>申请网店代销</p>
@@ -177,18 +180,18 @@
 						<i class="iconfont icon-agent"></i>
 						<p><span class="cr">9527</span>位代销商</p>
 					</a>
-				</div>
+				</div> -->
 				<div class="verify-qq">
 					<div class="title">
 						<i class="fake"></i>
-						<span class="fz12">真假QQ客服验证-远离骗子</span>
+						<span class="fz12">羊燚祝您生活愉快</span>
 					</div>
-					<form class="input-group">
+					<!-- <form class="input-group">
 						<input class="form-control" placeholder="输入客服QQ号码" type="text">
 						<span class="input-group-btn">
 							<button class="btn btn-primary submit" id="verifyqq" type="button">验证</button>
 						</span>
-					</form>
+					</form> -->
 					<script>
 						$(function() {
 							$('#verifyqq').click(function() {
@@ -271,7 +274,7 @@
 					</div>
 					<div class="buts-box bgf5">
 						<div class="but-div">
-							<a href="http://m.kuaidi100.com/index_all.html?type={$vo{$vo['postmode']}&postid=" style="color: #999;">
+							<a href="http://www.kuaidi100.com"style="color: #999;">
 								<i class="but-icon"></i>
 								<p>物流查询</p>
 							</a>
@@ -355,6 +358,8 @@
 			$('#guanggao').hide();
 		})
 
+
+
 			$(document).ready(function(){
 
 			// 顶部banner轮播
@@ -377,7 +382,8 @@
 			// 页面下拉固定楼层导航
 			$('.floor-nav').smartFloat();
 			$('.to-top').toTop({position:false});
-		});
+
+	});
 
 	</script>
 	<!-- 右侧菜单 -->

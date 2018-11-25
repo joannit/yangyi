@@ -154,9 +154,10 @@ class GoodsinfoController extends Controller
         // 爆款推荐
         $hot = DB::table('goods')->orderBy('sales')->get();
         // 查询评价
+
         $comment = DB::table('comment')->join('user_info','comment.uid','=','user_info.uid')->where('comment.gid','=',$data->id)->paginate(10);
-        // dd($data);
-         // 评论数
+        // dd($comment);
+        //评论数
         $comnum=DB::table('comment')->where('gid','=',$id)->count();
         return view('Home.Goods.index',['type'=>$goodsname,'goods'=>$data,'goodsinfo'=>$ginfo,'hot'=>$hot,'comment'=>$comment,'request'=>$request->all(),'comnum'=>$comnum]);
 
@@ -201,7 +202,6 @@ class GoodsinfoController extends Controller
 
         if(session('user')) {
         // 商品详情id
-
 
             $id=$request->input('ginfoid');
             // $id=11;
@@ -282,8 +282,12 @@ class GoodsinfoController extends Controller
 
     // 下单 成功后调用支付接口
     public function pays(Request $request)
-    {
-
+    {		
+    		//用户关联优惠券id 存储session
+    		$ids=$request->input('crid');
+    		//dd($ids);
+    		session(['ids'=>$ids]);
+    		//dd(session('ids'));
             // 实际付款
             if(session('buynoworder')) {
 
@@ -359,6 +363,11 @@ class GoodsinfoController extends Controller
           // 支付宝交易号
         $alinum=$request->input('trade_no');
         $bool=DB::table('order')->where('id','=',$id)->update(['paytime'=>$paytime,'alinum'=>$alinum,'ostatus'=>2]);
+
+        $idss=session('ids');
+        $res['p_status']=1;
+        $datass=DB::table('couponsuser')->where('id','=',$idss)->update($res);
+        //dd($datass);
         // 返回订单中心
         echo  '<script>alert("下单成功");location="/myorder"</script>';
 
@@ -380,7 +389,7 @@ class GoodsinfoController extends Controller
     		echo 2;
     	}
     }
-
+    //操作收藏
     public function shoucangs(Request $request)
     {
     	$gid=$request->input('id');
