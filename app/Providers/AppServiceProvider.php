@@ -11,9 +11,12 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
+    // 查询购物车数目
+
     public function boot()
     {
-        //
+
+
     }
 
     /**

@@ -1,5 +1,5 @@
 @extends('Home.Personal.public')
-
+@section('title','订单详情')
 @section('right')
 <html>
  <head></head>
@@ -58,6 +58,9 @@
       <div class="tdf1">
        折后
       </div>
+      <div class="tdf1">
+       评价
+      </div>
      </div>
 
      <div class="order-item__list">
@@ -100,8 +103,18 @@
        </div>
        <div class="tdf1">
         <div class="ep2 zhehou">
-        &yen;<span>{{number_format(($val->gprice)*($val->num)*($val->discount/100),2)}}</span>
+        &yen;<span>{{number_format(($val->gprice)*($val->num)*($val->discount/100),2,".","")}}</span>
         </div>
+       </div>
+       <div class="tdf1">
+        @if($data->ostatus ==4)
+          @if($val->level == 0)
+           <a href="/goods/comment/{{$val->gid}}/edit" class="btn btn-danger">评价</a>
+           @else
+           <br>
+           <a href="/goods/comment/{{$val->gid}}" class="btn btn-success">查看评价</a>
+           @endif
+        @endif
        </div>
       </div>
     @endforeach
@@ -118,7 +131,7 @@
       </div>
       <div class="fz18 c6">
        实付款：
-       <b class="cr"></b>
+       <b class="cr">￥<span></span></b>
       </div>
      <!--  <div class="fz12 c9">
        （本单可获
@@ -130,14 +143,12 @@
   </div>
  </body>
  <script>
-
-      var v=0;
+     var v=0;
 
          $('.zhehou').each(function(){
-          v+=parseFloat($(this).find('span').html());
+          v=parseFloat($(this).find('span').html());
         });
-        $('.cr').html('￥'+v);
-
+        $('.cr').html(v);
  </script>
 </html>
 

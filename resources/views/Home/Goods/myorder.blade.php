@@ -1,5 +1,5 @@
 @extends('Home.Personal.public')
-
+@section('title','订单中心')
 @section('right')
     <html>
  <head>
@@ -104,11 +104,9 @@
             @elseif($val->ostatus==3)
              <a href="/changestatus/{{$val->id}}" class="but but-primary changestatus">确认收货</a>
             @elseif($val->ostatus==4)
-            <a href="" class="but but-primary">评价</a>
-            @elseif($val->ostatus==5)
-             <a href="udai_shopcart_pay.html" class="but but-primary">查看评价</a>
+            <a href="/myorder/{{$val->id}}" class="but but-primary">交易完成</a>
+            <a href="/myorder/{{$val->id}}" class="but ">立即评价</a>
             @endif
-
             @if($val->ostatus < 2)
              <form action="/myorder/{{$val->id}}" method="post">
              {{csrf_field()}}

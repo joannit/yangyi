@@ -72,7 +72,7 @@
 									<td>{{$row->discount/10}}折</td>
 									<td>¥0.0</td>
 									<td>¥<span>{{$row->gprice*$row->num}}</span></td>
-									<td class="my">¥<span>{{number_format(($row->gprice)*($row->discount/100)*($row->num),2)}}</span></td>
+									<td class="my">¥<span>{{number_format($row->gprice*($row->discount/100)*($row->num),2,".","")}}</span></td>
 								</tr>
 								@endforeach
 							</tbody>
@@ -97,11 +97,11 @@
 									<option value="6">【满￥20.0元减￥1.0】</option>
 								</select>
 							</div>
-							<script>
+<!-- 							<script>
 								$('#coupon').bind('change',function() {
 									console.log($(this).val());
 								})
-							</script>
+							</script> -->
 							<div class="info-line">优惠活动：<span class="c6">无</span></div>
 							<div class="info-line">运费：<span class="c6">¥0.00</span></div>
 							合计：<b class="fz18 cr">¥</b></div>
@@ -146,8 +146,8 @@
 			s+=parseFloat($(this).prev().find('span').html());
 		});
 		// alert(m);
-		$('.fz18').html(m.toFixed(2));
-		$('input[name=pay]').val(m.toFixed(2));
+		$('.fz18').html(m);
+		$('input[name=pay]').val(m);
 		$('input[name=tprice]').val(s.toFixed(2));
 
 	 node=$('.notadefault');

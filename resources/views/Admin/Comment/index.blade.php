@@ -50,7 +50,7 @@
         <td class="">{{$row->name}}</td> 
         <td class="" >{{$row->user_name}}</td>
         <td class="" >{{$row->content}}</td>
-        <td class="" >{{date('Y-m-d H:i:s',$row->time)}}</td>
+        <td class="" >{{$row->time}}</td>
         <td class="" >{!!$row->recontent!!}</td>
         @if($row->recontent =='')
         <td class="" ><a href="/admin/comment/{{$row->id}}/edit" class="btn blue">回复</a></td>

@@ -106,7 +106,7 @@ class PowerController extends Controller
                     DB::table('role_node')->insert(['rid'=>$id,'nid'=>$value]);
                     // var_dump($value);
                 }
-                return redirect('/admin/master')->with('success','分配权限成功');
+                return redirect('/admin/master')->with('success','分配权限成功,被修改的管理员下次登录时生效');
 //
             }
 

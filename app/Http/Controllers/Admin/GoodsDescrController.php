@@ -15,7 +15,7 @@ class GoodsDescrController extends Controller
      */
     public function index(Request $request)
     {
-       
+
     }
     /**
      * Show the form for creating a new resource.
@@ -35,7 +35,7 @@ class GoodsDescrController extends Controller
      */
     public function store(AdminGoodsinsert $request)
     {
-        
+
     }
 
     /**
@@ -61,7 +61,7 @@ class GoodsDescrController extends Controller
         // 加载描述页面有则修改没有则添加
         // echo $id;
         $info = DB::table('goods')->where('id','=',$id)->first();
-        // dd($descr);
+        // dd($info);
         return view('Admin.Goods.descr',['info'=>$info]);
     }
 
@@ -76,18 +76,36 @@ class GoodsDescrController extends Controller
     {
       $descr = ($request->except('_token','_method'));
       $info = DB::table('goods')->where('id','=',$id)->first();
-       preg_match_all('/<img.*?src="(.*?)".*?>/is', $info->descr, $arr);
-            if(isset($arr[1])){
-            foreach ($arr[1] as $key => $value) {
+
+       /*preg_match_all('/<img.*?src="(.*?)".*?>/is', $info->descr, $arr);
+             if(isset($arr[1])){
+           foreach ($arr[1] as $key => $value) {
                 unlink('.'.$value);
+             }
             }
-            }
+            */
+      // if(DB::table('goods')->where('id','=',$id)->update($descr)){
+
+  preg_match_all('/<img.*?src="(.*?)".*?>/is', $info->descr, $arr);
+
       if(DB::table('goods')->where('id','=',$id)->update($descr)){
+
+
+         if(isset($arr[1])){
+            foreach ($arr[1] as $key => $value) {
+                @unlink('.'.$value);
+            }
+            }
+
             return redirect('/admin/goods')->with('success','修改成功！');
+
       }else{
-            return redirect('/admin/goods')->with('error','修改成功！');
+
+            return redirect('/admin/goods')->with('error','修改失败！');
+
+
       }
-    
+
 }
 
     /**
@@ -98,7 +116,7 @@ class GoodsDescrController extends Controller
      */
     public function destroy($id)
     {
-      
+
     }
 
 }

@@ -49,7 +49,7 @@
   {{csrf_field()}}
      <div class="form-actions"> 
       <button type="submit" class="btn blue">Save</button> 
-      <button type="button" class="btn">Cancel</button> 
+      <a href="/admin/message" class="btn">Cancel</a> 
      </div> 
      
     </form> 

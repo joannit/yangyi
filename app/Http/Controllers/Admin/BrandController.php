@@ -44,10 +44,7 @@ class BrandController extends Controller
     {
         $request->flash();
        $tid=$request->input('tid');
-       // dd($tid);
-        // dd($file);
-        // $all=$request->all();
-        // dd($all);
+
         //处理商品添加
         $data=($request->except('_token','bpic'));
         // 检测是否有文件上传

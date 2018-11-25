@@ -17,7 +17,7 @@ class AdminLoginMiddleware
     {
         // 检测有没有用户名的session信息
 
-        return $next($request);
+        // return $next($request);
         // dd($request->session()->has('admin_name'));
         if($request->session()->has('admin_name')){
 

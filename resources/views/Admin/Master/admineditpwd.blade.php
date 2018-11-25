@@ -44,7 +44,7 @@
      <div class="control-group">
       <label class="control-label">确认新密码</label>
       <div class="controls">
-       <input type="text" class="span6 m-wrap" name="newrepassword" value="" placeholder="密码必须是6到16位任意数字字母下划线组成" />
+       <input type="password" class="span6 m-wrap" name="newrepassword" value="" placeholder="密码必须是6到16位任意数字字母下划线组成" />
      <!--   <span class="help-inline">Some hint here</span> -->
       </div>
      </div>
