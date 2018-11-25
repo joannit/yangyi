@@ -27,6 +27,14 @@ class IndexController extends Controller
 
     public function index()
     {
+        // 获取商品详情的所有gid 方便前台判断商品遍历是否有详情
+        $info=DB::table('goodsinfo')->select('goodsinfo.gid')->get();
+        foreach ($info as $key => $value) {
+            $goodsinfo[]=$value->gid;
+        }
+        // dd($goodsinfo);
+        // 如果商品详情为空赋予空数组 不然前台遍历会错
+        if(!count($goodsinfo))$goodsinfo=array();
         // 获取顶级分类
         $type= $this->gettypepid(0);
         // 查询所有顶级分类下的商品
@@ -55,10 +63,12 @@ class IndexController extends Controller
         $notice = DB:: table('notice')->limit(5)->get();
         //广告
         $advent = DB::table('advent')->where('status','=',1)->first();
+
         // 伦播图
         $images=DB::table("images")->where('status','=',1)->get();
         // dd($images);
-        return view('Home.index',['type'=>$type,'typeall'=>$typeall,'tops'=>$tops,'notice'=>$notice,'advent'=>$advent,'images'=>$images]);
+        return view('Home.index',['type'=>$type,'typeall'=>$typeall,'tops'=>$tops,'notice'=>$notice,'advent'=>$advent,'images'=>$images,'goodsinfo'=>$goodsinfo]);
+
 
     }
 

@@ -135,7 +135,7 @@ class GoodsinfoController extends Controller
     {
 
         // dd($id);
-
+ // dd(DB::table('cart')->where('uid','=',session('user')['id'])->count());
         $data=DB::table('goods')->where('id','=',$id)->first();
 
         // 获取商品的所属分类信息
@@ -201,6 +201,8 @@ class GoodsinfoController extends Controller
 
         if(session('user')) {
         // 商品详情id
+
+
             $id=$request->input('ginfoid');
             // $id=11;
             // 数量
@@ -428,4 +430,6 @@ class GoodsinfoController extends Controller
     		return 0;
     	}
     }
+
+
 }

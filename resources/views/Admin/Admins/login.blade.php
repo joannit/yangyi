@@ -113,7 +113,8 @@
 
                         <i class="icon-user"></i>
 
-                        <input class="m-wrap placeholder-no-fix" type="text" placeholder="Username" name="admin_name" required/>
+                        <input class="m-wrap placeholder-no-fix" type="text" placeholder="Username" name="admin_name" required
+                        value="{{old('admin_name')}}" />
 
                     </div>
 
