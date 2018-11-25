@@ -108,6 +108,8 @@ Route::group(['middleware'=>'login'],function(){
     Route::post('/doeditpwd','Home\PersonalController@doeditpwd');
     //优惠券
     Route::get('/couponss','Home\PersonalController@coupons');
+    //已经使用的优惠券
+    Route::get('/couponsss','Home\PersonalController@couponsss');
     //我的收藏
     Route::get('/house','Home\PersonalController@house');
     //删除收藏

@@ -271,7 +271,7 @@
 			////alert(phone)
 			$.get("/dophone",{user_phone:phone},function(data){
 				if(data==1){
-					$("#register_error").html('手机号已经被注册').css('color','green');
+					$("#register_error").html('手机号已经被注册').css('color','red');
 					$("#btn").attr('disabled',true);
 					PHONE=false;
 
@@ -289,6 +289,7 @@
 			}
 		});
 		//发送验证码
+		var validCode=true;//防止重复点击
 		$('#btn').click(function(){
 
 			//获取输入的手机号码
@@ -296,9 +297,11 @@
 			//tel=$('#register_phone').val()
 			phone=$("#register_phone").val();
 			$.get("/phone",{user_phone:phone},function(data){
-
+				//if(timmer==undefined){
+				if(validCode){
 				if(data.code==000000){
 					m=60;
+					validCode=false;
 					timmer=setInterval(function(){
 						m--;
 						//赋值给按钮
@@ -306,6 +309,7 @@
 						//按钮禁用
 						obj.attr('disabled',true)
 						if(m==0){
+							validCode=true;
 							//清除定时器
 							clearInterval(timmer);
 							//重新赋值
@@ -316,6 +320,8 @@
 					},1000)
 					//}
 				}
+			}
+
 			},'json')
 
 		//	}else{

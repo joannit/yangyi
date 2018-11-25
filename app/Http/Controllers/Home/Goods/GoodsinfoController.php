@@ -156,13 +156,9 @@ class GoodsinfoController extends Controller
         // 查询评价
         $comment = DB::table('comment')->join('user_info','comment.uid','=','user_info.uid')->where('comment.gid','=',$data->id)->paginate(10);;
         // dd($comment);
-        return view('Home.Goods.index',['type'=>$goodsname,'goods'=>$data,'goodsinfo'=>$ginfo,'hot'=>$hot,'comment'=>$comment,'request'=>$request->all()]);
-
-        // 评论数
         $comnum=DB::table('comment')->where('gid','=',$id)->count();
+        return view('Home.Goods.index',['type'=>$goodsname,'goods'=>$data,'goodsinfo'=>$ginfo,'hot'=>$hot,'comment'=>$comment,'request'=>$request->all(),'comnum'=>$comnum]);
 
-        // dd($data,$comnum);
-        return view('Home.Goods.index',['type'=>$goodsname,'goods'=>$data,'goodsinfo'=>$ginfo,'comnum'=>$comnum]);
 
     }
     // 获取所有商品上级分类
@@ -202,37 +198,6 @@ class GoodsinfoController extends Controller
     // 添加到购物车
     public function addcart(Request $request)
     {
-
-        // 商品详情id
-        $id=$request->input('ginfoid');
-        // 数量
-        $num=$request->input('num');
-        // 获取用户id
-        $uid=session('user')['id'];
-
-        // 查询购物车表 商品重复则加数量不重复则添加
-        $bool=DB::table('cart')->where('ginfo_id','=',$id)->where('uid','=',$uid)->first();
-
-        // dd($bool);
-        if(count($bool)) {
-            $cid=$bool->id;
-            // 判断是否是否能大于库存
-            $gnum=DB::table('goodsinfo')->where('id','=',$bool->ginfo_id)->first()->store;
-            // dd($gnum);
-            // dd($cid);
-            // 购物车有相同商品数量想加
-            $bool->num+=$num;
-            foreach($bool as $key=>$val) {
-                $data[$key]=$val;
-            }
-            // 大于库存则等于库存
-            if($data['num'] > $gnum)$data['num']=$gnum;
-            // dd($data);
-            $bool1=DB::table('cart')->where('id','=',$cid)->update($data);
-            if ($bool) {
-
-        $gid=$request->input('gid');
-
 
         if(session('user')) {
         // 商品详情id
@@ -315,8 +280,12 @@ class GoodsinfoController extends Controller
 
     // 下单 成功后调用支付接口
     public function pays(Request $request)
-    {
-
+    {		
+    		//用户关联优惠券id 存储session
+    		$ids=$request->input('crid');
+    		//dd($ids);
+    		session(['ids'=>$ids]);
+    		//dd(session('ids'));
             // 实际付款
             if(session('buynoworder')) {
 
@@ -392,6 +361,11 @@ class GoodsinfoController extends Controller
           // 支付宝交易号
         $alinum=$request->input('trade_no');
         $bool=DB::table('order')->where('id','=',$id)->update(['paytime'=>$paytime,'alinum'=>$alinum,'ostatus'=>2]);
+
+        $idss=session('ids');
+        $res['p_status']=1;
+        $datass=DB::table('couponsuser')->where('id','=',$idss)->update($res);
+        //dd($datass);
         // 返回订单中心
         echo  '<script>alert("下单成功");location="/myorder"</script>';
 
@@ -413,7 +387,7 @@ class GoodsinfoController extends Controller
     		echo 2;
     	}
     }
-
+    //操作收藏
     public function shoucangs(Request $request)
     { 
     	$gid=$request->input('id');

@@ -270,7 +270,7 @@
 					</div>
 					<div class="buts-box bgf5">
 						<div class="but-div">
-							<a href="http://m.kuaidi100.com/index_all.html?type={$vo{$vo['postmode']}&postid=" style="color: #999;">
+							<a href="http://www.kuaidi100.com"style="color: #999;">
 								<i class="but-icon"></i>
 								<p>物流查询</p>
 							</a>
@@ -353,7 +353,7 @@
 		})
 
 
-
+			$(document).ready(function(){
 			// 顶部banner轮播
 			var banner_swiper = new Swiper('.banner-box', {
 				autoplayDisableOnInteraction : false,
@@ -374,7 +374,7 @@
 			// 页面下拉固定楼层导航
 			$('.floor-nav').smartFloat();
 			$('.to-top').toTop({position:false});
-	
+	});
 	</script>
 	<!-- 右侧菜单 -->
 	@if(session('user'))

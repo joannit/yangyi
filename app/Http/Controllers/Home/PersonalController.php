@@ -331,21 +331,32 @@ class PersonalController extends Controller
             echo '<script>alert("删除失败！");location="/message"</script>';
         }
     }
-    //获取优惠券
+    //获取未使用优惠券
     public function coupons()
     { 
     	$uid=session('user')['id'];
     	//echo $uid;exit;
-    	$data=DB::table('couponsuser')->join('coupons','coupons.id','=','couponsuser.ponsid')->where('couponsuser.uid','=',$uid)->select('coupons.*')->orderBy('couponsuser.id','asc')->get();
+    	$data=DB::table('couponsuser')->join('coupons','coupons.id','=','couponsuser.ponsid')->where('couponsuser.uid','=',$uid)->select('coupons.*')->orderBy('couponsuser.id','asc')->where('p_status','=',0)->get();
+
+    	//$datas=DB::table('couponsuser')->join('coupons','coupons.id','=','couponsuser.ponsid')->where('couponsuser.uid','=',$uid)->select('coupons.*')->orderBy('couponsuser.id','asc')->where('p_status','=',1)->get();
     	//dd($data);
     	return view('Home.Personal.coupons',['data'=>$data]);
+    }
+    //获取已经使用的模块
+    public function couponsss()
+    { 
+    	$uid=session('user')['id'];
+    	//echo $uid;exit;
+    	$datas=DB::table('couponsuser')->join('coupons','coupons.id','=','couponsuser.ponsid')->where('couponsuser.uid','=',$uid)->select('coupons.*')->orderBy('couponsuser.id','asc')->where('p_status','=',1)->get();
+    	//dd($datas);
+    	return view('Home.Personal.couponss',['datas'=>$datas]);
     }
     //获取收藏
     public function house()
     { 
     	$uid=session('user')['id'];
     	//echo $uid;
-    	$data=DB::table('house')->join('goodsinfo','house.gid','=','goodsinfo.id')->join('goods','goodsinfo.gid','=','goods.id')->select('goods.*','goodsinfo.id as gid')->get();
+    	$data=DB::table('house')->join('goodsinfo','house.gid','=','goodsinfo.id')->join('goods','goodsinfo.gid','=','goods.id')->select('goods.*','goodsinfo.id as gid','goods.id as gids')->get();
     	//dd($data);
     	return view('Home.Personal.house',['data'=>$data]);
     }
